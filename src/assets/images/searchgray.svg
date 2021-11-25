@@ -1,0 +1,14 @@
+<svg id="구성_요소_2_6" data-name="구성 요소 2 – 6" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+    <defs>
+        <clipPath id="clip-path">
+            <path id="사각형_11" data-name="사각형 11" style="fill:none" d="M0 0h40v40H0z"/>
+        </clipPath>
+        <style>
+            .cls-3{fill:#ccc}
+        </style>
+    </defs>
+    <g id="그룹_21" data-name="그룹 21" style="clip-path:url(#clip-path)">
+        <path id="패스_22" data-name="패스 22" class="cls-3" d="m37.833 36.17-1.663 1.663a1.4 1.4 0 0 1-1.982 0L21.82 25.464l3.644-3.645 12.369 12.369a1.4 1.4 0 0 1 0 1.982"/>
+        <path id="패스_23" data-name="패스 23" class="cls-3" d="M16.089 30.423A14.334 14.334 0 1 1 26.23 26.23a14.294 14.294 0 0 1-10.141 4.193m0-24.99a10.657 10.657 0 1 0 7.54 3.117 10.631 10.631 0 0 0-7.54-3.117"/>
+    </g>
+</svg>
