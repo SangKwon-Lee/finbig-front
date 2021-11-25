@@ -3,6 +3,8 @@ import { GlobalStyles } from "./commons/styles/globalStyles";
 import { useRoutes } from "react-router-dom";
 import routes from "./routes";
 import useScrollReset from "./components/common/useScrollReset";
+import HeaderContainer from "./components/common/layout/header/Header.container";
+import FooterContainer from "./components/common/layout/footer/Footer.container";
 
 const userDataInit = {
   _id: "",
@@ -44,7 +46,8 @@ function App() {
     <>
       <GlobalContext.Provider value={value}>
         <GlobalStyles />
-        {content}
+        <HeaderContainer>{content}</HeaderContainer>
+        <FooterContainer></FooterContainer>
       </GlobalContext.Provider>
     </>
   );

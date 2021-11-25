@@ -7,9 +7,12 @@ const Loadable = (Component: any) => (props: any) =>
     </Suspense>
   );
 
+const Home = Loadable(lazy(() => import("../src/pages/home/Home.page")));
+
 const routes = [
   {
     path: "/",
+    element: <Home />,
   },
 ];
 

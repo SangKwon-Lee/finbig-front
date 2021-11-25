@@ -23,6 +23,7 @@
     "react-router": "^6.0.2",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
+    "spoqa-han-sans": "^3.3.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
