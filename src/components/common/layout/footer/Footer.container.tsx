@@ -1,7 +1,14 @@
 import FooterPresenter from "./Footer.presenter";
-
-const FooterContainer = () => {
-  return <FooterPresenter />;
+interface Layout {
+  children: React.ReactNode;
+}
+const FooterContainer = ({ children }: Layout) => {
+  return (
+    <>
+      <FooterPresenter />
+      <div>{children}</div>
+    </>
+  );
 };
 
 export default FooterContainer;
