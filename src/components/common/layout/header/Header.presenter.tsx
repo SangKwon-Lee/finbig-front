@@ -12,10 +12,18 @@ import SearchSVG from "../../../../assets/images/searchgray.svg";
 import UserSVG from "../../../../assets/images/user.svg";
 import MarketSVG from "../../../../assets/images/market.svg";
 import LockSVG from "../../../../assets/images/lock.svg";
+import { useNavigate } from "react-router";
+
 const HeaderPresenter = () => {
+  const navigate = useNavigate();
   return (
     <HeaderWrapper>
-      <Logo src={LogoSVG}></Logo>
+      <Logo
+        src={LogoSVG}
+        onClick={() => {
+          navigate(`/`);
+        }}
+      ></Logo>
       <MenuSVGWrapper>
         <MenuTitleWrapper>
           <MenuTitle>데이터 상품</MenuTitle>

@@ -8,6 +8,7 @@ export const HeaderWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid #cccccc;
 `;
 
 export const Logo = styled.img`

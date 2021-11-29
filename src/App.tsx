@@ -2,18 +2,20 @@ import { createContext, useState } from "react";
 import { GlobalStyles } from "./commons/styles/globalStyles";
 import { useRoutes } from "react-router-dom";
 import routes from "./routes";
-import useScrollReset from "./components/common/useScrollReset";
+import useScrollReset from "./components/common/hooks/useScrollReset";
 import HeaderContainer from "./components/common/layout/header/Header.container";
 import FooterContainer from "./components/common/layout/footer/Footer.container";
+import { UsersPermissionsMe } from "./commons/types/generated/types";
 
-const userDataInit = {
-  _id: "",
+const userDataInit: UsersPermissionsMe = {
+  id: "",
   email: "",
-  createdAt: "",
   username: "",
   role: {
-    _id: "",
+    id: "",
     name: "",
+    description: "",
+    type: "",
   },
 };
 
@@ -47,7 +49,7 @@ function App() {
       <GlobalContext.Provider value={value}>
         <GlobalStyles />
         <HeaderContainer>{content}</HeaderContainer>
-        <FooterContainer></FooterContainer>
+        <FooterContainer>{}</FooterContainer>
       </GlobalContext.Provider>
     </>
   );

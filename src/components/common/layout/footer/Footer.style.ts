@@ -9,6 +9,7 @@ export const FooterWrapper = styled.div`
   padding-top: 137px;
   flex-direction: column;
   align-items: center;
+  border-top: 1px solid #cccccc;
 `;
 
 export const FooterMenuWrapper = styled.div`
