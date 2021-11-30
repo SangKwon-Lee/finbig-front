@@ -11,6 +11,7 @@ const reset = css`
       "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: #333333;
   }
 
   code {
