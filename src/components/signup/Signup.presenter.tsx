@@ -65,7 +65,10 @@ interface ISignupProps {
 }
 
 const schma = yup.object({
-  username: yup.string().required("필수 입력입니다."),
+  username: yup
+    .string()
+    .required("필수 입력입니다.")
+    .min(4, "아이디는 4글자 이상이어야 합니다."),
   password: yup
     .string()
     .required("비밀번호는 8자 이상, 소문자와 대문자 포함되어야 합니다.")
@@ -327,6 +330,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                 ) : (
                   <>
                     <SignupEmailBtn
+                      disabled={isAuth.isOk}
                       onClick={() => {
                         handleEmailAuth(getValues("email"));
                       }}

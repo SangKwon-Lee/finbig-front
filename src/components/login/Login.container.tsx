@@ -41,7 +41,7 @@ const LoginContainer = () => {
       localStorage.setItem("accessToken", String(data?.login.jwt));
       setAccessToken(String(data?.login.jwt));
       setUserData(data?.login.user!);
-      navigate(-1);
+      navigate("/");
     } catch (e) {
       return;
     }

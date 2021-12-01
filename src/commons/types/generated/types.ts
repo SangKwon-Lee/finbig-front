@@ -32,6 +32,92 @@ export type AdminUser = {
   username?: Maybe<Scalars['String']>;
 };
 
+export type EmailAuth = {
+  __typename?: 'EmailAuth';
+  code?: Maybe<Scalars['String']>;
+  created_at: Scalars['DateTime'];
+  email?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  isAuth?: Maybe<Scalars['Boolean']>;
+  type?: Maybe<Scalars['String']>;
+  updated_at: Scalars['DateTime'];
+};
+
+export type EmailAuthAggregator = {
+  __typename?: 'EmailAuthAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type EmailAuthConnection = {
+  __typename?: 'EmailAuthConnection';
+  aggregate?: Maybe<EmailAuthAggregator>;
+  groupBy?: Maybe<EmailAuthGroupBy>;
+  values?: Maybe<Array<Maybe<EmailAuth>>>;
+};
+
+export type EmailAuthConnectionCode = {
+  __typename?: 'EmailAuthConnectionCode';
+  connection?: Maybe<EmailAuthConnection>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type EmailAuthConnectionCreated_At = {
+  __typename?: 'EmailAuthConnectionCreated_at';
+  connection?: Maybe<EmailAuthConnection>;
+  key?: Maybe<Scalars['DateTime']>;
+};
+
+export type EmailAuthConnectionEmail = {
+  __typename?: 'EmailAuthConnectionEmail';
+  connection?: Maybe<EmailAuthConnection>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type EmailAuthConnectionId = {
+  __typename?: 'EmailAuthConnectionId';
+  connection?: Maybe<EmailAuthConnection>;
+  key?: Maybe<Scalars['ID']>;
+};
+
+export type EmailAuthConnectionIsAuth = {
+  __typename?: 'EmailAuthConnectionIsAuth';
+  connection?: Maybe<EmailAuthConnection>;
+  key?: Maybe<Scalars['Boolean']>;
+};
+
+export type EmailAuthConnectionType = {
+  __typename?: 'EmailAuthConnectionType';
+  connection?: Maybe<EmailAuthConnection>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type EmailAuthConnectionUpdated_At = {
+  __typename?: 'EmailAuthConnectionUpdated_at';
+  connection?: Maybe<EmailAuthConnection>;
+  key?: Maybe<Scalars['DateTime']>;
+};
+
+export type EmailAuthGroupBy = {
+  __typename?: 'EmailAuthGroupBy';
+  code?: Maybe<Array<Maybe<EmailAuthConnectionCode>>>;
+  created_at?: Maybe<Array<Maybe<EmailAuthConnectionCreated_At>>>;
+  email?: Maybe<Array<Maybe<EmailAuthConnectionEmail>>>;
+  id?: Maybe<Array<Maybe<EmailAuthConnectionId>>>;
+  isAuth?: Maybe<Array<Maybe<EmailAuthConnectionIsAuth>>>;
+  type?: Maybe<Array<Maybe<EmailAuthConnectionType>>>;
+  updated_at?: Maybe<Array<Maybe<EmailAuthConnectionUpdated_At>>>;
+};
+
+export type EmailAuthInput = {
+  code?: InputMaybe<Scalars['String']>;
+  created_by?: InputMaybe<Scalars['ID']>;
+  email?: InputMaybe<Scalars['String']>;
+  isAuth?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<Scalars['String']>;
+  updated_by?: InputMaybe<Scalars['ID']>;
+};
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars['String']>;
   caption?: InputMaybe<Scalars['String']>;
@@ -78,15 +164,17 @@ export type LocaleInput = {
   updated_by?: InputMaybe<Scalars['ID']>;
 };
 
-export type Morph = I18NLocale | Test | TestAggregator | TestConnection | TestConnectionCreated_At | TestConnectionId | TestConnectionPublished_At | TestConnectionTest | TestConnectionUpdated_At | TestGroupBy | UploadFile | UploadFileAggregator | UploadFileAggregatorAvg | UploadFileAggregatorMax | UploadFileAggregatorMin | UploadFileAggregatorSum | UploadFileConnection | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionCreated_At | UploadFileConnectionExt | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionHeight | UploadFileConnectionId | UploadFileConnectionMime | UploadFileConnectionName | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | UploadFileConnectionSize | UploadFileConnectionUpdated_At | UploadFileConnectionUrl | UploadFileConnectionWidth | UploadFileGroupBy | UserPermissionsPasswordPayload | UsersPermissionsLoginPayload | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleAggregator | UsersPermissionsRoleConnection | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionType | UsersPermissionsRoleGroupBy | UsersPermissionsUser | UsersPermissionsUserAggregator | UsersPermissionsUserConnection | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserGroupBy | CreateRolePayload | CreateTestPayload | CreateUserPayload | DeleteFilePayload | DeleteRolePayload | DeleteTestPayload | DeleteUserPayload | UpdateRolePayload | UpdateTestPayload | UpdateUserPayload;
+export type Morph = EmailAuth | EmailAuthAggregator | EmailAuthConnection | EmailAuthConnectionCode | EmailAuthConnectionCreated_At | EmailAuthConnectionEmail | EmailAuthConnectionId | EmailAuthConnectionIsAuth | EmailAuthConnectionType | EmailAuthConnectionUpdated_At | EmailAuthGroupBy | I18NLocale | Test | TestAggregator | TestConnection | TestConnectionCreated_At | TestConnectionId | TestConnectionPublished_At | TestConnectionTest | TestConnectionUpdated_At | TestGroupBy | UploadFile | UploadFileAggregator | UploadFileAggregatorAvg | UploadFileAggregatorMax | UploadFileAggregatorMin | UploadFileAggregatorSum | UploadFileConnection | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionCreated_At | UploadFileConnectionExt | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionHeight | UploadFileConnectionId | UploadFileConnectionMime | UploadFileConnectionName | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | UploadFileConnectionSize | UploadFileConnectionUpdated_At | UploadFileConnectionUrl | UploadFileConnectionWidth | UploadFileGroupBy | UserPermissionsPasswordPayload | UsersPermissionsLoginPayload | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleAggregator | UsersPermissionsRoleConnection | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionType | UsersPermissionsRoleGroupBy | UsersPermissionsUser | UsersPermissionsUserAggregator | UsersPermissionsUserConnection | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionEmailReception | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionSmsReception | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserGroupBy | CreateEmailAuthPayload | CreateRolePayload | CreateTestPayload | CreateUserPayload | DeleteEmailAuthPayload | DeleteFilePayload | DeleteRolePayload | DeleteTestPayload | DeleteUserPayload | UpdateEmailAuthPayload | UpdateRolePayload | UpdateTestPayload | UpdateUserPayload;
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createEmailAuth?: Maybe<CreateEmailAuthPayload>;
   /** Create a new role */
   createRole?: Maybe<CreateRolePayload>;
   createTest?: Maybe<CreateTestPayload>;
   /** Create a new user */
   createUser?: Maybe<CreateUserPayload>;
+  deleteEmailAuth?: Maybe<DeleteEmailAuthPayload>;
   /** Delete one file */
   deleteFile?: Maybe<DeleteFilePayload>;
   /** Delete an existing role */
@@ -100,6 +188,7 @@ export type Mutation = {
   multipleUpload: Array<Maybe<UploadFile>>;
   register: UsersPermissionsLoginPayload;
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateEmailAuth?: Maybe<UpdateEmailAuthPayload>;
   updateFileInfo: UploadFile;
   /** Update an existing role */
   updateRole?: Maybe<UpdateRolePayload>;
@@ -107,6 +196,11 @@ export type Mutation = {
   /** Update an existing user */
   updateUser?: Maybe<UpdateUserPayload>;
   upload: UploadFile;
+};
+
+
+export type MutationCreateEmailAuthArgs = {
+  input?: InputMaybe<CreateEmailAuthInput>;
 };
 
 
@@ -122,6 +216,11 @@ export type MutationCreateTestArgs = {
 
 export type MutationCreateUserArgs = {
   input?: InputMaybe<CreateUserInput>;
+};
+
+
+export type MutationDeleteEmailAuthArgs = {
+  input?: InputMaybe<DeleteEmailAuthInput>;
 };
 
 
@@ -181,6 +280,11 @@ export type MutationResetPasswordArgs = {
 };
 
 
+export type MutationUpdateEmailAuthArgs = {
+  input?: InputMaybe<UpdateEmailAuthInput>;
+};
+
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID'];
   info: FileInfoInput;
@@ -218,6 +322,9 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
+  emailAuth?: Maybe<EmailAuth>;
+  emailAuths?: Maybe<Array<Maybe<EmailAuth>>>;
+  emailAuthsConnection?: Maybe<EmailAuthConnection>;
   files?: Maybe<Array<Maybe<UploadFile>>>;
   filesConnection?: Maybe<UploadFileConnection>;
   me?: Maybe<UsersPermissionsMe>;
@@ -231,6 +338,29 @@ export type Query = {
   user?: Maybe<UsersPermissionsUser>;
   users?: Maybe<Array<Maybe<UsersPermissionsUser>>>;
   usersConnection?: Maybe<UsersPermissionsUserConnection>;
+};
+
+
+export type QueryEmailAuthArgs = {
+  id: Scalars['ID'];
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+
+export type QueryEmailAuthsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Scalars['JSON']>;
+};
+
+
+export type QueryEmailAuthsConnectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  sort?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Scalars['JSON']>;
 };
 
 
@@ -601,10 +731,13 @@ export type UserInput = {
   confirmed?: InputMaybe<Scalars['Boolean']>;
   created_by?: InputMaybe<Scalars['ID']>;
   email: Scalars['String'];
+  emailReception?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['ID']>;
+  smsReception?: InputMaybe<Scalars['Boolean']>;
   updated_by?: InputMaybe<Scalars['ID']>;
   username: Scalars['String'];
 };
@@ -738,9 +871,12 @@ export type UsersPermissionsUser = {
   confirmed?: Maybe<Scalars['Boolean']>;
   created_at: Scalars['DateTime'];
   email: Scalars['String'];
+  emailReception?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
   role?: Maybe<UsersPermissionsRole>;
+  smsReception?: Maybe<Scalars['Boolean']>;
   updated_at: Scalars['DateTime'];
   username: Scalars['String'];
 };
@@ -782,10 +918,22 @@ export type UsersPermissionsUserConnectionEmail = {
   key?: Maybe<Scalars['String']>;
 };
 
+export type UsersPermissionsUserConnectionEmailReception = {
+  __typename?: 'UsersPermissionsUserConnectionEmailReception';
+  connection?: Maybe<UsersPermissionsUserConnection>;
+  key?: Maybe<Scalars['Boolean']>;
+};
+
 export type UsersPermissionsUserConnectionId = {
   __typename?: 'UsersPermissionsUserConnectionId';
   connection?: Maybe<UsersPermissionsUserConnection>;
   key?: Maybe<Scalars['ID']>;
+};
+
+export type UsersPermissionsUserConnectionName = {
+  __typename?: 'UsersPermissionsUserConnectionName';
+  connection?: Maybe<UsersPermissionsUserConnection>;
+  key?: Maybe<Scalars['String']>;
 };
 
 export type UsersPermissionsUserConnectionProvider = {
@@ -798,6 +946,12 @@ export type UsersPermissionsUserConnectionRole = {
   __typename?: 'UsersPermissionsUserConnectionRole';
   connection?: Maybe<UsersPermissionsUserConnection>;
   key?: Maybe<Scalars['ID']>;
+};
+
+export type UsersPermissionsUserConnectionSmsReception = {
+  __typename?: 'UsersPermissionsUserConnectionSmsReception';
+  connection?: Maybe<UsersPermissionsUserConnection>;
+  key?: Maybe<Scalars['Boolean']>;
 };
 
 export type UsersPermissionsUserConnectionUpdated_At = {
@@ -818,11 +972,23 @@ export type UsersPermissionsUserGroupBy = {
   confirmed?: Maybe<Array<Maybe<UsersPermissionsUserConnectionConfirmed>>>;
   created_at?: Maybe<Array<Maybe<UsersPermissionsUserConnectionCreated_At>>>;
   email?: Maybe<Array<Maybe<UsersPermissionsUserConnectionEmail>>>;
+  emailReception?: Maybe<Array<Maybe<UsersPermissionsUserConnectionEmailReception>>>;
   id?: Maybe<Array<Maybe<UsersPermissionsUserConnectionId>>>;
+  name?: Maybe<Array<Maybe<UsersPermissionsUserConnectionName>>>;
   provider?: Maybe<Array<Maybe<UsersPermissionsUserConnectionProvider>>>;
   role?: Maybe<Array<Maybe<UsersPermissionsUserConnectionRole>>>;
+  smsReception?: Maybe<Array<Maybe<UsersPermissionsUserConnectionSmsReception>>>;
   updated_at?: Maybe<Array<Maybe<UsersPermissionsUserConnectionUpdated_At>>>;
   username?: Maybe<Array<Maybe<UsersPermissionsUserConnectionUsername>>>;
+};
+
+export type CreateEmailAuthInput = {
+  data?: InputMaybe<EmailAuthInput>;
+};
+
+export type CreateEmailAuthPayload = {
+  __typename?: 'createEmailAuthPayload';
+  emailAuth?: Maybe<EmailAuth>;
 };
 
 export type CreateRoleInput = {
@@ -850,6 +1016,15 @@ export type CreateUserInput = {
 export type CreateUserPayload = {
   __typename?: 'createUserPayload';
   user?: Maybe<UsersPermissionsUser>;
+};
+
+export type DeleteEmailAuthInput = {
+  where?: InputMaybe<InputId>;
+};
+
+export type DeleteEmailAuthPayload = {
+  __typename?: 'deleteEmailAuthPayload';
+  emailAuth?: Maybe<EmailAuth>;
 };
 
 export type DeleteFileInput = {
@@ -886,6 +1061,15 @@ export type DeleteUserInput = {
 export type DeleteUserPayload = {
   __typename?: 'deleteUserPayload';
   user?: Maybe<UsersPermissionsUser>;
+};
+
+export type EditEmailAuthInput = {
+  code?: InputMaybe<Scalars['String']>;
+  created_by?: InputMaybe<Scalars['ID']>;
+  email?: InputMaybe<Scalars['String']>;
+  isAuth?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<Scalars['String']>;
+  updated_by?: InputMaybe<Scalars['ID']>;
 };
 
 export type EditFileInput = {
@@ -938,12 +1122,25 @@ export type EditUserInput = {
   confirmed?: InputMaybe<Scalars['Boolean']>;
   created_by?: InputMaybe<Scalars['ID']>;
   email?: InputMaybe<Scalars['String']>;
+  emailReception?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
   resetPasswordToken?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Scalars['ID']>;
+  smsReception?: InputMaybe<Scalars['Boolean']>;
   updated_by?: InputMaybe<Scalars['ID']>;
   username?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateEmailAuthInput = {
+  data?: InputMaybe<EditEmailAuthInput>;
+  where?: InputMaybe<InputId>;
+};
+
+export type UpdateEmailAuthPayload = {
+  __typename?: 'updateEmailAuthPayload';
+  emailAuth?: Maybe<EmailAuth>;
 };
 
 export type UpdateRoleInput = {

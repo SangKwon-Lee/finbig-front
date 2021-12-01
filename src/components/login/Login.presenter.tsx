@@ -58,7 +58,13 @@ const LoginPresenter: React.FC<ILoginProps> = ({
             >
               회원가입
             </LoginBottomContents>
-            <LoginBottomContents>아이디/비밀번호 찾기</LoginBottomContents>
+            <LoginBottomContents
+              onClick={() => {
+                navigate(`/findUser`);
+              }}
+            >
+              아이디/비밀번호 찾기
+            </LoginBottomContents>
           </LoginBottomWrapper>
         </LoginInputWrapper>
       </LoginWrapper>
