@@ -13,6 +13,8 @@ const Login = Loadable(lazy(() => import("../src/pages/login/Login.page")));
 
 const Signup = Loadable(lazy(() => import("../src/pages/signup/Signup.page")));
 
+const FindUser = Loadable(lazy(() => import("./pages/findUser/FindUser.page")));
+
 const routes = [
   {
     path: "/",
@@ -25,6 +27,10 @@ const routes = [
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/findUser",
+    element: <FindUser />,
   },
 ];
 

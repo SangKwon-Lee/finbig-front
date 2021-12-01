@@ -130,6 +130,7 @@ const SignupContainer = () => {
             data: {
               email: email,
               code: "",
+              type: "signup",
             },
           },
         },
