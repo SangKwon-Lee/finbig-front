@@ -64,7 +64,8 @@ export const LicenseTablePeriodTitle = styled.div`
 `;
 export const LicenseTablePeriodNumber = styled.span`
   font-size: 32px;
-  font-family: SpoqaHanSansNeo-Bold;
+  font-family: GmarketSansBold;
+  padding-bottom: 7px;
 `;
 export const LicenseTablePeriodContent = styled.div`
   width: 277px;

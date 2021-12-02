@@ -1,10 +1,8 @@
 // import { GlobalContext } from "../../App";
 import { useNavigate } from "react-router";
 import LicensePresenter from "./License.presenter";
-// import React, { useContext } from "react";
-const LicenseContainer = () => {
-  // const { accessToken } = useContext(GlobalContext);
 
+const LicenseContainer = () => {
   const navigate = useNavigate();
   const handleBuy = () => {
     if (!localStorage.getItem("accessToken")) {
