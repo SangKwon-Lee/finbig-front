@@ -28,7 +28,13 @@ const HeaderPresenter = () => {
         <MenuTitleWrapper>
           <MenuTitle>데이터 상품</MenuTitle>
           <MenuTitle>데이터 시각화/활용</MenuTitle>
-          <MenuTitle>구독 구매</MenuTitle>
+          <MenuTitle
+            onClick={() => {
+              navigate(`/license`);
+            }}
+          >
+            구독 구매
+          </MenuTitle>
         </MenuTitleWrapper>
         <SVGWrapper>
           <SVGIcon src={UserSVG}></SVGIcon>

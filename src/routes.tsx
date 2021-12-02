@@ -15,6 +15,8 @@ const Signup = Loadable(lazy(() => import("../src/pages/signup/Signup.page")));
 
 const FindUser = Loadable(lazy(() => import("./pages/findUser/FindUser.page")));
 
+const License = Loadable(lazy(() => import("./pages/license/License.page")));
+
 const routes = [
   {
     path: "/",
@@ -31,6 +33,10 @@ const routes = [
   {
     path: "/findUser",
     element: <FindUser />,
+  },
+  {
+    path: "/license",
+    element: <License />,
   },
 ];
 
