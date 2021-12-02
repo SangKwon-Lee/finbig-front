@@ -17,6 +17,8 @@ const FindUser = Loadable(lazy(() => import("./pages/findUser/FindUser.page")));
 
 const License = Loadable(lazy(() => import("./pages/license/License.page")));
 
+const DataList = Loadable(lazy(() => import("./pages/dataList/DataList.page")));
+
 const routes = [
   {
     path: "/",
@@ -37,6 +39,10 @@ const routes = [
   {
     path: "/license",
     element: <License />,
+  },
+  {
+    path: "/dataList",
+    element: <DataList />,
   },
 ];
 
