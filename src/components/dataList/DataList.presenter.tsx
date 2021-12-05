@@ -4,9 +4,13 @@ import {
   DataBtnWrapper,
   DataContents,
   DataImg,
+  DataListArrowLeft,
+  DataListArrowRight,
   DataListBody,
   DataListCategoryTitle,
   DataListCategoryWrapper,
+  DataListPage,
+  DataListPageWrapper,
   DataListResult,
   DataListResultNum,
   DataListSelectBox,
@@ -17,6 +21,7 @@ import {
   DataUpdateBtn,
   DataWrapper,
 } from "./DataList.style";
+import ArrowSVG from "../../assets/images/arrowDown.svg";
 
 const DataListPresenter = () => {
   return (
@@ -58,6 +63,24 @@ const DataListPresenter = () => {
           </DataWrapper>
         ))}
       </DataListBody>
+      <DataListPageWrapper>
+        <DataListPage>
+          <DataListArrowLeft src={ArrowSVG} style={{ marginRight: "-8px" }} />
+          <DataListArrowLeft src={ArrowSVG} />
+        </DataListPage>
+        <DataListPage>
+          <DataListArrowLeft src={ArrowSVG} />
+        </DataListPage>
+        <DataListPage>1</DataListPage>
+        <DataListPage>2</DataListPage>
+        <DataListPage>
+          <DataListArrowRight src={ArrowSVG} />
+          <DataListArrowRight src={ArrowSVG} style={{ marginLeft: "-8px" }} />
+        </DataListPage>
+        <DataListPage>
+          <DataListArrowRight src={ArrowSVG} />
+        </DataListPage>
+      </DataListPageWrapper>
     </DataListWrapper>
   );
 };
