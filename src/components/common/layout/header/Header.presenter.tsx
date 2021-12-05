@@ -26,7 +26,13 @@ const HeaderPresenter = () => {
       ></Logo>
       <MenuSVGWrapper>
         <MenuTitleWrapper>
-          <MenuTitle>데이터 상품</MenuTitle>
+          <MenuTitle
+            onClick={() => {
+              navigate(`/dataList`);
+            }}
+          >
+            데이터 상품
+          </MenuTitle>
           <MenuTitle>데이터 시각화/활용</MenuTitle>
           <MenuTitle
             onClick={() => {
