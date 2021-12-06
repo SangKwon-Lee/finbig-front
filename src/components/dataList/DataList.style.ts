@@ -112,37 +112,3 @@ export const DataUpdateBtn = styled.button`
   width: 58px;
   height: 25px;
 `;
-
-export const DataListPageWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-`;
-
-export const DataListPage = styled.button`
-  width: 28px;
-  height: 28px;
-  border: 1px solid #cccccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: SpoqaHanSansNeo-Medium;
-  font-size: 14px;
-  color: #999999;
-  cursor: pointer;
-  outline: none;
-  background-color: white;
-  margin: 0px 4px 0px 4px;
-`;
-
-export const DataListArrowLeft = styled.img`
-  transform: rotate(90deg);
-  width: 14px;
-  height: 14px;
-`;
-
-export const DataListArrowRight = styled.img`
-  transform: rotate(-90deg);
-  width: 14px;
-  height: 14px;
-`;

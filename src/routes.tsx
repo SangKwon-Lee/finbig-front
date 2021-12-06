@@ -23,6 +23,10 @@ const DataDetail = Loadable(
   lazy(() => import("./pages/dataDetail/DataDetail.page"))
 );
 
+const VisualList = Loadable(
+  lazy(() => import("./pages/visualList/VisualList.page"))
+);
+
 const routes = [
   {
     path: "/",
@@ -49,8 +53,16 @@ const routes = [
     element: <DataList />,
   },
   {
+    path: "/dataList/:search",
+    element: <DataList />,
+  },
+  {
     path: "/data/:dataId",
     element: <DataDetail />,
+  },
+  {
+    path: "/visualList",
+    element: <VisualList />,
   },
 ];
 

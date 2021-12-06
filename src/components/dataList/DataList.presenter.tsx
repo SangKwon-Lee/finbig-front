@@ -4,13 +4,9 @@ import {
   DataBtnWrapper,
   DataContents,
   DataImg,
-  DataListArrowLeft,
-  DataListArrowRight,
   DataListBody,
   DataListCategoryTitle,
   DataListCategoryWrapper,
-  DataListPage,
-  DataListPageWrapper,
   DataListResult,
   DataListResultNum,
   DataListSelectBox,
@@ -21,8 +17,8 @@ import {
   DataUpdateBtn,
   DataWrapper,
 } from "./DataList.style";
-import ArrowSVG from "../../assets/images/arrowDown.svg";
 import { useNavigate, useParams } from "react-router";
+import PaginationContainer from "../common/pagination/Pagination.container";
 
 const DataListPresenter = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -68,24 +64,7 @@ const DataListPresenter = () => {
           </DataWrapper>
         ))}
       </DataListBody>
-      <DataListPageWrapper>
-        <DataListPage>
-          <DataListArrowLeft src={ArrowSVG} style={{ marginRight: "-8px" }} />
-          <DataListArrowLeft src={ArrowSVG} />
-        </DataListPage>
-        <DataListPage>
-          <DataListArrowLeft src={ArrowSVG} />
-        </DataListPage>
-        <DataListPage>1</DataListPage>
-        <DataListPage>2</DataListPage>
-        <DataListPage>
-          <DataListArrowRight src={ArrowSVG} />
-          <DataListArrowRight src={ArrowSVG} style={{ marginLeft: "-8px" }} />
-        </DataListPage>
-        <DataListPage>
-          <DataListArrowRight src={ArrowSVG} />
-        </DataListPage>
-      </DataListPageWrapper>
+      <PaginationContainer />
     </DataListWrapper>
   );
 };
