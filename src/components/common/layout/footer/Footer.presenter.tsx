@@ -13,16 +13,31 @@ import {
   FooterWrapper,
 } from "./Footer.style";
 import LogoSVG from "../../../../assets/images/logo.svg";
+import { useNavigate } from "react-router";
 const FooterPresenter = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <FooterWrapper>
         <FooterMenuWrapper>
           <FooterLogo src={LogoSVG}></FooterLogo>
           <FooterMenuTitleWrapper>
-            <FooterMenu>데이터상품</FooterMenu>
+            <FooterMenu
+              onClick={() => {
+                navigate(`/dataList`);
+              }}
+            >
+              데이터상품
+            </FooterMenu>
             <FooterMenu>데이터 시각화/활용</FooterMenu>
-            <FooterMenu>구독 구매</FooterMenu>
+            <FooterMenu
+              onClick={() => {
+                navigate(`/license`);
+              }}
+            >
+              구독 구매
+            </FooterMenu>
           </FooterMenuTitleWrapper>
         </FooterMenuWrapper>
         <FooterContentsWrapper>
