@@ -22,11 +22,16 @@ import {
   DataWrapper,
 } from "./DataList.style";
 import ArrowSVG from "../../assets/images/arrowDown.svg";
+import { useNavigate, useParams } from "react-router";
 
 const DataListPresenter = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const navigate = useNavigate();
+  const { search } = useParams();
+
   return (
     <DataListWrapper>
-      <DataListTitle>데이터 상품</DataListTitle>
+      <DataListTitle>{search ? "검색 결과" : "데이터 상품"}</DataListTitle>
       <DataListCategoryWrapper>
         <DataListCategoryTitle>전체 (8)</DataListCategoryTitle>
         <DataListCategoryTitle>/</DataListCategoryTitle>
@@ -42,8 +47,8 @@ const DataListPresenter = () => {
         <DataListResult>
           상품이 모두<DataListResultNum> 8개</DataListResultNum> 있습니다
         </DataListResult>
-        <DataListSelectBox>
-          <option selected disabled>
+        <DataListSelectBox defaultValue="상품정렬">
+          <option disabled value="상품정렬">
             상품 정렬
           </option>
           <option>상품 뭐지</option>
@@ -51,8 +56,8 @@ const DataListPresenter = () => {
         </DataListSelectBox>
       </DataListSelectWrapper>
       <DataListBody>
-        {DummyDataList.map((data) => (
-          <DataWrapper>
+        {DummyDataList.map((data, index) => (
+          <DataWrapper key={index}>
             <DataImg />
             <DataTitle>{data.title}</DataTitle>
             <DataContents>{data.description}</DataContents>
