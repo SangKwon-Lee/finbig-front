@@ -1,4 +1,4 @@
-import VisualListContainer from "../../components/visual/VisualList.container";
+import VisualListContainer from "../../components/visualList/VisualList.container";
 
 const VisualPage = () => {
   return <VisualListContainer />;
