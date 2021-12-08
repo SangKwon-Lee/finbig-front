@@ -30,7 +30,13 @@ const FooterPresenter = () => {
             >
               데이터상품
             </FooterMenu>
-            <FooterMenu>데이터 시각화/활용</FooterMenu>
+            <FooterMenu
+              onClick={() => {
+                navigate(`/license`);
+              }}
+            >
+              데이터 시각화/활용
+            </FooterMenu>
             <FooterMenu
               onClick={() => {
                 navigate(`/license`);
