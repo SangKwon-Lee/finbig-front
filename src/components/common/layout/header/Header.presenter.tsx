@@ -86,6 +86,13 @@ const HeaderPresenter: React.FC<IHeaderProps> = ({
             value={search}
             onChange={handleSearchWord}
             placeholder="Search"
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                setSearch("");
+                setIsSearch(() => !isSearch);
+                navigate(`/dataList/${search}`);
+              }
+            }}
           />
           <SVGIcon
             onClick={() => {
