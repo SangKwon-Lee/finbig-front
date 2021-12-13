@@ -31,6 +31,26 @@ const VisualDetail = Loadable(
   lazy(() => import("./pages/visualDetail/VisualDetail.page"))
 );
 
+const MypageMain = Loadable(
+  lazy(() => import("./pages/mypage/MypageMain.page"))
+);
+
+const MypagePayment = Loadable(
+  lazy(() => import("./pages/mypage/MypagePayment.page"))
+);
+const MypageDownload = Loadable(
+  lazy(() => import("./pages/mypage/MypageDownload.page"))
+);
+const MypageRecent = Loadable(
+  lazy(() => import("./pages/mypage/MypageRecent.page"))
+);
+const MypageProfile = Loadable(
+  lazy(() => import("./pages/mypage/MypageProfile.page"))
+);
+const MypageWithdraw = Loadable(
+  lazy(() => import("./pages/mypage/MypageWithdraw.page"))
+);
+
 const routes = [
   {
     path: "/",
@@ -71,6 +91,30 @@ const routes = [
   {
     path: "/visual/:visualId",
     element: <VisualDetail />,
+  },
+  {
+    path: "/mypage/main",
+    element: <MypageMain />,
+  },
+  {
+    path: "/mypage/payment",
+    element: <MypagePayment />,
+  },
+  {
+    path: "/mypage/download",
+    element: <MypageDownload />,
+  },
+  {
+    path: "/mypage/recent",
+    element: <MypageRecent />,
+  },
+  {
+    path: "/mypage/profile",
+    element: <MypageProfile />,
+  },
+  {
+    path: "/mypage/withdraw",
+    element: <MypageWithdraw />,
   },
 ];
 
