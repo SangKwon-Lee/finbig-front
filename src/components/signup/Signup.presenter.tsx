@@ -71,11 +71,11 @@ const schma = yup.object({
     .min(4, "아이디는 4글자 이상이어야 합니다."),
   password: yup
     .string()
-    .required("비밀번호는 8자 이상, 소문자와 대문자 포함되어야 합니다.")
-    .min(8, "비밀번호는 8자 이상, 소문자와 대문자 포함되어야 합니다.")
+    .required("비밀번호는 8자 이상, 소문자와 대문자기 포함되어야 합니다.")
+    .min(8, "비밀번호는 8자 이상, 소문자와 대문자가 포함되어야 합니다.")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-      "비밀번호는 8자 이상, 소문자와 대문자 포함되어야 합니다."
+      "비밀번호는 8자 이상, 소문자와 대문자가 포함되어야 합니다."
     ),
   confirmPassword: yup
     .string()
@@ -389,7 +389,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                     value="true"
                     checked
                   />
-                  <SignupRadioTitle htmlFor="emailReception">
+                  <SignupRadioTitle htmlFor="emailTrue">
                     수신 허용
                   </SignupRadioTitle>
                 </SignupRadioWrapper>
@@ -400,7 +400,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                     {...register("emailReception")}
                     value="false"
                   />
-                  <SignupRadioTitle htmlFor="emailReception">
+                  <SignupRadioTitle htmlFor="emailFalse">
                     수신 거부
                   </SignupRadioTitle>
                 </SignupRadioWrapper>
@@ -415,7 +415,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                     {...register("smsReception")}
                     checked
                   />
-                  <SignupRadioTitle htmlFor="smsReception">
+                  <SignupRadioTitle htmlFor="SMSTrue">
                     수신 허용
                   </SignupRadioTitle>
                 </SignupRadioWrapper>
