@@ -24,6 +24,7 @@ interface IHeaderProps {
   handleSearchWord: (e: React.ChangeEvent<HTMLInputElement>) => void;
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  handleLogout: () => void;
 }
 
 const HeaderPresenter: React.FC<IHeaderProps> = ({
@@ -32,6 +33,7 @@ const HeaderPresenter: React.FC<IHeaderProps> = ({
   handleSearchWord,
   search,
   setSearch,
+  handleLogout,
 }) => {
   const navigate = useNavigate();
   return (
@@ -68,9 +70,19 @@ const HeaderPresenter: React.FC<IHeaderProps> = ({
             </MenuTitle>
           </MenuTitleWrapper>
           <SVGWrapper>
-            <SVGIcon src={UserSVG}></SVGIcon>
+            <SVGIcon
+              src={UserSVG}
+              onClick={() => {
+                if (sessionStorage.getItem("userId")) {
+                  navigate("/mypage/main");
+                } else {
+                  alert("로그인 후 이용 가능합니다.");
+                  navigate("/login");
+                }
+              }}
+            ></SVGIcon>
             <SVGIcon src={MarketSVG}></SVGIcon>
-            <SVGIcon src={LockSVG}></SVGIcon>
+            <SVGIcon src={LockSVG} onClick={handleLogout}></SVGIcon>
             <SVGIcon
               onClick={() => {
                 setIsSearch(() => !isSearch);

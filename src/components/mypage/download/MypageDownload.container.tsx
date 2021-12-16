@@ -1,7 +1,8 @@
+import WithAuth from "../../common/hocs/withAuth";
 import MypageDownloadPresenter from "./MypageDownload.presenter";
 
 const MypageDownloadContainer = () => {
   return <MypageDownloadPresenter />;
 };
 
-export default MypageDownloadContainer;
+export default WithAuth(MypageDownloadContainer);

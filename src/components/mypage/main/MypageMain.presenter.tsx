@@ -10,9 +10,10 @@ import {
 
 interface IMypageMainProps {
   data: any;
+  userId: string | null;
 }
 
-const MypageMainPresenter: React.FC<IMypageMainProps> = ({ data }) => {
+const MypageMainPresenter: React.FC<IMypageMainProps> = ({ data, userId }) => {
   const user: UsersPermissionsUser = data?.user;
 
   return (
