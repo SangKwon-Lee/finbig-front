@@ -10,7 +10,7 @@ import {
 } from "../../../commons/types/generated/types";
 import MypageProfilePresenter from "./MypageProfile.presenter";
 import { GET_USER, LOGIN, UPDATE_USER } from "./MypageProfile.query";
-
+import WithAuth from "../../common/hocs/withAuth";
 const MypageProfileContainer = () => {
   const navigate = useNavigate();
 
@@ -122,4 +122,4 @@ const MypageProfileContainer = () => {
   );
 };
 
-export default MypageProfileContainer;
+export default WithAuth(MypageProfileContainer);
