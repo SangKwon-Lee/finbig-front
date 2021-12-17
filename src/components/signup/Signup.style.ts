@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
-
+interface ISignupStyleProps {
+  isCheckName?: boolean;
+  passwordError?: string;
+}
 export const SignupWrapper = styled.div`
   max-width: 1920px;
   min-width: 1100px;
@@ -109,6 +112,10 @@ export const SignupInputTitle = styled.div`
 export const SignupInput = styled.input`
   width: 463px;
   height: 36px;
+  background-color: ${(props: ISignupStyleProps) =>
+    props.isCheckName ? "#ffdcdc" : "white"};
+  background-color: ${(props: ISignupStyleProps) =>
+    props.passwordError || props.isCheckName ? "#ffdcdc" : "white"};
   border: 1px solid #cccccc;
   padding-left: 13px;
   outline: none;

@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
 
+interface IMypageProfileProps {
+  pwError?: boolean;
+  passwordError?: string;
+}
+
 export const MypageProfileWrapper = styled.div`
   max-width: 1920px;
   min-width: 1100px;
@@ -60,10 +65,13 @@ export const MypageProfileID = styled.div`
 export const MypageProfilePWInput = styled.input`
   width: 263px;
   height: 46px;
-  border: 1px solid #cccccc;
+  border: ${(props: IMypageProfileProps) =>
+    props.pwError ? "1px solid #ff0000" : "1px solid #cccccc"};
   outline: none;
   margin-left: 36px;
   padding-left: 13px;
+  background-color: ${(props: IMypageProfileProps) =>
+    props.pwError ? "#ffdcdc" : "white"};
 `;
 
 export const MyapgeBtnWrapper = styled.div`
@@ -123,7 +131,6 @@ export const MypageProfileChangeInput = styled.input`
   width: 319px;
   height: 36px;
   outline: none;
-  border: 1px solid #cccccc;
   padding-left: 13px;
   margin-left: 50px;
   ::-webkit-outer-spin-button,
@@ -131,6 +138,10 @@ export const MypageProfileChangeInput = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
+  border: ${(props: IMypageProfileProps) =>
+    props.passwordError ? "1px solid #ff0000" : "1px solid #cccccc"};
+  background-color: ${(props: IMypageProfileProps) =>
+    props.passwordError ? "#ffdcdc" : "white"};
 `;
 
 export const MypageProfileChangeContents = styled.div`

@@ -39,7 +39,7 @@ const LoginContainer = () => {
         },
       });
       localStorage.setItem("accessToken", String(data?.login.jwt));
-      localStorage.setItem("userId", String(data?.login.user.id));
+      // localStorage.setItem("userId", String(data?.login.user.id));
       sessionStorage.setItem("userId", String(data?.login.user.id));
       setAccessToken(String(data?.login.jwt));
       setUserData(data?.login.user!);

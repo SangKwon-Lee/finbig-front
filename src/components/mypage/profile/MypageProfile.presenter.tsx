@@ -112,11 +112,12 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                   name="password"
                   type="password"
                   onChange={handlePasswordInput}
+                  pwError={pwError}
                 />
                 {pwError && (
                   <>
                     <ErrorImg src={InfoSVG}></ErrorImg>
-                    <ErrorMsg>비밀번호가 다릅니다.</ErrorMsg>
+                    <ErrorMsg>비밀번호가 일치하지 않습니다.</ErrorMsg>
                   </>
                 )}
               </MypageProfileIDWrapper>
@@ -136,6 +137,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                   <MypageProfileChangeInput
                     type="password"
                     {...register("password")}
+                    passwordError={errors?.password?.message}
                   />
                   {errors?.password?.message && (
                     <>
@@ -151,6 +153,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                   <MypageProfileChangeInput
                     type="password"
                     {...register("confirmPassword")}
+                    passwordError={errors?.confirmPassword?.message}
                   />
                   {errors?.confirmPassword?.message && (
                     <>
