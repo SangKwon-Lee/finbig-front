@@ -253,6 +253,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                 <SignupInput
                   {...register("username")}
                   onChange={checkUsername}
+                  isCheckName={isCheckName}
                 ></SignupInput>
                 {isCheckName && (
                   <>
@@ -274,6 +275,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                 <SignupInput
                   type="password"
                   {...register("password")}
+                  passwordError={errors?.password?.message}
                 ></SignupInput>
 
                 {errors?.password?.message && (
@@ -288,6 +290,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                 <SignupInput
                   {...register("confirmPassword")}
                   type="password"
+                  passwordError={errors?.confirmPassword?.message}
                 ></SignupInput>
                 {errors?.confirmPassword?.message && (
                   <SignupErrorWrapper>
