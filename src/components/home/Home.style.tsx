@@ -6,7 +6,49 @@ export const Banner = styled.div`
   width: 100%;
   height: 340px;
   background-color: black;
+  display: flex;
+  justify-content: center;
 `;
+
+export const BannerImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const BannerContentsWrapper = styled.div`
+  position: absolute;
+  width: 1100px;
+  height: 340px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+export const BannerTitle = styled.div`
+  color: white;
+  font-family: GmarketSansMedium;
+  font-size: 28px;
+`;
+
+export const BannerBold = styled.span`
+  color: white;
+  font-family: GmarketSansBold;
+  font-size: 28px;
+`;
+
+export const BannerLine = styled.div`
+  border-top: 1px solid white;
+  width: 180px;
+  margin: 27px 0px;
+`;
+
+export const BannerContents = styled.div`
+  color: white;
+  font-family: GmarketSansLight;
+  font-size: 14px;
+`;
+
 export const ContainerWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -26,27 +68,39 @@ export const CenterWrapper = styled.div`
 export const CenterLeft = styled.div`
   width: 542px;
   height: 362px;
-  border: 1px solid black;
+  display: flex;
+`;
+
+export const CenterImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const CenterLeftContentsWrapper = styled.div`
+  position: absolute;
   padding-top: 55px;
   padding-left: 77px;
-  background-color: whitesmoke;
 `;
 
 export const CenterLeftTitle = styled.div`
   font-family: GmarketSansMedium;
   font-size: 20px;
   margin-bottom: 16px;
+  color: white;
 `;
 
 export const CenterTitleBold = styled.span`
   font-family: GmarketSansBold;
   font-size: 20px;
+  color: white;
 `;
 
 export const CenterLeftSubTitle = styled.div`
   font-family: GmarketSansLight;
   font-size: 14px;
   margin-bottom: 29px;
+  color: white;
 `;
 
 export const CenterButton = styled.button`
@@ -66,11 +120,18 @@ export const CenterButtonTilte = styled.div`
 export const CenterMiddle = styled.div`
   width: 263px;
   height: 362px;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: white;
+`;
+
+export const CenterMiddleContentsWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
   padding-top: 55px;
+  align-items: center;
 `;
 
 export const CenterMiddleTitle = styled.div`
@@ -78,6 +139,7 @@ export const CenterMiddleTitle = styled.div`
   font-size: 20px;
   margin-bottom: 16px;
   text-align: center;
+  color: white;
 `;
 
 export const CenterMiddleSubTitle = styled.div`
@@ -85,6 +147,7 @@ export const CenterMiddleSubTitle = styled.div`
   font-size: 14px;
   margin-bottom: 29px;
   text-align: center;
+  color: white;
 `;
 
 export const CenterRight = styled.div`
