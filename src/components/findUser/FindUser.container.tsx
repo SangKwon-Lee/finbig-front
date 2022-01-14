@@ -121,6 +121,7 @@ const FindUserContainer = () => {
       });
     } catch (error) {
       setIsFind("id");
+      console.log(error);
     }
   };
 

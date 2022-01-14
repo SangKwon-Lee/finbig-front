@@ -32,6 +32,92 @@ export type AdminUser = {
   username?: Maybe<Scalars['String']>;
 };
 
+export type Administrator = {
+  __typename?: 'Administrator';
+  created_at: Scalars['DateTime'];
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  updated_at: Scalars['DateTime'];
+  username?: Maybe<Scalars['String']>;
+};
+
+export type AdministratorAggregator = {
+  __typename?: 'AdministratorAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type AdministratorConnection = {
+  __typename?: 'AdministratorConnection';
+  aggregate?: Maybe<AdministratorAggregator>;
+  groupBy?: Maybe<AdministratorGroupBy>;
+  values?: Maybe<Array<Maybe<Administrator>>>;
+};
+
+export type AdministratorConnectionCreated_At = {
+  __typename?: 'AdministratorConnectionCreated_at';
+  connection?: Maybe<AdministratorConnection>;
+  key?: Maybe<Scalars['DateTime']>;
+};
+
+export type AdministratorConnectionId = {
+  __typename?: 'AdministratorConnectionId';
+  connection?: Maybe<AdministratorConnection>;
+  key?: Maybe<Scalars['ID']>;
+};
+
+export type AdministratorConnectionName = {
+  __typename?: 'AdministratorConnectionName';
+  connection?: Maybe<AdministratorConnection>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type AdministratorConnectionPassword = {
+  __typename?: 'AdministratorConnectionPassword';
+  connection?: Maybe<AdministratorConnection>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type AdministratorConnectionPublished_At = {
+  __typename?: 'AdministratorConnectionPublished_at';
+  connection?: Maybe<AdministratorConnection>;
+  key?: Maybe<Scalars['DateTime']>;
+};
+
+export type AdministratorConnectionUpdated_At = {
+  __typename?: 'AdministratorConnectionUpdated_at';
+  connection?: Maybe<AdministratorConnection>;
+  key?: Maybe<Scalars['DateTime']>;
+};
+
+export type AdministratorConnectionUsername = {
+  __typename?: 'AdministratorConnectionUsername';
+  connection?: Maybe<AdministratorConnection>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type AdministratorGroupBy = {
+  __typename?: 'AdministratorGroupBy';
+  created_at?: Maybe<Array<Maybe<AdministratorConnectionCreated_At>>>;
+  id?: Maybe<Array<Maybe<AdministratorConnectionId>>>;
+  name?: Maybe<Array<Maybe<AdministratorConnectionName>>>;
+  password?: Maybe<Array<Maybe<AdministratorConnectionPassword>>>;
+  published_at?: Maybe<Array<Maybe<AdministratorConnectionPublished_At>>>;
+  updated_at?: Maybe<Array<Maybe<AdministratorConnectionUpdated_At>>>;
+  username?: Maybe<Array<Maybe<AdministratorConnectionUsername>>>;
+};
+
+export type AdministratorInput = {
+  created_by?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  published_at?: InputMaybe<Scalars['DateTime']>;
+  updated_by?: InputMaybe<Scalars['ID']>;
+  username?: InputMaybe<Scalars['String']>;
+};
+
 export type EmailAuth = {
   __typename?: 'EmailAuth';
   code?: Maybe<Scalars['String']>;
@@ -164,20 +250,25 @@ export type LocaleInput = {
   updated_by?: InputMaybe<Scalars['ID']>;
 };
 
-export type Morph = EmailAuth | EmailAuthAggregator | EmailAuthConnection | EmailAuthConnectionCode | EmailAuthConnectionCreated_At | EmailAuthConnectionEmail | EmailAuthConnectionId | EmailAuthConnectionIsAuth | EmailAuthConnectionType | EmailAuthConnectionUpdated_At | EmailAuthGroupBy | I18NLocale | UploadFile | UploadFileAggregator | UploadFileAggregatorAvg | UploadFileAggregatorMax | UploadFileAggregatorMin | UploadFileAggregatorSum | UploadFileConnection | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionCreated_At | UploadFileConnectionExt | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionHeight | UploadFileConnectionId | UploadFileConnectionMime | UploadFileConnectionName | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | UploadFileConnectionSize | UploadFileConnectionUpdated_At | UploadFileConnectionUrl | UploadFileConnectionWidth | UploadFileGroupBy | UserPermissionsPasswordPayload | UsersPermissionsLoginPayload | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleAggregator | UsersPermissionsRoleConnection | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionType | UsersPermissionsRoleGroupBy | UsersPermissionsUser | UsersPermissionsUserAggregator | UsersPermissionsUserConnection | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionEmailReception | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionIsDeleted | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionPhone | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionSmsReception | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserGroupBy | CreateEmailAuthPayload | CreateRolePayload | CreateUserPayload | DeleteEmailAuthPayload | DeleteFilePayload | DeleteRolePayload | DeleteUserPayload | UpdateEmailAuthPayload | UpdateRolePayload | UpdateUserPayload;
+export type Morph = Administrator | AdministratorAggregator | AdministratorConnection | AdministratorConnectionCreated_At | AdministratorConnectionId | AdministratorConnectionName | AdministratorConnectionPassword | AdministratorConnectionPublished_At | AdministratorConnectionUpdated_At | AdministratorConnectionUsername | AdministratorGroupBy | EmailAuth | EmailAuthAggregator | EmailAuthConnection | EmailAuthConnectionCode | EmailAuthConnectionCreated_At | EmailAuthConnectionEmail | EmailAuthConnectionId | EmailAuthConnectionIsAuth | EmailAuthConnectionType | EmailAuthConnectionUpdated_At | EmailAuthGroupBy | I18NLocale | Token | TokenAggregator | TokenConnection | TokenConnectionAdminId | TokenConnectionCreated_At | TokenConnectionId | TokenConnectionPublished_At | TokenConnectionToken | TokenConnectionUpdated_At | TokenConnectionUserId | TokenGroupBy | UploadFile | UploadFileAggregator | UploadFileAggregatorAvg | UploadFileAggregatorMax | UploadFileAggregatorMin | UploadFileAggregatorSum | UploadFileConnection | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionCreated_At | UploadFileConnectionExt | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionHeight | UploadFileConnectionId | UploadFileConnectionMime | UploadFileConnectionName | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | UploadFileConnectionSize | UploadFileConnectionUpdated_At | UploadFileConnectionUrl | UploadFileConnectionWidth | UploadFileGroupBy | UserPermissionsPasswordPayload | UsersPermissionsLoginPayload | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleAggregator | UsersPermissionsRoleConnection | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionType | UsersPermissionsRoleGroupBy | UsersPermissionsUser | UsersPermissionsUserAggregator | UsersPermissionsUserConnection | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionCreated_At | UsersPermissionsUserConnectionDeletedAt | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionEmailReception | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionIsDeleted | UsersPermissionsUserConnectionIsSubscribe | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionPhone | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionSmsReception | UsersPermissionsUserConnectionUpdated_At | UsersPermissionsUserConnectionUsername | UsersPermissionsUserGroupBy | CreateAdministratorPayload | CreateEmailAuthPayload | CreateRolePayload | CreateTokenPayload | CreateUserPayload | DeleteAdministratorPayload | DeleteEmailAuthPayload | DeleteFilePayload | DeleteRolePayload | DeleteTokenPayload | DeleteUserPayload | UpdateAdministratorPayload | UpdateEmailAuthPayload | UpdateRolePayload | UpdateTokenPayload | UpdateUserPayload;
 
 export type Mutation = {
   __typename?: 'Mutation';
+  FetchAdministrator?: Maybe<Administrator>;
+  createAdministrator?: Maybe<CreateAdministratorPayload>;
   createEmailAuth?: Maybe<CreateEmailAuthPayload>;
   /** Create a new role */
   createRole?: Maybe<CreateRolePayload>;
+  createToken?: Maybe<CreateTokenPayload>;
   /** Create a new user */
   createUser?: Maybe<CreateUserPayload>;
+  deleteAdministrator?: Maybe<DeleteAdministratorPayload>;
   deleteEmailAuth?: Maybe<DeleteEmailAuthPayload>;
   /** Delete one file */
   deleteFile?: Maybe<DeleteFilePayload>;
   /** Delete an existing role */
   deleteRole?: Maybe<DeleteRolePayload>;
+  deleteToken?: Maybe<DeleteTokenPayload>;
   /** Delete an existing user */
   deleteUser?: Maybe<DeleteUserPayload>;
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
@@ -186,13 +277,26 @@ export type Mutation = {
   multipleUpload: Array<Maybe<UploadFile>>;
   register: UsersPermissionsLoginPayload;
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateAdministrator?: Maybe<UpdateAdministratorPayload>;
   updateEmailAuth?: Maybe<UpdateEmailAuthPayload>;
   updateFileInfo: UploadFile;
   /** Update an existing role */
   updateRole?: Maybe<UpdateRolePayload>;
+  updateToken?: Maybe<UpdateTokenPayload>;
   /** Update an existing user */
   updateUser?: Maybe<UpdateUserPayload>;
   upload: UploadFile;
+};
+
+
+export type MutationFetchAdministratorArgs = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
+
+export type MutationCreateAdministratorArgs = {
+  input?: InputMaybe<CreateAdministratorInput>;
 };
 
 
@@ -206,8 +310,18 @@ export type MutationCreateRoleArgs = {
 };
 
 
+export type MutationCreateTokenArgs = {
+  input?: InputMaybe<CreateTokenInput>;
+};
+
+
 export type MutationCreateUserArgs = {
   input?: InputMaybe<CreateUserInput>;
+};
+
+
+export type MutationDeleteAdministratorArgs = {
+  input?: InputMaybe<DeleteAdministratorInput>;
 };
 
 
@@ -223,6 +337,11 @@ export type MutationDeleteFileArgs = {
 
 export type MutationDeleteRoleArgs = {
   input?: InputMaybe<DeleteRoleInput>;
+};
+
+
+export type MutationDeleteTokenArgs = {
+  input?: InputMaybe<DeleteTokenInput>;
 };
 
 
@@ -267,6 +386,11 @@ export type MutationResetPasswordArgs = {
 };
 
 
+export type MutationUpdateAdministratorArgs = {
+  input?: InputMaybe<UpdateAdministratorInput>;
+};
+
+
 export type MutationUpdateEmailAuthArgs = {
   input?: InputMaybe<UpdateEmailAuthInput>;
 };
@@ -280,6 +404,11 @@ export type MutationUpdateFileInfoArgs = {
 
 export type MutationUpdateRoleArgs = {
   input?: InputMaybe<UpdateRoleInput>;
+};
+
+
+export type MutationUpdateTokenArgs = {
+  input?: InputMaybe<UpdateTokenInput>;
 };
 
 
@@ -304,6 +433,9 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
+  administrator?: Maybe<Administrator>;
+  administrators?: Maybe<Array<Maybe<Administrator>>>;
+  administratorsConnection?: Maybe<AdministratorConnection>;
   emailAuth?: Maybe<EmailAuth>;
   emailAuths?: Maybe<Array<Maybe<EmailAuth>>>;
   emailAuthsConnection?: Maybe<EmailAuthConnection>;
@@ -314,9 +446,35 @@ export type Query = {
   /** Retrieve all the existing roles. You can't apply filters on this query. */
   roles?: Maybe<Array<Maybe<UsersPermissionsRole>>>;
   rolesConnection?: Maybe<UsersPermissionsRoleConnection>;
+  token?: Maybe<Token>;
+  tokens?: Maybe<Array<Maybe<Token>>>;
+  tokensConnection?: Maybe<TokenConnection>;
   user?: Maybe<UsersPermissionsUser>;
   users?: Maybe<Array<Maybe<UsersPermissionsUser>>>;
   usersConnection?: Maybe<UsersPermissionsUserConnection>;
+};
+
+
+export type QueryAdministratorArgs = {
+  id: Scalars['ID'];
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+
+export type QueryAdministratorsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Scalars['JSON']>;
+};
+
+
+export type QueryAdministratorsConnectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  sort?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Scalars['JSON']>;
 };
 
 
@@ -383,6 +541,29 @@ export type QueryRolesConnectionArgs = {
 };
 
 
+export type QueryTokenArgs = {
+  id: Scalars['ID'];
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+
+export type QueryTokensArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Scalars['JSON']>;
+};
+
+
+export type QueryTokensConnectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  sort?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Scalars['JSON']>;
+};
+
+
 export type QueryUserArgs = {
   id: Scalars['ID'];
   publicationState?: InputMaybe<PublicationState>;
@@ -413,6 +594,92 @@ export type RoleInput = {
   type?: InputMaybe<Scalars['String']>;
   updated_by?: InputMaybe<Scalars['ID']>;
   users?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+};
+
+export type Token = {
+  __typename?: 'Token';
+  adminId?: Maybe<Scalars['String']>;
+  created_at: Scalars['DateTime'];
+  id: Scalars['ID'];
+  published_at?: Maybe<Scalars['DateTime']>;
+  token?: Maybe<Scalars['String']>;
+  updated_at: Scalars['DateTime'];
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type TokenAggregator = {
+  __typename?: 'TokenAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type TokenConnection = {
+  __typename?: 'TokenConnection';
+  aggregate?: Maybe<TokenAggregator>;
+  groupBy?: Maybe<TokenGroupBy>;
+  values?: Maybe<Array<Maybe<Token>>>;
+};
+
+export type TokenConnectionAdminId = {
+  __typename?: 'TokenConnectionAdminId';
+  connection?: Maybe<TokenConnection>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type TokenConnectionCreated_At = {
+  __typename?: 'TokenConnectionCreated_at';
+  connection?: Maybe<TokenConnection>;
+  key?: Maybe<Scalars['DateTime']>;
+};
+
+export type TokenConnectionId = {
+  __typename?: 'TokenConnectionId';
+  connection?: Maybe<TokenConnection>;
+  key?: Maybe<Scalars['ID']>;
+};
+
+export type TokenConnectionPublished_At = {
+  __typename?: 'TokenConnectionPublished_at';
+  connection?: Maybe<TokenConnection>;
+  key?: Maybe<Scalars['DateTime']>;
+};
+
+export type TokenConnectionToken = {
+  __typename?: 'TokenConnectionToken';
+  connection?: Maybe<TokenConnection>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type TokenConnectionUpdated_At = {
+  __typename?: 'TokenConnectionUpdated_at';
+  connection?: Maybe<TokenConnection>;
+  key?: Maybe<Scalars['DateTime']>;
+};
+
+export type TokenConnectionUserId = {
+  __typename?: 'TokenConnectionUserId';
+  connection?: Maybe<TokenConnection>;
+  key?: Maybe<Scalars['String']>;
+};
+
+export type TokenGroupBy = {
+  __typename?: 'TokenGroupBy';
+  adminId?: Maybe<Array<Maybe<TokenConnectionAdminId>>>;
+  created_at?: Maybe<Array<Maybe<TokenConnectionCreated_At>>>;
+  id?: Maybe<Array<Maybe<TokenConnectionId>>>;
+  published_at?: Maybe<Array<Maybe<TokenConnectionPublished_At>>>;
+  token?: Maybe<Array<Maybe<TokenConnectionToken>>>;
+  updated_at?: Maybe<Array<Maybe<TokenConnectionUpdated_At>>>;
+  userId?: Maybe<Array<Maybe<TokenConnectionUserId>>>;
+};
+
+export type TokenInput = {
+  adminId?: InputMaybe<Scalars['String']>;
+  created_by?: InputMaybe<Scalars['ID']>;
+  published_at?: InputMaybe<Scalars['DateTime']>;
+  token?: InputMaybe<Scalars['String']>;
+  updated_by?: InputMaybe<Scalars['ID']>;
+  userId?: InputMaybe<Scalars['String']>;
 };
 
 export type UploadFile = {
@@ -618,9 +885,11 @@ export type UserInput = {
   confirmationToken?: InputMaybe<Scalars['String']>;
   confirmed?: InputMaybe<Scalars['Boolean']>;
   created_by?: InputMaybe<Scalars['ID']>;
+  deletedAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
   emailReception?: InputMaybe<Scalars['Boolean']>;
   isDeleted?: InputMaybe<Scalars['Boolean']>;
+  isSubscribe?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
@@ -760,10 +1029,12 @@ export type UsersPermissionsUser = {
   blocked?: Maybe<Scalars['Boolean']>;
   confirmed?: Maybe<Scalars['Boolean']>;
   created_at: Scalars['DateTime'];
+  deletedAt?: Maybe<Scalars['DateTime']>;
   email: Scalars['String'];
   emailReception?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
   isDeleted?: Maybe<Scalars['Boolean']>;
+  isSubscribe?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
   provider?: Maybe<Scalars['String']>;
@@ -804,6 +1075,12 @@ export type UsersPermissionsUserConnectionCreated_At = {
   key?: Maybe<Scalars['DateTime']>;
 };
 
+export type UsersPermissionsUserConnectionDeletedAt = {
+  __typename?: 'UsersPermissionsUserConnectionDeletedAt';
+  connection?: Maybe<UsersPermissionsUserConnection>;
+  key?: Maybe<Scalars['DateTime']>;
+};
+
 export type UsersPermissionsUserConnectionEmail = {
   __typename?: 'UsersPermissionsUserConnectionEmail';
   connection?: Maybe<UsersPermissionsUserConnection>;
@@ -824,6 +1101,12 @@ export type UsersPermissionsUserConnectionId = {
 
 export type UsersPermissionsUserConnectionIsDeleted = {
   __typename?: 'UsersPermissionsUserConnectionIsDeleted';
+  connection?: Maybe<UsersPermissionsUserConnection>;
+  key?: Maybe<Scalars['Boolean']>;
+};
+
+export type UsersPermissionsUserConnectionIsSubscribe = {
+  __typename?: 'UsersPermissionsUserConnectionIsSubscribe';
   connection?: Maybe<UsersPermissionsUserConnection>;
   key?: Maybe<Scalars['Boolean']>;
 };
@@ -875,10 +1158,12 @@ export type UsersPermissionsUserGroupBy = {
   blocked?: Maybe<Array<Maybe<UsersPermissionsUserConnectionBlocked>>>;
   confirmed?: Maybe<Array<Maybe<UsersPermissionsUserConnectionConfirmed>>>;
   created_at?: Maybe<Array<Maybe<UsersPermissionsUserConnectionCreated_At>>>;
+  deletedAt?: Maybe<Array<Maybe<UsersPermissionsUserConnectionDeletedAt>>>;
   email?: Maybe<Array<Maybe<UsersPermissionsUserConnectionEmail>>>;
   emailReception?: Maybe<Array<Maybe<UsersPermissionsUserConnectionEmailReception>>>;
   id?: Maybe<Array<Maybe<UsersPermissionsUserConnectionId>>>;
   isDeleted?: Maybe<Array<Maybe<UsersPermissionsUserConnectionIsDeleted>>>;
+  isSubscribe?: Maybe<Array<Maybe<UsersPermissionsUserConnectionIsSubscribe>>>;
   name?: Maybe<Array<Maybe<UsersPermissionsUserConnectionName>>>;
   phone?: Maybe<Array<Maybe<UsersPermissionsUserConnectionPhone>>>;
   provider?: Maybe<Array<Maybe<UsersPermissionsUserConnectionProvider>>>;
@@ -886,6 +1171,15 @@ export type UsersPermissionsUserGroupBy = {
   smsReception?: Maybe<Array<Maybe<UsersPermissionsUserConnectionSmsReception>>>;
   updated_at?: Maybe<Array<Maybe<UsersPermissionsUserConnectionUpdated_At>>>;
   username?: Maybe<Array<Maybe<UsersPermissionsUserConnectionUsername>>>;
+};
+
+export type CreateAdministratorInput = {
+  data?: InputMaybe<AdministratorInput>;
+};
+
+export type CreateAdministratorPayload = {
+  __typename?: 'createAdministratorPayload';
+  administrator?: Maybe<Administrator>;
 };
 
 export type CreateEmailAuthInput = {
@@ -906,6 +1200,15 @@ export type CreateRolePayload = {
   role?: Maybe<UsersPermissionsRole>;
 };
 
+export type CreateTokenInput = {
+  data?: InputMaybe<TokenInput>;
+};
+
+export type CreateTokenPayload = {
+  __typename?: 'createTokenPayload';
+  token?: Maybe<Token>;
+};
+
 export type CreateUserInput = {
   data?: InputMaybe<UserInput>;
 };
@@ -913,6 +1216,15 @@ export type CreateUserInput = {
 export type CreateUserPayload = {
   __typename?: 'createUserPayload';
   user?: Maybe<UsersPermissionsUser>;
+};
+
+export type DeleteAdministratorInput = {
+  where?: InputMaybe<InputId>;
+};
+
+export type DeleteAdministratorPayload = {
+  __typename?: 'deleteAdministratorPayload';
+  administrator?: Maybe<Administrator>;
 };
 
 export type DeleteEmailAuthInput = {
@@ -942,6 +1254,15 @@ export type DeleteRolePayload = {
   role?: Maybe<UsersPermissionsRole>;
 };
 
+export type DeleteTokenInput = {
+  where?: InputMaybe<InputId>;
+};
+
+export type DeleteTokenPayload = {
+  __typename?: 'deleteTokenPayload';
+  token?: Maybe<Token>;
+};
+
 export type DeleteUserInput = {
   where?: InputMaybe<InputId>;
 };
@@ -949,6 +1270,15 @@ export type DeleteUserInput = {
 export type DeleteUserPayload = {
   __typename?: 'deleteUserPayload';
   user?: Maybe<UsersPermissionsUser>;
+};
+
+export type EditAdministratorInput = {
+  created_by?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  published_at?: InputMaybe<Scalars['DateTime']>;
+  updated_by?: InputMaybe<Scalars['ID']>;
+  username?: InputMaybe<Scalars['String']>;
 };
 
 export type EditEmailAuthInput = {
@@ -997,14 +1327,25 @@ export type EditRoleInput = {
   users?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
 };
 
+export type EditTokenInput = {
+  adminId?: InputMaybe<Scalars['String']>;
+  created_by?: InputMaybe<Scalars['ID']>;
+  published_at?: InputMaybe<Scalars['DateTime']>;
+  token?: InputMaybe<Scalars['String']>;
+  updated_by?: InputMaybe<Scalars['ID']>;
+  userId?: InputMaybe<Scalars['String']>;
+};
+
 export type EditUserInput = {
   blocked?: InputMaybe<Scalars['Boolean']>;
   confirmationToken?: InputMaybe<Scalars['String']>;
   confirmed?: InputMaybe<Scalars['Boolean']>;
   created_by?: InputMaybe<Scalars['ID']>;
+  deletedAt?: InputMaybe<Scalars['DateTime']>;
   email?: InputMaybe<Scalars['String']>;
   emailReception?: InputMaybe<Scalars['Boolean']>;
   isDeleted?: InputMaybe<Scalars['Boolean']>;
+  isSubscribe?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
@@ -1014,6 +1355,16 @@ export type EditUserInput = {
   smsReception?: InputMaybe<Scalars['Boolean']>;
   updated_by?: InputMaybe<Scalars['ID']>;
   username?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdateAdministratorInput = {
+  data?: InputMaybe<EditAdministratorInput>;
+  where?: InputMaybe<InputId>;
+};
+
+export type UpdateAdministratorPayload = {
+  __typename?: 'updateAdministratorPayload';
+  administrator?: Maybe<Administrator>;
 };
 
 export type UpdateEmailAuthInput = {
@@ -1034,6 +1385,16 @@ export type UpdateRoleInput = {
 export type UpdateRolePayload = {
   __typename?: 'updateRolePayload';
   role?: Maybe<UsersPermissionsRole>;
+};
+
+export type UpdateTokenInput = {
+  data?: InputMaybe<EditTokenInput>;
+  where?: InputMaybe<InputId>;
+};
+
+export type UpdateTokenPayload = {
+  __typename?: 'updateTokenPayload';
+  token?: Maybe<Token>;
 };
 
 export type UpdateUserInput = {

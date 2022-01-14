@@ -66,6 +66,7 @@ export const SearchWrapper = styled.div`
   justify-content: center;
   border-bottom: 1px solid #cccccc;
   padding-top: ${(props: IHeaderProps) => (props.isSearch ? "30px" : "0px")};
+  z-index: 100;
 `;
 
 export const SearchInputWrapper = styled.div`

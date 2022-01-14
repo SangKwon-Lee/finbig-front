@@ -251,9 +251,9 @@ const SignupPresenter: React.FC<ISignupProps> = ({
               <SignupInputWrapper>
                 <SignupInputTitle>아이디</SignupInputTitle>
                 <SignupInput
+                  isCheckName={isCheckName}
                   {...register("username")}
                   onChange={checkUsername}
-                  isCheckName={isCheckName}
                 ></SignupInput>
                 {isCheckName && (
                   <>

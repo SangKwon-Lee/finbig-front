@@ -19,3 +19,11 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const CREATE_TOKEN = gql`
+  mutation createToken($input: createTokenInput!) {
+    createToken(input: $input) {
+      id
+    }
+  }
+`;

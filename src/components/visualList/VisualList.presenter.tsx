@@ -17,7 +17,7 @@ const VisualListPresenter = () => {
       <VisualListMainTitle>데이터 시각화 / 활용</VisualListMainTitle>
       <VisualListBody>
         {VisualList.map((data) => (
-          <VisualListContentsWrapper>
+          <VisualListContentsWrapper key={data.id}>
             <VisualListImg />
             <VisualListType>[{data.type}]</VisualListType>
             <VisualListTitle>{data.title}</VisualListTitle>

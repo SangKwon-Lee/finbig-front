@@ -108,6 +108,7 @@ const SignupContainer = () => {
                 emailReception,
                 smsReception,
                 name: data.name,
+                phone: data.phone,
               },
             },
           },
@@ -142,6 +143,7 @@ const SignupContainer = () => {
       });
       refetch();
     } catch (error) {
+      console.log(error);
       alert("이미 가입된 이메일입니다.");
     }
   };
@@ -184,17 +186,21 @@ const SignupContainer = () => {
 
   //* 유저 중복이름 확인
   const checkUsername = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const checkUser = await fetchMore({
-      variables: {
-        where: {
-          username: e.target.value,
+    try {
+      const checkUser = await fetchMore({
+        variables: {
+          where: {
+            username: e.target.value,
+          },
         },
-      },
-    });
-    if (checkUser?.data?.users.length === 1) {
-      setIsCheckName(true);
-    } else {
-      setIsCheckName(false);
+      });
+      if (checkUser?.data?.users.length === 1) {
+        setIsCheckName(true);
+      } else {
+        setIsCheckName(false);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

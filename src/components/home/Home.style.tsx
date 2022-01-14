@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
 
+interface HomeStypeProps {
+  isActive?: boolean;
+  isCategory?: boolean;
+}
+
 export const Banner = styled.div`
   max-width: 1920px;
   min-width: 1100px;
@@ -154,6 +159,79 @@ export const CenterRight = styled.div`
   width: 263px;
   height: 362px;
   border: 1px solid black;
+`;
+
+export const CenterRightTitleWrapper = styled.div`
+  background-color: #f6ecfa;
+  width: 100%;
+  height: 68px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0px 16px;
+`;
+
+export const CenterRightTitle = styled.div`
+  font-family: SpoqaHanSansNeo-Bold;
+  font-size: 14px;
+  width: 64px;
+  height: 26px;
+  background-color: ${(props: HomeStypeProps) =>
+    props.isCategory ? "#b000f9" : "transparent"};
+  border-radius: 14px;
+  color: ${(props: HomeStypeProps) => (props.isCategory ? "white" : "black")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const CenterRightName = styled.div`
+  font-family: SpoqaHanSansNeo-Bold;
+  font-size: 14px;
+`;
+
+export const CenterRightStockWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 73px;
+  padding: 0px 18px;
+  border-top: 1px solid #cccccc;
+`;
+
+export const CenterRightStockTitleWrapper = styled.div`
+  display: flex;
+  padding-bottom: 4px;
+  align-items: center;
+`;
+export const CenterRightStockTitle = styled.div`
+  font-family: SpoqaHanSansNeo-Bold;
+  font-size: 12px;
+`;
+export const CenterRightStockDate = styled.div`
+  font-size: 12px;
+  color: #999999;
+`;
+
+export const CenterRightStockNumWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const CenterRightStockNumAndImg = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const CenterRightStockNum = styled.div`
+  font-family: SpoqaHanSansNeo-Bold;
+  font-size: 12px;
+  color: ${(props: HomeStypeProps) => (props.isActive ? "#ff0000" : "#1c17ff")};
+  width: 50px;
+`;
+export const CenterRightStockImg = styled.img`
+  padding-right: 4px;
 `;
 
 export const UpdateTitle = styled.h1`

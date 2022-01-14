@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import HeaderPresenter from "./Header.presenter";
-interface Layout {
-  children: React.ReactNode;
-}
-const HeaderContainer = ({ children }: Layout) => {
+
+const HeaderContainer = (props: any) => {
   const navigate = useNavigate();
   const [isSearch, setIsSearch] = useState(false);
   const [search, setSearch] = useState("");
@@ -14,7 +12,6 @@ const HeaderContainer = ({ children }: Layout) => {
   };
 
   const userId = sessionStorage.getItem("userId");
-
   const handleLogout = () => {
     if (userId) {
       sessionStorage.clear();
@@ -35,7 +32,6 @@ const HeaderContainer = ({ children }: Layout) => {
         setSearch={setSearch}
         handleLogout={handleLogout}
       />
-      <div>{children}</div>
     </>
   );
 };

@@ -27,6 +27,8 @@ const LoginContainer = () => {
     LOGIN
   );
 
+  //* 토근 정보 저장 뮤테이션
+
   //* 로그인 함수
   const handleLogin = async () => {
     try {
@@ -38,7 +40,7 @@ const LoginContainer = () => {
           },
         },
       });
-      localStorage.setItem("accessToken", String(data?.login.jwt));
+      sessionStorage.setItem("accessToken", String(data?.login.jwt));
       // localStorage.setItem("userId", String(data?.login.user.id));
       sessionStorage.setItem("userId", String(data?.login.user.id));
       setAccessToken(String(data?.login.jwt));

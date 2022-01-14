@@ -3,6 +3,7 @@ interface ISignupStyleProps {
   isCheckName?: boolean;
   passwordError?: string;
 }
+
 export const SignupWrapper = styled.div`
   max-width: 1920px;
   min-width: 1100px;
