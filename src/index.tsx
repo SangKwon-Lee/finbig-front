@@ -14,21 +14,31 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import "react-app-polyfill/ie11";
 import "react-app-polyfill/stable";
+import { SettingsProvider } from "../src/components/contexts/SettingsContext";
 
 const httpLink = new HttpLink({
   //@ts-ignore
-  uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
+  uri: `${process.env.REACT_APP_BACKEND_URL}`,
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
-  const token = localStorage.getItem("accessToken");
-  operation.setContext(({ headers = {} }) => ({
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  }));
+  const token = sessionStorage.getItem("accessToken");
+
+  if (operation.operationName === "FetchAdministrator") {
+    operation.setContext(({ headers = {} }) => ({
+      headers: {
+        ...headers,
+      },
+    }));
+  } else {
+    operation.setContext(({ headers = {} }) => ({
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : "",
+      },
+    }));
+  }
 
   return forward(operation);
 });
@@ -42,9 +52,11 @@ ReactDOM.render(
   <BrowserRouter>
     <HelmetProvider>
       <ApolloProvider client={client}>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
+        <SettingsProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </SettingsProvider>
       </ApolloProvider>
     </HelmetProvider>
   </BrowserRouter>,

@@ -3,10 +3,8 @@ import { GlobalStyles } from "./commons/styles/globalStyles";
 import { useRoutes } from "react-router-dom";
 import routes from "./routes";
 import useScrollReset from "./components/common/hooks/useScrollReset";
-import HeaderContainer from "./components/common/layout/header/Header.container";
-import FooterContainer from "./components/common/layout/footer/Footer.container";
 import { UsersPermissionsMe } from "./commons/types/generated/types";
-
+import SocketProvider from "../src/components/contexts/SocketContext";
 const userDataInit: UsersPermissionsMe = {
   id: "",
   email: "",
@@ -46,11 +44,12 @@ function App() {
 
   return (
     <>
-      <GlobalContext.Provider value={value}>
-        <GlobalStyles />
-        <HeaderContainer>{content}</HeaderContainer>
-        <FooterContainer>{}</FooterContainer>
-      </GlobalContext.Provider>
+      <SocketProvider>
+        <GlobalContext.Provider value={value}>
+          <GlobalStyles />
+          {content}
+        </GlobalContext.Provider>
+      </SocketProvider>
     </>
   );
 }

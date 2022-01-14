@@ -7,114 +7,262 @@ const Loadable = (Component: any) => (props: any) =>
     </Suspense>
   );
 
-const Home = Loadable(lazy(() => import("../src/pages/home/Home.page")));
+const Header = Loadable(
+  lazy(() => import("../src/components/common/layout/header/Header.container"))
+);
 
-const Login = Loadable(lazy(() => import("../src/pages/login/Login.page")));
+const Footer = Loadable(
+  lazy(() => import("../src/components/common/layout/footer/Footer.container"))
+);
 
-const Signup = Loadable(lazy(() => import("../src/pages/signup/Signup.page")));
+const Home = Loadable(
+  lazy(() => import("../src/components/home/Home.container"))
+);
 
-const FindUser = Loadable(lazy(() => import("./pages/findUser/FindUser.page")));
+const Login = Loadable(
+  lazy(() => import("../src/components/login/Login.container"))
+);
 
-const License = Loadable(lazy(() => import("./pages/license/License.page")));
+const Signup = Loadable(
+  lazy(() => import("../src/components/signup/Signup.container"))
+);
 
-const DataList = Loadable(lazy(() => import("./pages/dataList/DataList.page")));
+const FindUser = Loadable(
+  lazy(() => import("./components/findUser/FindUser.container"))
+);
 
+const License = Loadable(
+  lazy(() => import("./components/license/License.container"))
+);
+
+//* 데이터 상품
+const DataList = Loadable(
+  lazy(() => import("./components/dataList/DataList.container"))
+);
 const DataDetail = Loadable(
-  lazy(() => import("./pages/dataDetail/DataDetail.page"))
+  lazy(() => import("./components/dataDetail/DataDetail.container"))
 );
 
+//* 데이터 시각화/활용
 const VisualList = Loadable(
-  lazy(() => import("./pages/visualList/VisualList.page"))
+  lazy(() => import("./components/visualList/VisualList.container"))
 );
-
 const VisualDetail = Loadable(
-  lazy(() => import("./pages/visualDetail/VisualDetail.page"))
+  lazy(() => import("./components/visualDetail/VisualDetail.container"))
 );
 
+//* 마이페이지
 const MypageMain = Loadable(
-  lazy(() => import("./pages/mypage/MypageMain.page"))
+  lazy(() => import("./components/mypage/main/MypageMain.container"))
 );
-
 const MypagePayment = Loadable(
-  lazy(() => import("./pages/mypage/MypagePayment.page"))
+  lazy(() => import("./components/mypage/payment/MypagePayment.container"))
 );
 const MypageDownload = Loadable(
-  lazy(() => import("./pages/mypage/MypageDownload.page"))
+  lazy(() => import("./components/mypage/download/MypageDownload.container"))
 );
 const MypageRecent = Loadable(
-  lazy(() => import("./pages/mypage/MypageRecent.page"))
+  lazy(() => import("./components/mypage/recent/MypageRecent.container"))
 );
 const MypageProfile = Loadable(
-  lazy(() => import("./pages/mypage/MypageProfile.page"))
+  lazy(() => import("./components/mypage/profile/MypageProfile.container"))
 );
 const MypageWithdraw = Loadable(
-  lazy(() => import("./pages/mypage/MypageWithdraw.page"))
+  lazy(() => import("./components/mypage/withdraw/MypageWithdraw.container"))
+);
+
+//* 오늘의 시장
+const StockMarket = Loadable(
+  lazy(() => import("./components/stockMarket/StockMarket.container"))
+);
+
+//* 관리자 페이지
+const AdminLogin = Loadable(
+  lazy(() => import("./components/admin/adminLogin/AdminLogin.container"))
+);
+
+const AdminUsers = Loadable(
+  lazy(() => import("./components/admin/adminUsers/AdminUsers.container"))
 );
 
 const routes = [
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <>
+        <Header></Header>
+        <Home />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <>
+        <Header></Header>
+        <Login />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/signup",
-    element: <Signup />,
+    element: (
+      <>
+        <Header></Header>
+        <Signup />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/findUser",
-    element: <FindUser />,
+    element: (
+      <>
+        <Header></Header>
+        <FindUser />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/license",
-    element: <License />,
+    element: (
+      <>
+        <Header></Header>
+        <License />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/dataList",
-    element: <DataList />,
+    element: (
+      <>
+        <Header></Header>
+        <DataList />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/dataList/:search",
-    element: <DataList />,
+    element: (
+      <>
+        <Header></Header>
+        <DataList />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/data/:dataId",
-    element: <DataDetail />,
+    element: (
+      <>
+        <Header></Header>
+        <DataDetail />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/visualList",
-    element: <VisualList />,
+    element: (
+      <>
+        <Header></Header>
+        <VisualList />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/visual/:visualId",
-    element: <VisualDetail />,
+    element: (
+      <>
+        <Header></Header>
+        <VisualDetail />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/mypage/main",
-    element: <MypageMain />,
+    element: (
+      <>
+        <Header></Header>
+        <MypageMain />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/mypage/payment",
-    element: <MypagePayment />,
+    element: (
+      <>
+        <Header></Header>
+        <MypagePayment />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/mypage/download",
-    element: <MypageDownload />,
+    element: (
+      <>
+        <Header></Header>
+        <MypageDownload />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/mypage/recent",
-    element: <MypageRecent />,
+    element: (
+      <>
+        <Header></Header>
+        <MypageRecent />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/mypage/profile",
-    element: <MypageProfile />,
+    element: (
+      <>
+        <Header></Header>
+        <MypageProfile />
+        <Footer></Footer>
+      </>
+    ),
   },
   {
     path: "/mypage/withdraw",
-    element: <MypageWithdraw />,
+    element: (
+      <>
+        <Header></Header>
+        <MypageWithdraw />
+        <Footer></Footer>
+      </>
+    ),
+  },
+  {
+    path: "/stockmarket",
+    element: (
+      <>
+        <Header></Header>
+        <StockMarket />
+        <Footer></Footer>
+      </>
+    ),
+  },
+  {
+    path: "/adminLogin",
+    element: <AdminLogin />,
+  },
+  {
+    path: "/admin/users",
+    element: <AdminUsers />,
   },
 ];
 

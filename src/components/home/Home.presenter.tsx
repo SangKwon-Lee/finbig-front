@@ -3,7 +3,6 @@ import {
   ContainerWrapper,
   CenterLeft,
   CenterMiddle,
-  CenterRight,
   CenterWrapper,
   CenterLeftTitle,
   CenterTitleBold,
@@ -29,6 +28,9 @@ import {
 import mainBg from "../../assets/images/mainBg.png";
 import mapBg from "../../assets/images/mapBg.png";
 import dataBg from "../../assets/images/dataBg.png";
+
+import ReportStockItem from "./ReportStockItem";
+
 const HomePresenter = () => {
   return (
     <>
@@ -82,7 +84,7 @@ const HomePresenter = () => {
               </CenterButton>
             </CenterMiddleContentsWrapper>
           </CenterMiddle>
-          <CenterRight></CenterRight>
+          <ReportStockItem />
         </CenterWrapper>
         <UpdateTitle>신규 업데이트된 데이터</UpdateTitle>
         <UpdateWrapper></UpdateWrapper>
