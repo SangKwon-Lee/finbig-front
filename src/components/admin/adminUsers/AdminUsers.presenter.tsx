@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
   Maybe,
   UsersPermissionsUser,
@@ -7,6 +8,8 @@ import {
   AdminUsersBody,
   AdminUsersTableContents,
   AdminUsersTableContentsWrapper,
+  AdminUsersTableDeleteBtn,
+  AdminUsersTableEditBtn,
   AdminUsersTableHeaderTitle,
   AdminUsersTableHeaderWrapper,
   AdminUsersTableWrapper,
@@ -16,9 +19,13 @@ import {
 
 interface AdminUsersProps {
   userList: Maybe<Maybe<UsersPermissionsUser>[]> | undefined;
+  handleDeleteUser: (e: any) => Promise<void>;
 }
 
-const AdminUsersPresenter: React.FC<AdminUsersProps> = ({ userList }) => {
+const AdminUsersPresenter: React.FC<AdminUsersProps> = ({
+  userList,
+  handleDeleteUser,
+}) => {
   return (
     <>
       <AdminUsersWrapper>
@@ -45,47 +52,51 @@ const AdminUsersPresenter: React.FC<AdminUsersProps> = ({ userList }) => {
               <AdminUsersTableHeaderTitle>구독여부</AdminUsersTableHeaderTitle>
               <AdminUsersTableHeaderTitle>등록일</AdminUsersTableHeaderTitle>
               <AdminUsersTableHeaderTitle>탈퇴일</AdminUsersTableHeaderTitle>
-              <AdminUsersTableHeaderTitle style={{ flex: 1.5 }}>
+              <AdminUsersTableHeaderTitle style={{ flex: 2.2 }}>
                 탈퇴 / 수정
               </AdminUsersTableHeaderTitle>
             </AdminUsersTableHeaderWrapper>
-            <AdminUsersTableContentsWrapper>
-              {userList?.map((data) => (
-                <>
-                  <AdminUsersTableContents style={{ flex: 0.5 }}>
-                    {data?.id}
-                  </AdminUsersTableContents>
-                  <AdminUsersTableContents>
-                    {data?.name}
-                  </AdminUsersTableContents>
-                  <AdminUsersTableContents>
-                    {data?.username}
-                  </AdminUsersTableContents>
-                  <AdminUsersTableContents style={{ flex: 2 }}>
-                    {data?.email}
-                  </AdminUsersTableContents>
-                  <AdminUsersTableContents style={{ flex: 1.5 }}>
-                    {data?.phone}
-                  </AdminUsersTableContents>
-                  <AdminUsersTableContents>
-                    {data?.emailReception ? "O" : "X"}
-                  </AdminUsersTableContents>
-                  <AdminUsersTableContents>
-                    {data?.smsReception ? "O" : "X"}
-                  </AdminUsersTableContents>
-                  <AdminUsersTableContents>
-                    {data?.isSubscribe ? "O" : "X"}
-                  </AdminUsersTableContents>
-                  <AdminUsersTableContents>{data?.id}</AdminUsersTableContents>
-                  <AdminUsersTableContents>
-                    {data?.deletedAt}
-                  </AdminUsersTableContents>
-                  <AdminUsersTableContents style={{ flex: 1.5 }}>
-                    {data?.id}
-                  </AdminUsersTableContents>
-                </>
-              ))}
-            </AdminUsersTableContentsWrapper>
+            {userList?.map((data) => (
+              <AdminUsersTableContentsWrapper key={data?.id}>
+                <AdminUsersTableContents style={{ flex: 0.5 }}>
+                  {data?.id}
+                </AdminUsersTableContents>
+                <AdminUsersTableContents>{data?.name}</AdminUsersTableContents>
+                <AdminUsersTableContents>
+                  {data?.username}
+                </AdminUsersTableContents>
+                <AdminUsersTableContents style={{ flex: 2 }}>
+                  {data?.email}
+                </AdminUsersTableContents>
+                <AdminUsersTableContents style={{ flex: 1.5 }}>
+                  {data?.phone}
+                </AdminUsersTableContents>
+                <AdminUsersTableContents>
+                  {data?.emailReception ? "O" : "X"}
+                </AdminUsersTableContents>
+                <AdminUsersTableContents>
+                  {data?.smsReception ? "O" : "X"}
+                </AdminUsersTableContents>
+                <AdminUsersTableContents>
+                  {data?.isSubscribe ? "O" : "X"}
+                </AdminUsersTableContents>
+                <AdminUsersTableContents>
+                  {dayjs(data?.created_at).format("YYYY.MM.DD")}
+                </AdminUsersTableContents>
+                <AdminUsersTableContents>
+                  {dayjs(data?.deletedAt).format("YYYY.MM.DD")}
+                </AdminUsersTableContents>
+                <AdminUsersTableContents style={{ flex: 2.2 }}>
+                  <AdminUsersTableEditBtn>수정</AdminUsersTableEditBtn>
+                  <AdminUsersTableDeleteBtn
+                    id={data?.id}
+                    onClick={handleDeleteUser}
+                  >
+                    탈퇴
+                  </AdminUsersTableDeleteBtn>
+                </AdminUsersTableContents>
+              </AdminUsersTableContentsWrapper>
+            ))}
           </AdminUsersTableWrapper>
         </AdminUsersBody>
       </AdminUsersWrapper>

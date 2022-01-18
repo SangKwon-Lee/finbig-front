@@ -64,7 +64,7 @@ const DataListPresenter = () => {
           </DataWrapper>
         ))}
       </DataListBody>
-      <PaginationContainer />
+      {/* <PaginationContainer /> */}
     </DataListWrapper>
   );
 };

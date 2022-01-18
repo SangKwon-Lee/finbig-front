@@ -1,11 +1,16 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
-import { Mutation } from "../../../commons/types/generated/types";
+import { useNavigate } from "react-router";
+import {
+  Mutation,
+  MutationLoginArgs,
+} from "../../../commons/types/generated/types";
+import { LOGIN } from "../../login/Login.query";
 import AdminLoginPresneter from "./AdminLogin.presenter";
-import { FETCH_ADMINISTRATOR } from "./AdminLogin.query";
 
 const AdminLoginContainer = () => {
-  const [fetchAdministrator] = useMutation<Mutation>(FETCH_ADMINISTRATOR);
+  const navigate = useNavigate();
+  const [adminLogin] = useMutation<Mutation, MutationLoginArgs>(LOGIN);
   const [loginInput, setLoginInput] = useState({
     username: "",
     password: "",
@@ -14,16 +19,21 @@ const AdminLoginContainer = () => {
 
   const handleAdminLogin = async () => {
     try {
-      await fetchAdministrator({
+      const { data } = await adminLogin({
         variables: {
-          username: loginInput.username,
-          password: loginInput.password,
+          input: {
+            identifier: loginInput.username,
+            password: loginInput.password,
+          },
         },
       });
       setLoginInput({
         ...loginInput,
         error: false,
       });
+      sessionStorage.setItem("accessToken", String(data?.login.jwt));
+      sessionStorage.setItem("userId", String(data?.login.user.id));
+      navigate("/admin/users");
     } catch (e) {
       setLoginInput({
         ...loginInput,

@@ -27,7 +27,7 @@ const AdminLayoutPresenter: React.FC<AdminLayoutProps> = ({ menu }) => {
         <AdminLayoutMenuTitle
           isActive={menu === "게시물"}
           onClick={() => {
-            navigate("/admin/boards");
+            navigate("/admin/visuals");
           }}
         >
           게시물 관리

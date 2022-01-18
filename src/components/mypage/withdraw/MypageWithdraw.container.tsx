@@ -27,6 +27,7 @@ const MypageWithdrawContainer = () => {
             input: {
               data: {
                 isDeleted: true,
+                deletedAt: new Date(),
               },
               where: {
                 id: String(sessionStorage.getItem("userId")),
