@@ -85,6 +85,14 @@ const AdminUsers = Loadable(
   lazy(() => import("./components/admin/adminUsers/AdminUsers.container"))
 );
 
+const VisualCreate = Loadable(
+  lazy(() => import("./components/admin/visualCreate/VisualCreate.container"))
+);
+
+const AdminVisualList = Loadable(
+  lazy(() => import("./components/admin/visualList/VisualList.container"))
+);
+
 const routes = [
   {
     path: "/",
@@ -263,6 +271,22 @@ const routes = [
   {
     path: "/admin/users",
     element: <AdminUsers />,
+  },
+  {
+    path: "/admin/visual/create",
+    element: <VisualCreate />,
+  },
+  {
+    path: "/admin/visuals",
+    element: <AdminVisualList />,
+  },
+  {
+    path: "/admin/visual/:visualId/edit",
+    element: <VisualCreate path="edit" />,
+  },
+  {
+    path: "/admin/visual/:visualId/",
+    element: <VisualDetail path="edit" />,
   },
 ];
 

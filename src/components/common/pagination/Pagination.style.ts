@@ -1,25 +1,32 @@
 import styled from "@emotion/styled";
 
+interface PaginationProps {
+  isActive?: boolean;
+}
+
 //* 페이지 네이션
 export const PageWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 40px;
+  width: 100%;
 `;
 
 export const Page = styled.button`
   width: 28px;
   height: 28px;
-  border: 1px solid #cccccc;
+  border: ${(props: PaginationProps) =>
+    props.isActive ? "none" : "1px solid #cccccc"};
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: SpoqaHanSansNeo-Medium;
   font-size: 14px;
-  color: #999999;
+  color: ${(props: PaginationProps) => (props.isActive ? "white" : "#999999")};
   cursor: pointer;
   outline: none;
-  background-color: white;
+  background-color: ${(props: PaginationProps) =>
+    props.isActive ? "black" : "white"};
   margin: 0px 4px 0px 4px;
 `;
 

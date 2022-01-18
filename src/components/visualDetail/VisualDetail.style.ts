@@ -14,7 +14,6 @@ export const VisualDetailWrapper = styled.div`
 export const VisualDetailImg = styled.img`
   width: 444px;
   height: 428px;
-  border: 1px solid #999999;
 `;
 
 export const VisualDetailType = styled.div`
@@ -45,10 +44,4 @@ export const VisualDetailDivide = styled.div`
   border-top: 1px solid #c1c1c1;
   margin-bottom: 24px;
   margin-top: 45px;
-`;
-
-export const VisualDetailBigImg = styled.img`
-  width: 1100px;
-  height: 658px;
-  border: 1px solid #999999;
 `;

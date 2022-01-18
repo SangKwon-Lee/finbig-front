@@ -1,5 +1,5 @@
+import { Maybe, VisualData } from "../../commons/types/generated/types";
 import {
-  VisualDetailBigImg,
   VisualDetailContents,
   VisualDetailDivide,
   VisualDetailImg,
@@ -7,19 +7,21 @@ import {
   VisualDetailType,
   VisualDetailWrapper,
 } from "./VisualDetail.style";
+import { Viewer } from "@toast-ui/react-editor";
 
-const VisualDetailPresenter = () => {
+interface VisualDetailProps {
+  data: Maybe<VisualData> | undefined;
+}
+
+const VisualDetailPresenter: React.FC<VisualDetailProps> = ({ data }) => {
   return (
     <VisualDetailWrapper>
-      <VisualDetailImg />
+      <VisualDetailImg src={data?.thumbnail || ""} />
       <VisualDetailType>[데이터 활용]</VisualDetailType>
-      <VisualDetailTitle>콜라보올인원 스코어 데이터</VisualDetailTitle>
-      <VisualDetailContents>
-        내용 머시기내용 머시기내용 머시기내용 머시기내용 머시기내용 머시기내용
-        머시기
-      </VisualDetailContents>
+      <VisualDetailTitle>{data?.title}</VisualDetailTitle>
+      <VisualDetailContents>{data?.description}</VisualDetailContents>
       <VisualDetailDivide></VisualDetailDivide>
-      <VisualDetailBigImg />
+      {data?.contents && <Viewer initialValue={data.contents} />}
     </VisualDetailWrapper>
   );
 };

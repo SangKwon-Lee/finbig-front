@@ -5,14 +5,13 @@ interface AdminLayouStyleProps {
 }
 
 export const AdminLayoutWrapper = styled.div`
-  width: 240px;
+  min-width: 240px;
   min-height: 1200px;
   background-color: #262246;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 30px;
-  height: 100vh;
 `;
 
 export const AdminLayoutLogo = styled.img`

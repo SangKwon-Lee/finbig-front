@@ -51,6 +51,7 @@ const { REACT_APP_CMS_URL, REACT_APP_CMS_TOKEN } = process.env;
 const ReportStockItem = () => {
   const [priceData, setPriceData] = useState<any>([]);
   const [overseasData, setOverseasData] = useState<any>([]);
+  const [exchangeData, setExchangeData] = useState<any>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState<any>();
   const [category, setCategory] = useState("국내");
@@ -59,16 +60,17 @@ const ReportStockItem = () => {
     if (connected) {
       fetchStockPrice();
       fetchPrice();
+      handleInternationalData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connected, category]);
+  }, [connected]);
 
+  //* 해외지표 가져오기
   const fetchStockPrice = async () => {
     try {
       const { data } = await axios.get(
         `${REACT_APP_CMS_URL}/indices?country_ne=한국&token=${REACT_APP_CMS_TOKEN}`
       );
-      console.log(data);
       const newData = data.filter(
         (data: any) =>
           data.name === "다우 산업" ||
@@ -76,13 +78,13 @@ const ReportStockItem = () => {
           data.name === "S&P 500" ||
           data.name === "나스닥 100"
       );
-      console.log(newData);
       setOverseasData(newData);
     } catch (e) {
       console.log(e);
     }
   };
 
+  //* 국내지표 가져오기
   const fetchPrice = () => {
     //@ts-ignore
     if (!queryManager || !queryManager.current) {
@@ -140,6 +142,76 @@ const ReportStockItem = () => {
         setPriceData(newData);
       }
     );
+  };
+
+  //* 주요 지표 가져오기
+  const handleInternationalData = async () => {
+    const newData: any = [];
+    const response1 = await axios.get(
+      `${REACT_APP_CMS_URL}/interest-rates?token=${REACT_APP_CMS_TOKEN}`
+    );
+    if (response1.status === 200) {
+      const results = response1.data;
+      results
+        .filter((data: any) => data.name === "CD금리(91일)")
+        // eslint-disable-next-line array-callback-return
+        .map((item: any) => {
+          let beforeValue = item.ratio - item.diff;
+          let ratio = (item.ratio / beforeValue - 1) * 100;
+          newData.push({
+            type: "interestRate",
+            name: item.name,
+            symbol: item.symbol,
+            value: item.ratio,
+            diff: item.diff,
+            ratio: ratio,
+            datetime: item.datetime,
+          });
+        });
+    }
+
+    const response2 = await axios.get(
+      `${REACT_APP_CMS_URL}/commodities?type=유가&type=귀금속&token=${REACT_APP_CMS_TOKEN}`
+    );
+    if (response2.status === 200) {
+      const results2 = response2.data;
+      results2
+        .filter((data: any) => data.name === "WTI")
+        // eslint-disable-next-line array-callback-return
+        .map((item: any) => {
+          newData.push({
+            type: "commodity",
+            symbol: item.symbol,
+            name: item.name,
+            value: item.price,
+            diff: item.diff,
+            ratio: item.ratio,
+            datetime: item.datetime,
+          });
+        });
+    }
+
+    const response3 = await axios.get(
+      `${REACT_APP_CMS_URL}/exchange-rates?token=${REACT_APP_CMS_TOKEN}`
+    );
+    if (response3.status === 200) {
+      const results3 = response3.data;
+      results3
+        .filter(
+          (data: any) =>
+            data.currency === "미국 USD" || data.currency === "일본 JPY (100엔)"
+        ) // eslint-disable-next-line array-callback-return
+        .map((item: any) => {
+          newData.push({
+            type: "exchangeRate",
+            symbol: item.symbol,
+            name: item.currency,
+            value: item.price,
+            datetime: item.datetime,
+          });
+        });
+    }
+    setExchangeData(newData);
   };
 
   return (
@@ -240,6 +312,50 @@ const ReportStockItem = () => {
                     {ratioFormat(data.ratio)}
                   </CenterRightStockNum>
                 </CenterRightStockNumAndImg>
+              </CenterRightStockNumWrapper>
+            </CenterRightStockWrapper>
+          ))}
+        {exchangeData.length > 0 &&
+          category === "주요" &&
+          exchangeData.map((data: any, index: any) => (
+            <CenterRightStockWrapper key={index}>
+              <CenterRightStockTitleWrapper>
+                <CenterRightName>{data.name} &nbsp;</CenterRightName>
+                <CenterRightStockDate>
+                  {dayjs(data.datetime).format("YYYY.MM.DD hh:mm")}
+                </CenterRightStockDate>
+              </CenterRightStockTitleWrapper>
+              <CenterRightStockNumWrapper>
+                <CenterRightStockNum
+                  style={{ width: "70px" }}
+                  isActive={data.ratio > 0 ? true : false}
+                >
+                  {priceToString(String(data.value))}
+                </CenterRightStockNum>
+                {data.ratio && (
+                  <>
+                    <CenterRightStockNumAndImg>
+                      <CenterRightStockImg
+                        src={data.ratio > 0 ? upArrow : downArrow}
+                      />
+                      <CenterRightStockNum
+                        isActive={data.ratio > 0 ? true : false}
+                      >
+                        {data.diff}
+                      </CenterRightStockNum>
+                    </CenterRightStockNumAndImg>
+                    <CenterRightStockNumAndImg>
+                      <CenterRightStockImg
+                        src={data.ratio > 0 ? upArrow : downArrow}
+                      />
+                      <CenterRightStockNum
+                        isActive={data.ratio > 0 ? true : false}
+                      >
+                        {ratioFormat(data.ratio)}
+                      </CenterRightStockNum>
+                    </CenterRightStockNumAndImg>
+                  </>
+                )}
               </CenterRightStockNumWrapper>
             </CenterRightStockWrapper>
           ))}

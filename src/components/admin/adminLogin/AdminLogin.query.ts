@@ -9,3 +9,11 @@ export const FETCH_ADMINISTRATOR = gql`
     }
   }
 `;
+
+export const FETCH_USER = gql`
+  query user($id: ID!) {
+    user(id: $id) {
+      isAdmin
+    }
+  }
+`;

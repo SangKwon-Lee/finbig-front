@@ -32,8 +32,14 @@ export const VisualListContentsWrapper = styled.div`
 export const VisualListImg = styled.img`
   width: 280px;
   height: 320px;
-  border: 1px solid #999999;
   cursor: pointer;
+`;
+
+export const VisualListImgBlank = styled.div`
+  width: 280px;
+  height: 320px;
+  border: none;
+  outline: none;
 `;
 
 export const VisualListType = styled.div`
@@ -55,3 +61,5 @@ export const VisualListCreateAt = styled.div`
   color: #999999;
   margin-bottom: 80px;
 `;
+
+export const VisualListPaginationWrapper = styled.div``;

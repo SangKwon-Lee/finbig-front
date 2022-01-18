@@ -1,5 +1,11 @@
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import {
+  Mutation,
+  MutationDeleteTokenArgs,
+} from "../../../../commons/types/generated/types";
+import { DELETE_TOKEN } from "../../../login/Login.query";
 import HeaderPresenter from "./Header.presenter";
 
 const HeaderContainer = (props: any) => {
@@ -11,15 +17,31 @@ const HeaderContainer = (props: any) => {
     setSearch(() => e.target.value);
   };
 
-  const userId = sessionStorage.getItem("userId");
-  const handleLogout = () => {
-    if (userId) {
+  const [deleteToken] = useMutation<Mutation, MutationDeleteTokenArgs>(
+    DELETE_TOKEN
+  );
+
+  const tokenId = sessionStorage.getItem("token");
+
+  const handleLogout = async () => {
+    try {
+      const { data } = await deleteToken({
+        variables: {
+          input: {
+            where: {
+              id: String(tokenId),
+            },
+          },
+        },
+      });
+      if (!data?.deleteToken?.token) {
+        return;
+      }
       sessionStorage.clear();
-      localStorage.clear();
-      navigate("/");
       alert("로그아웃 됐습니다.");
-    } else {
-      navigate("/login");
+      navigate("/");
+    } catch (e) {
+      console.log(e);
     }
   };
   return (
