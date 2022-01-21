@@ -1,4 +1,9 @@
 import {
+  LicenseModalBtn,
+  LicenseModalBtnWrapper,
+  LicenseModalCancelBtn,
+  LicenseModalText,
+  LicenseModalTilte,
   LicenseNoticeContents,
   LicenseNoticeTitle,
   LicenseNoticeWrapper,
@@ -17,12 +22,35 @@ import {
   LicenseTitle,
   LicenseWrapper,
 } from "./License.style";
-
+import { Box, Modal } from "@mui/material";
+import { priceToString } from "../../utils/priceToString";
 interface ILicenseProps {
   handleBuy: () => void;
+  setPaymentInput: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      price: number;
+      period: number;
+    }>
+  >;
+  paymentInput: {
+    title: string;
+    price: number;
+    period: number;
+  };
+  open: boolean;
+  handleOpen: () => void;
+  handleClose: () => void;
 }
 
-const LicensePresenter: React.FC<ILicenseProps> = ({ handleBuy }) => {
+const LicensePresenter: React.FC<ILicenseProps> = ({
+  handleBuy,
+  setPaymentInput,
+  paymentInput,
+  open,
+  handleOpen,
+  handleClose,
+}) => {
   return (
     <LicenseWrapper>
       <LicenseTitle>라이센스 구매</LicenseTitle>
@@ -53,13 +81,49 @@ const LicensePresenter: React.FC<ILicenseProps> = ({ handleBuy }) => {
       <LicenseTableContentsWrapper>
         <LicenseTableBuyTitle>사용기간</LicenseTableBuyTitle>
         <LicenseTableBuyContent>
-          <LicenseTableBuyBtn onClick={handleBuy}>구매</LicenseTableBuyBtn>
+          <LicenseTableBuyBtn
+            onClick={() => {
+              handleOpen();
+              setPaymentInput({
+                ...paymentInput,
+                title: "1개월 프리미엄 구독 상품",
+                period: 1,
+                price: 1,
+              });
+            }}
+          >
+            구매
+          </LicenseTableBuyBtn>
         </LicenseTableBuyContent>
         <LicenseTableBuyContent>
-          <LicenseTableBuyBtn>구매</LicenseTableBuyBtn>
+          <LicenseTableBuyBtn
+            onClick={() => {
+              handleOpen();
+              setPaymentInput({
+                ...paymentInput,
+                title: "3개월 프리미엄 구독 상품",
+                period: 3,
+                price: 1,
+              });
+            }}
+          >
+            구매
+          </LicenseTableBuyBtn>
         </LicenseTableBuyContent>
         <LicenseTableBuyContent>
-          <LicenseTableBuyBtn>구매</LicenseTableBuyBtn>
+          <LicenseTableBuyBtn
+            onClick={() => {
+              handleOpen();
+              setPaymentInput({
+                ...paymentInput,
+                title: "6개월 프리미엄 구독 상품",
+                period: 6,
+                price: 1,
+              });
+            }}
+          >
+            구매
+          </LicenseTableBuyBtn>
         </LicenseTableBuyContent>
       </LicenseTableContentsWrapper>
       <LicenseNoticeWrapper>
@@ -78,6 +142,43 @@ const LicensePresenter: React.FC<ILicenseProps> = ({ handleBuy }) => {
           바랍니다.
         </LicenseNoticeContents>
       </LicenseNoticeWrapper>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <LicenseModalTilte>결제 상품 확인</LicenseModalTilte>
+          <LicenseModalText>상품명: {paymentInput.title}</LicenseModalText>
+          <LicenseModalText>
+            가격: {priceToString(String(paymentInput.price))} 원
+          </LicenseModalText>
+          <LicenseModalText>
+            구독 기간: {paymentInput.period} 개월
+          </LicenseModalText>
+          <LicenseModalBtnWrapper>
+            <LicenseModalCancelBtn onClick={handleClose}>
+              취소
+            </LicenseModalCancelBtn>
+            <LicenseModalBtn onClick={handleBuy}>결제</LicenseModalBtn>
+          </LicenseModalBtnWrapper>
+        </Box>
+      </Modal>
     </LicenseWrapper>
   );
 };

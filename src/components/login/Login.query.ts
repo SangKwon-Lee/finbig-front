@@ -64,6 +64,22 @@ export const FETCH_USER = gql`
   query user($id: ID!) {
     user(id: $id) {
       isDeleted
+      username
+      email
+      name
+      phone
+      isSubscribe
+      expirationDate
+    }
+  }
+`;
+
+export const UPDATE_IS_SUBSCRIPTION_USER = gql`
+  mutation updateUser($input: updateUserInput) {
+    updateUser(input: $input) {
+      user {
+        id
+      }
     }
   }
 `;

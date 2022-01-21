@@ -93,6 +93,13 @@ const AdminVisualList = Loadable(
   lazy(() => import("./components/admin/visualList/VisualList.container"))
 );
 
+const AdminSubsciptionList = Loadable(
+  lazy(
+    () =>
+      import("./components/admin/subscriptionList/SubscriptionList.container")
+  )
+);
+
 const routes = [
   {
     path: "/",
@@ -287,6 +294,10 @@ const routes = [
   {
     path: "/admin/visual/:visualId/",
     element: <VisualDetail path="edit" />,
+  },
+  {
+    path: "/admin/subsciption",
+    element: <AdminSubsciptionList />,
   },
 ];
 

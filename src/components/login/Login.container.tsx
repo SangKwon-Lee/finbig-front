@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
+import dayjs from "dayjs";
 import React, { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -8,6 +9,7 @@ import {
   MutationCreateTokenArgs,
   MutationLoginArgs,
   MutationUpdateTokenArgs,
+  MutationUpdateUserArgs,
   Query,
   QueryUserArgs,
 } from "../../commons/types/generated/types";
@@ -17,13 +19,14 @@ import {
   FETCH_TOKEN,
   FETCH_USER,
   LOGIN,
+  UPDATE_IS_SUBSCRIPTION_USER,
   UPDATE_TOKEN,
 } from "./Login.query";
 
 const LoginContainer = () => {
   //* 토큰 전역 함수
   const { setAccessToken, setUserData } = useContext(GlobalContext);
-
+  const userId = sessionStorage.getItem("userId");
   const navigate = useNavigate();
 
   //* 로그인 인풋
@@ -40,7 +43,11 @@ const LoginContainer = () => {
   const [fetchToken] = useMutation(FETCH_TOKEN);
 
   //* 유저 정보 가져오기
-  const { fetchMore } = useQuery<Query, QueryUserArgs>(FETCH_USER);
+  const { fetchMore } = useQuery<Query, QueryUserArgs>(FETCH_USER, {
+    variables: {
+      id: String(userId),
+    },
+  });
 
   //* 토근 정보 저장 뮤테이션
   const [createToken] = useMutation<Mutation, MutationCreateTokenArgs>(
@@ -50,6 +57,11 @@ const LoginContainer = () => {
   //* 토큰 업데이트
   const [updateToken] = useMutation<Mutation, MutationUpdateTokenArgs>(
     UPDATE_TOKEN
+  );
+
+  //* 유저의 구독 만료일 업데이트
+  const [updateIsSubscription] = useMutation<Mutation, MutationUpdateUserArgs>(
+    UPDATE_IS_SUBSCRIPTION_USER
   );
 
   //* 로그인 함수
@@ -73,10 +85,15 @@ const LoginContainer = () => {
         alert("탈퇴된 회원입니다.");
         return;
       }
+      if (User.user?.isSubscribe) {
+        if (dayjs(new Date()) > dayjs(User?.user?.expirationDate)) {
+          handleIsSubscriptionUser();
+        }
+      }
       sessionStorage.setItem("accessToken", String(data?.login.jwt));
       sessionStorage.setItem("userId", String(data?.login.user.id));
       setAccessToken(String(data?.login.jwt));
-      setUserData(data?.login.user!);
+      setUserData(User?.user);
       handleToken(data?.login);
     } catch (e) {
       return;
@@ -153,6 +170,26 @@ const LoginContainer = () => {
   const onEnterLogin = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleLogin();
+    }
+  };
+
+  //* 유저의 구독 만료일 업데이트
+  const handleIsSubscriptionUser = async () => {
+    try {
+      await updateIsSubscription({
+        variables: {
+          input: {
+            data: {
+              isSubscribe: false,
+            },
+            where: {
+              id: String(userId),
+            },
+          },
+        },
+      });
+    } catch (e) {
+      console.log(e);
     }
   };
 

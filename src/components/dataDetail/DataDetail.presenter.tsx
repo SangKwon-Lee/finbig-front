@@ -1,5 +1,5 @@
 import {
-  DataDetailBigImg,
+  // DataDetailBigImg,
   DataDetailBodyWrapper,
   DataDetailBtnWrapper,
   DataDetailContents,
@@ -28,33 +28,36 @@ import "antd/dist/antd.css";
 import SunSVG from "../../assets/images/sun.svg";
 import { DatePicker } from "antd";
 import moment from "moment";
+import { Finbig, Maybe } from "../../commons/types/generated/types";
+import { Viewer } from "@toast-ui/react-editor";
 
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 
-const DataDetailPresenter = () => {
+interface DataDetailProps {
+  data?: Maybe<Finbig> | undefined;
+}
+
+const DataDetailPresenter: React.FC<DataDetailProps> = ({ data }) => {
   return (
     <DataDetailWrapper>
       <DataDetailBodyWrapper>
-        <DataDetailImg />
+        <DataDetailImg src={String(data?.thumbnail)} />
         <DataDetailContentsWrapper>
-          <DataDetailTitle>콜라보올인원 스코어 데이터</DataDetailTitle>
-          <DataDetailContents>
-            여기에는 아마 데이터 상품에 대한 설명이 조금 들어가겠지 여기에는 마
-            데이터 상품에 대한 설명이 조금 들어가겠지 여기에는
-          </DataDetailContents>
+          <DataDetailTitle>{data?.title}</DataDetailTitle>
+          <DataDetailContents>{data?.description}</DataDetailContents>
           <DataDetailTableWrapper style={{ borderTop: "1px solid #c1c1c1" }}>
             <DataDetailTableTitle>제공유형</DataDetailTableTitle>
             <DataDetailTableContents>ZIP(csv)</DataDetailTableContents>
+            <DataDetailTableTitle>업데이트 주기</DataDetailTableTitle>
+            <DataDetailTableContents>{data?.period}</DataDetailTableContents>
+          </DataDetailTableWrapper>
+          {/* <DataDetailTableWrapper>
             <DataDetailTableTitle>용량</DataDetailTableTitle>
             <DataDetailTableContents>251.8MB</DataDetailTableContents>
-          </DataDetailTableWrapper>
-          <DataDetailTableWrapper>
             <DataDetailTableTitle>최초 등록일</DataDetailTableTitle>
             <DataDetailTableContents>21.11.05</DataDetailTableContents>
-            <DataDetailTableTitle>업데이트 주기</DataDetailTableTitle>
-            <DataDetailTableContents>주 단위</DataDetailTableContents>
-          </DataDetailTableWrapper>
+          </DataDetailTableWrapper> */}
           <DataDetailPeriodWrapper>
             <DataDetailPeriodTitle>데이터 기간</DataDetailPeriodTitle>
             <RangePicker
@@ -74,13 +77,14 @@ const DataDetailPresenter = () => {
         </DataDetailContentsWrapper>
       </DataDetailBodyWrapper>
       <DataDetailDivider />
-      <DataDetailBigImg />
+      {/* <DataDetailBigImg /> */}
+      {data?.contents && <Viewer initialValue={data.contents} />}
       <DataDetailOther>관련 상품</DataDetailOther>
       <DataDetailOhterWrapper>
         <DataDetailOhterContentsWrapper>
           <DataDetailOtherImg />
           <DataDetailTitleWrapper>
-            <DataDetailOtherTilte>콜라보 머시기</DataDetailOtherTilte>
+            <DataDetailOtherTilte>{data?.title}</DataDetailOtherTilte>
             <DataDetailOtherContents>
               내용
               머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기

@@ -5,7 +5,10 @@ export const VisualCreateWrapper = styled.div`
   background-color: #f2f2f2;
   height: 100vh;
   display: flex;
-  width: 1920px;
+
+  min-width: 1920px;
+
+  height: 100vh;
 `;
 
 export const VisualCreateBody = styled.div`
@@ -13,6 +16,8 @@ export const VisualCreateBody = styled.div`
   flex-direction: column;
   padding: 60px 85px;
   width: 100%;
+  background-color: #f2f2f2;
+  max-width: 1920px;
 `;
 
 export const VisualCreateTitle = styled.div`

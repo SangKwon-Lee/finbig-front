@@ -148,6 +148,197 @@ export type FileInput = {
   width?: InputMaybe<Scalars["Int"]>;
 };
 
+export type Finbig = {
+  __typename?: "Finbig";
+  apiName?: Maybe<Scalars["String"]>;
+  category?: Maybe<Scalars["String"]>;
+  contents?: Maybe<Scalars["String"]>;
+  created_at: Scalars["DateTime"];
+  description?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  isBest?: Maybe<Scalars["Boolean"]>;
+  isShow?: Maybe<Scalars["Boolean"]>;
+  order?: Maybe<Scalars["Int"]>;
+  period?: Maybe<Scalars["String"]>;
+  published_at?: Maybe<Scalars["DateTime"]>;
+  thumbnail?: Maybe<Scalars["String"]>;
+  title?: Maybe<Scalars["String"]>;
+  type?: Maybe<Scalars["String"]>;
+  updated_at: Scalars["DateTime"];
+  viewCount?: Maybe<Scalars["Long"]>;
+};
+
+export type FinbigAggregator = {
+  __typename?: "FinbigAggregator";
+  avg?: Maybe<FinbigAggregatorAvg>;
+  count?: Maybe<Scalars["Int"]>;
+  max?: Maybe<FinbigAggregatorMax>;
+  min?: Maybe<FinbigAggregatorMin>;
+  sum?: Maybe<FinbigAggregatorSum>;
+  totalCount?: Maybe<Scalars["Int"]>;
+};
+
+export type FinbigAggregatorAvg = {
+  __typename?: "FinbigAggregatorAvg";
+  order?: Maybe<Scalars["Float"]>;
+};
+
+export type FinbigAggregatorMax = {
+  __typename?: "FinbigAggregatorMax";
+  order?: Maybe<Scalars["Float"]>;
+};
+
+export type FinbigAggregatorMin = {
+  __typename?: "FinbigAggregatorMin";
+  order?: Maybe<Scalars["Float"]>;
+};
+
+export type FinbigAggregatorSum = {
+  __typename?: "FinbigAggregatorSum";
+  order?: Maybe<Scalars["Float"]>;
+};
+
+export type FinbigConnection = {
+  __typename?: "FinbigConnection";
+  aggregate?: Maybe<FinbigAggregator>;
+  groupBy?: Maybe<FinbigGroupBy>;
+  values?: Maybe<Array<Maybe<Finbig>>>;
+};
+
+export type FinbigConnectionApiName = {
+  __typename?: "FinbigConnectionApiName";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type FinbigConnectionCategory = {
+  __typename?: "FinbigConnectionCategory";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type FinbigConnectionContents = {
+  __typename?: "FinbigConnectionContents";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type FinbigConnectionCreated_At = {
+  __typename?: "FinbigConnectionCreated_at";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["DateTime"]>;
+};
+
+export type FinbigConnectionDescription = {
+  __typename?: "FinbigConnectionDescription";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type FinbigConnectionId = {
+  __typename?: "FinbigConnectionId";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["ID"]>;
+};
+
+export type FinbigConnectionIsBest = {
+  __typename?: "FinbigConnectionIsBest";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["Boolean"]>;
+};
+
+export type FinbigConnectionIsShow = {
+  __typename?: "FinbigConnectionIsShow";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["Boolean"]>;
+};
+
+export type FinbigConnectionOrder = {
+  __typename?: "FinbigConnectionOrder";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["Int"]>;
+};
+
+export type FinbigConnectionPeriod = {
+  __typename?: "FinbigConnectionPeriod";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type FinbigConnectionPublished_At = {
+  __typename?: "FinbigConnectionPublished_at";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["DateTime"]>;
+};
+
+export type FinbigConnectionThumbnail = {
+  __typename?: "FinbigConnectionThumbnail";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type FinbigConnectionTitle = {
+  __typename?: "FinbigConnectionTitle";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type FinbigConnectionType = {
+  __typename?: "FinbigConnectionType";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type FinbigConnectionUpdated_At = {
+  __typename?: "FinbigConnectionUpdated_at";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["DateTime"]>;
+};
+
+export type FinbigConnectionViewCount = {
+  __typename?: "FinbigConnectionViewCount";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["ID"]>;
+};
+
+export type FinbigGroupBy = {
+  __typename?: "FinbigGroupBy";
+  apiName?: Maybe<Array<Maybe<FinbigConnectionApiName>>>;
+  category?: Maybe<Array<Maybe<FinbigConnectionCategory>>>;
+  contents?: Maybe<Array<Maybe<FinbigConnectionContents>>>;
+  created_at?: Maybe<Array<Maybe<FinbigConnectionCreated_At>>>;
+  description?: Maybe<Array<Maybe<FinbigConnectionDescription>>>;
+  id?: Maybe<Array<Maybe<FinbigConnectionId>>>;
+  isBest?: Maybe<Array<Maybe<FinbigConnectionIsBest>>>;
+  isShow?: Maybe<Array<Maybe<FinbigConnectionIsShow>>>;
+  order?: Maybe<Array<Maybe<FinbigConnectionOrder>>>;
+  period?: Maybe<Array<Maybe<FinbigConnectionPeriod>>>;
+  published_at?: Maybe<Array<Maybe<FinbigConnectionPublished_At>>>;
+  thumbnail?: Maybe<Array<Maybe<FinbigConnectionThumbnail>>>;
+  title?: Maybe<Array<Maybe<FinbigConnectionTitle>>>;
+  type?: Maybe<Array<Maybe<FinbigConnectionType>>>;
+  updated_at?: Maybe<Array<Maybe<FinbigConnectionUpdated_At>>>;
+  viewCount?: Maybe<Array<Maybe<FinbigConnectionViewCount>>>;
+};
+
+export type FinbigInput = {
+  apiName?: InputMaybe<Scalars["String"]>;
+  category?: InputMaybe<Scalars["String"]>;
+  contents?: InputMaybe<Scalars["String"]>;
+  created_by?: InputMaybe<Scalars["ID"]>;
+  description?: InputMaybe<Scalars["String"]>;
+  isBest?: InputMaybe<Scalars["Boolean"]>;
+  isShow?: InputMaybe<Scalars["Boolean"]>;
+  order?: InputMaybe<Scalars["Int"]>;
+  period?: InputMaybe<Scalars["String"]>;
+  published_at?: InputMaybe<Scalars["DateTime"]>;
+  thumbnail?: InputMaybe<Scalars["String"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  type?: InputMaybe<Scalars["String"]>;
+  updated_by?: InputMaybe<Scalars["ID"]>;
+  viewCount?: InputMaybe<Scalars["Long"]>;
+};
+
 export type I18NLocale = {
   __typename?: "I18NLocale";
   code?: Maybe<Scalars["String"]>;
@@ -180,7 +371,50 @@ export type Morph =
   | EmailAuthConnectionType
   | EmailAuthConnectionUpdated_At
   | EmailAuthGroupBy
+  | Finbig
+  | FinbigAggregator
+  | FinbigAggregatorAvg
+  | FinbigAggregatorMax
+  | FinbigAggregatorMin
+  | FinbigAggregatorSum
+  | FinbigConnection
+  | FinbigConnectionApiName
+  | FinbigConnectionCategory
+  | FinbigConnectionContents
+  | FinbigConnectionCreated_At
+  | FinbigConnectionDescription
+  | FinbigConnectionId
+  | FinbigConnectionIsBest
+  | FinbigConnectionIsShow
+  | FinbigConnectionOrder
+  | FinbigConnectionPeriod
+  | FinbigConnectionPublished_At
+  | FinbigConnectionThumbnail
+  | FinbigConnectionTitle
+  | FinbigConnectionType
+  | FinbigConnectionUpdated_At
+  | FinbigConnectionViewCount
+  | FinbigGroupBy
   | I18NLocale
+  | SubscriptionHistory
+  | SubscriptionHistoryAggregator
+  | SubscriptionHistoryAggregatorAvg
+  | SubscriptionHistoryAggregatorMax
+  | SubscriptionHistoryAggregatorMin
+  | SubscriptionHistoryAggregatorSum
+  | SubscriptionHistoryConnection
+  | SubscriptionHistoryConnectionCreated_At
+  | SubscriptionHistoryConnectionId
+  | SubscriptionHistoryConnectionMid
+  | SubscriptionHistoryConnectionPaymentMethod
+  | SubscriptionHistoryConnectionPaymentStatus
+  | SubscriptionHistoryConnectionPeriod
+  | SubscriptionHistoryConnectionPrice
+  | SubscriptionHistoryConnectionPublished_At
+  | SubscriptionHistoryConnectionTitle
+  | SubscriptionHistoryConnectionUpdated_At
+  | SubscriptionHistoryConnectionUser
+  | SubscriptionHistoryGroupBy
   | Token
   | TokenAggregator
   | TokenConnection
@@ -238,6 +472,7 @@ export type Morph =
   | UsersPermissionsUserConnectionDeletedAt
   | UsersPermissionsUserConnectionEmail
   | UsersPermissionsUserConnectionEmailReception
+  | UsersPermissionsUserConnectionExpirationDate
   | UsersPermissionsUserConnectionId
   | UsersPermissionsUserConnectionIsAdmin
   | UsersPermissionsUserConnectionIsDeleted
@@ -247,6 +482,7 @@ export type Morph =
   | UsersPermissionsUserConnectionProvider
   | UsersPermissionsUserConnectionRole
   | UsersPermissionsUserConnectionSmsReception
+  | UsersPermissionsUserConnectionSubscriptionDate
   | UsersPermissionsUserConnectionUpdated_At
   | UsersPermissionsUserConnectionUsername
   | UsersPermissionsUserGroupBy
@@ -266,18 +502,24 @@ export type Morph =
   | VisualDataConnectionViewCount
   | VisualDataGroupBy
   | CreateEmailAuthPayload
+  | CreateFinbigPayload
   | CreateRolePayload
+  | CreateSubscriptionHistoryPayload
   | CreateTokenPayload
   | CreateUserPayload
   | CreateVisualDatumPayload
   | DeleteEmailAuthPayload
   | DeleteFilePayload
+  | DeleteFinbigPayload
   | DeleteRolePayload
+  | DeleteSubscriptionHistoryPayload
   | DeleteTokenPayload
   | DeleteUserPayload
   | DeleteVisualDatumPayload
   | UpdateEmailAuthPayload
+  | UpdateFinbigPayload
   | UpdateRolePayload
+  | UpdateSubscriptionHistoryPayload
   | UpdateTokenPayload
   | UpdateUserPayload
   | UpdateVisualDatumPayload;
@@ -285,8 +527,10 @@ export type Morph =
 export type Mutation = {
   __typename?: "Mutation";
   createEmailAuth?: Maybe<CreateEmailAuthPayload>;
+  createFinbig?: Maybe<CreateFinbigPayload>;
   /** Create a new role */
   createRole?: Maybe<CreateRolePayload>;
+  createSubscriptionHistory?: Maybe<CreateSubscriptionHistoryPayload>;
   createToken?: Maybe<CreateTokenPayload>;
   /** Create a new user */
   createUser?: Maybe<CreateUserPayload>;
@@ -294,8 +538,10 @@ export type Mutation = {
   deleteEmailAuth?: Maybe<DeleteEmailAuthPayload>;
   /** Delete one file */
   deleteFile?: Maybe<DeleteFilePayload>;
+  deleteFinbig?: Maybe<DeleteFinbigPayload>;
   /** Delete an existing role */
   deleteRole?: Maybe<DeleteRolePayload>;
+  deleteSubscriptionHistory?: Maybe<DeleteSubscriptionHistoryPayload>;
   deleteToken?: Maybe<DeleteTokenPayload>;
   /** Delete an existing user */
   deleteUser?: Maybe<DeleteUserPayload>;
@@ -309,8 +555,10 @@ export type Mutation = {
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
   updateEmailAuth?: Maybe<UpdateEmailAuthPayload>;
   updateFileInfo: UploadFile;
+  updateFinbig?: Maybe<UpdateFinbigPayload>;
   /** Update an existing role */
   updateRole?: Maybe<UpdateRolePayload>;
+  updateSubscriptionHistory?: Maybe<UpdateSubscriptionHistoryPayload>;
   updateToken?: Maybe<UpdateTokenPayload>;
   /** Update an existing user */
   updateUser?: Maybe<UpdateUserPayload>;
@@ -322,8 +570,16 @@ export type MutationCreateEmailAuthArgs = {
   input?: InputMaybe<CreateEmailAuthInput>;
 };
 
+export type MutationCreateFinbigArgs = {
+  input?: InputMaybe<CreateFinbigInput>;
+};
+
 export type MutationCreateRoleArgs = {
   input?: InputMaybe<CreateRoleInput>;
+};
+
+export type MutationCreateSubscriptionHistoryArgs = {
+  input?: InputMaybe<CreateSubscriptionHistoryInput>;
 };
 
 export type MutationCreateTokenArgs = {
@@ -346,8 +602,16 @@ export type MutationDeleteFileArgs = {
   input?: InputMaybe<DeleteFileInput>;
 };
 
+export type MutationDeleteFinbigArgs = {
+  input?: InputMaybe<DeleteFinbigInput>;
+};
+
 export type MutationDeleteRoleArgs = {
   input?: InputMaybe<DeleteRoleInput>;
+};
+
+export type MutationDeleteSubscriptionHistoryArgs = {
+  input?: InputMaybe<DeleteSubscriptionHistoryInput>;
 };
 
 export type MutationDeleteTokenArgs = {
@@ -406,8 +670,16 @@ export type MutationUpdateFileInfoArgs = {
   info: FileInfoInput;
 };
 
+export type MutationUpdateFinbigArgs = {
+  input?: InputMaybe<UpdateFinbigInput>;
+};
+
 export type MutationUpdateRoleArgs = {
   input?: InputMaybe<UpdateRoleInput>;
+};
+
+export type MutationUpdateSubscriptionHistoryArgs = {
+  input?: InputMaybe<UpdateSubscriptionHistoryInput>;
 };
 
 export type MutationUpdateTokenArgs = {
@@ -443,11 +715,17 @@ export type Query = {
   emailAuthsConnection?: Maybe<EmailAuthConnection>;
   files?: Maybe<Array<Maybe<UploadFile>>>;
   filesConnection?: Maybe<UploadFileConnection>;
+  finbig?: Maybe<Finbig>;
+  finbigs?: Maybe<Array<Maybe<Finbig>>>;
+  finbigsConnection?: Maybe<FinbigConnection>;
   me?: Maybe<UsersPermissionsMe>;
   role?: Maybe<UsersPermissionsRole>;
   /** Retrieve all the existing roles. You can't apply filters on this query. */
   roles?: Maybe<Array<Maybe<UsersPermissionsRole>>>;
   rolesConnection?: Maybe<UsersPermissionsRoleConnection>;
+  subscriptionHistories?: Maybe<Array<Maybe<SubscriptionHistory>>>;
+  subscriptionHistoriesConnection?: Maybe<SubscriptionHistoryConnection>;
+  subscriptionHistory?: Maybe<SubscriptionHistory>;
   token?: Maybe<Token>;
   tokens?: Maybe<Array<Maybe<Token>>>;
   tokensConnection?: Maybe<TokenConnection>;
@@ -494,6 +772,26 @@ export type QueryFilesConnectionArgs = {
   where?: InputMaybe<Scalars["JSON"]>;
 };
 
+export type QueryFinbigArgs = {
+  id: Scalars["ID"];
+  publicationState?: InputMaybe<PublicationState>;
+};
+
+export type QueryFinbigsArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type QueryFinbigsConnectionArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
+};
+
 export type QueryRoleArgs = {
   id: Scalars["ID"];
   publicationState?: InputMaybe<PublicationState>;
@@ -512,6 +810,26 @@ export type QueryRolesConnectionArgs = {
   sort?: InputMaybe<Scalars["String"]>;
   start?: InputMaybe<Scalars["Int"]>;
   where?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type QuerySubscriptionHistoriesArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type QuerySubscriptionHistoriesConnectionArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type QuerySubscriptionHistoryArgs = {
+  id: Scalars["ID"];
+  publicationState?: InputMaybe<PublicationState>;
 };
 
 export type QueryTokenArgs = {
@@ -582,6 +900,160 @@ export type RoleInput = {
   type?: InputMaybe<Scalars["String"]>;
   updated_by?: InputMaybe<Scalars["ID"]>;
   users?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+};
+
+export type SubscriptionHistory = {
+  __typename?: "SubscriptionHistory";
+  MID?: Maybe<Scalars["String"]>;
+  created_at: Scalars["DateTime"];
+  id: Scalars["ID"];
+  paymentMethod?: Maybe<Scalars["String"]>;
+  paymentStatus?: Maybe<Scalars["String"]>;
+  period?: Maybe<Scalars["Int"]>;
+  price?: Maybe<Scalars["Int"]>;
+  published_at?: Maybe<Scalars["DateTime"]>;
+  title?: Maybe<Scalars["String"]>;
+  updated_at: Scalars["DateTime"];
+  user?: Maybe<UsersPermissionsUser>;
+};
+
+export type SubscriptionHistoryAggregator = {
+  __typename?: "SubscriptionHistoryAggregator";
+  avg?: Maybe<SubscriptionHistoryAggregatorAvg>;
+  count?: Maybe<Scalars["Int"]>;
+  max?: Maybe<SubscriptionHistoryAggregatorMax>;
+  min?: Maybe<SubscriptionHistoryAggregatorMin>;
+  sum?: Maybe<SubscriptionHistoryAggregatorSum>;
+  totalCount?: Maybe<Scalars["Int"]>;
+};
+
+export type SubscriptionHistoryAggregatorAvg = {
+  __typename?: "SubscriptionHistoryAggregatorAvg";
+  period?: Maybe<Scalars["Float"]>;
+  price?: Maybe<Scalars["Float"]>;
+};
+
+export type SubscriptionHistoryAggregatorMax = {
+  __typename?: "SubscriptionHistoryAggregatorMax";
+  period?: Maybe<Scalars["Float"]>;
+  price?: Maybe<Scalars["Float"]>;
+};
+
+export type SubscriptionHistoryAggregatorMin = {
+  __typename?: "SubscriptionHistoryAggregatorMin";
+  period?: Maybe<Scalars["Float"]>;
+  price?: Maybe<Scalars["Float"]>;
+};
+
+export type SubscriptionHistoryAggregatorSum = {
+  __typename?: "SubscriptionHistoryAggregatorSum";
+  period?: Maybe<Scalars["Float"]>;
+  price?: Maybe<Scalars["Float"]>;
+};
+
+export type SubscriptionHistoryConnection = {
+  __typename?: "SubscriptionHistoryConnection";
+  aggregate?: Maybe<SubscriptionHistoryAggregator>;
+  groupBy?: Maybe<SubscriptionHistoryGroupBy>;
+  values?: Maybe<Array<Maybe<SubscriptionHistory>>>;
+};
+
+export type SubscriptionHistoryConnectionCreated_At = {
+  __typename?: "SubscriptionHistoryConnectionCreated_at";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["DateTime"]>;
+};
+
+export type SubscriptionHistoryConnectionId = {
+  __typename?: "SubscriptionHistoryConnectionId";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["ID"]>;
+};
+
+export type SubscriptionHistoryConnectionMid = {
+  __typename?: "SubscriptionHistoryConnectionMID";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type SubscriptionHistoryConnectionPaymentMethod = {
+  __typename?: "SubscriptionHistoryConnectionPaymentMethod";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type SubscriptionHistoryConnectionPaymentStatus = {
+  __typename?: "SubscriptionHistoryConnectionPaymentStatus";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type SubscriptionHistoryConnectionPeriod = {
+  __typename?: "SubscriptionHistoryConnectionPeriod";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["Int"]>;
+};
+
+export type SubscriptionHistoryConnectionPrice = {
+  __typename?: "SubscriptionHistoryConnectionPrice";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["Int"]>;
+};
+
+export type SubscriptionHistoryConnectionPublished_At = {
+  __typename?: "SubscriptionHistoryConnectionPublished_at";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["DateTime"]>;
+};
+
+export type SubscriptionHistoryConnectionTitle = {
+  __typename?: "SubscriptionHistoryConnectionTitle";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
+export type SubscriptionHistoryConnectionUpdated_At = {
+  __typename?: "SubscriptionHistoryConnectionUpdated_at";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["DateTime"]>;
+};
+
+export type SubscriptionHistoryConnectionUser = {
+  __typename?: "SubscriptionHistoryConnectionUser";
+  connection?: Maybe<SubscriptionHistoryConnection>;
+  key?: Maybe<Scalars["ID"]>;
+};
+
+export type SubscriptionHistoryGroupBy = {
+  __typename?: "SubscriptionHistoryGroupBy";
+  MID?: Maybe<Array<Maybe<SubscriptionHistoryConnectionMid>>>;
+  created_at?: Maybe<Array<Maybe<SubscriptionHistoryConnectionCreated_At>>>;
+  id?: Maybe<Array<Maybe<SubscriptionHistoryConnectionId>>>;
+  paymentMethod?: Maybe<
+    Array<Maybe<SubscriptionHistoryConnectionPaymentMethod>>
+  >;
+  paymentStatus?: Maybe<
+    Array<Maybe<SubscriptionHistoryConnectionPaymentStatus>>
+  >;
+  period?: Maybe<Array<Maybe<SubscriptionHistoryConnectionPeriod>>>;
+  price?: Maybe<Array<Maybe<SubscriptionHistoryConnectionPrice>>>;
+  published_at?: Maybe<Array<Maybe<SubscriptionHistoryConnectionPublished_At>>>;
+  title?: Maybe<Array<Maybe<SubscriptionHistoryConnectionTitle>>>;
+  updated_at?: Maybe<Array<Maybe<SubscriptionHistoryConnectionUpdated_At>>>;
+  user?: Maybe<Array<Maybe<SubscriptionHistoryConnectionUser>>>;
+};
+
+export type SubscriptionHistoryInput = {
+  MID?: InputMaybe<Scalars["String"]>;
+  created_by?: InputMaybe<Scalars["ID"]>;
+  paymentMethod?: InputMaybe<Scalars["String"]>;
+  paymentStatus?: InputMaybe<Scalars["String"]>;
+  period?: InputMaybe<Scalars["Int"]>;
+  price?: InputMaybe<Scalars["Int"]>;
+  published_at?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  updated_by?: InputMaybe<Scalars["ID"]>;
+  user?: InputMaybe<Scalars["ID"]>;
 };
 
 export type Token = {
@@ -868,6 +1340,7 @@ export type UserInput = {
   deletedAt?: InputMaybe<Scalars["DateTime"]>;
   email: Scalars["String"];
   emailReception?: InputMaybe<Scalars["Boolean"]>;
+  expirationDate?: InputMaybe<Scalars["DateTime"]>;
   isAdmin?: InputMaybe<Scalars["Boolean"]>;
   isDeleted?: InputMaybe<Scalars["Boolean"]>;
   isSubscribe?: InputMaybe<Scalars["Boolean"]>;
@@ -878,6 +1351,8 @@ export type UserInput = {
   resetPasswordToken?: InputMaybe<Scalars["String"]>;
   role?: InputMaybe<Scalars["ID"]>;
   smsReception?: InputMaybe<Scalars["Boolean"]>;
+  subscriptionDate?: InputMaybe<Scalars["DateTime"]>;
+  subscription_histories?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   updated_by?: InputMaybe<Scalars["ID"]>;
   username: Scalars["String"];
 };
@@ -1011,6 +1486,7 @@ export type UsersPermissionsUser = {
   deletedAt?: Maybe<Scalars["DateTime"]>;
   email: Scalars["String"];
   emailReception?: Maybe<Scalars["Boolean"]>;
+  expirationDate?: Maybe<Scalars["DateTime"]>;
   id: Scalars["ID"];
   isAdmin?: Maybe<Scalars["Boolean"]>;
   isDeleted?: Maybe<Scalars["Boolean"]>;
@@ -1020,8 +1496,17 @@ export type UsersPermissionsUser = {
   provider?: Maybe<Scalars["String"]>;
   role?: Maybe<UsersPermissionsRole>;
   smsReception?: Maybe<Scalars["Boolean"]>;
+  subscriptionDate?: Maybe<Scalars["DateTime"]>;
+  subscription_histories?: Maybe<Array<Maybe<SubscriptionHistory>>>;
   updated_at: Scalars["DateTime"];
   username: Scalars["String"];
+};
+
+export type UsersPermissionsUserSubscription_HistoriesArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type UsersPermissionsUserAggregator = {
@@ -1071,6 +1556,12 @@ export type UsersPermissionsUserConnectionEmailReception = {
   __typename?: "UsersPermissionsUserConnectionEmailReception";
   connection?: Maybe<UsersPermissionsUserConnection>;
   key?: Maybe<Scalars["Boolean"]>;
+};
+
+export type UsersPermissionsUserConnectionExpirationDate = {
+  __typename?: "UsersPermissionsUserConnectionExpirationDate";
+  connection?: Maybe<UsersPermissionsUserConnection>;
+  key?: Maybe<Scalars["DateTime"]>;
 };
 
 export type UsersPermissionsUserConnectionId = {
@@ -1127,6 +1618,12 @@ export type UsersPermissionsUserConnectionSmsReception = {
   key?: Maybe<Scalars["Boolean"]>;
 };
 
+export type UsersPermissionsUserConnectionSubscriptionDate = {
+  __typename?: "UsersPermissionsUserConnectionSubscriptionDate";
+  connection?: Maybe<UsersPermissionsUserConnection>;
+  key?: Maybe<Scalars["DateTime"]>;
+};
+
 export type UsersPermissionsUserConnectionUpdated_At = {
   __typename?: "UsersPermissionsUserConnectionUpdated_at";
   connection?: Maybe<UsersPermissionsUserConnection>;
@@ -1149,6 +1646,9 @@ export type UsersPermissionsUserGroupBy = {
   emailReception?: Maybe<
     Array<Maybe<UsersPermissionsUserConnectionEmailReception>>
   >;
+  expirationDate?: Maybe<
+    Array<Maybe<UsersPermissionsUserConnectionExpirationDate>>
+  >;
   id?: Maybe<Array<Maybe<UsersPermissionsUserConnectionId>>>;
   isAdmin?: Maybe<Array<Maybe<UsersPermissionsUserConnectionIsAdmin>>>;
   isDeleted?: Maybe<Array<Maybe<UsersPermissionsUserConnectionIsDeleted>>>;
@@ -1159,6 +1659,9 @@ export type UsersPermissionsUserGroupBy = {
   role?: Maybe<Array<Maybe<UsersPermissionsUserConnectionRole>>>;
   smsReception?: Maybe<
     Array<Maybe<UsersPermissionsUserConnectionSmsReception>>
+  >;
+  subscriptionDate?: Maybe<
+    Array<Maybe<UsersPermissionsUserConnectionSubscriptionDate>>
   >;
   updated_at?: Maybe<Array<Maybe<UsersPermissionsUserConnectionUpdated_At>>>;
   username?: Maybe<Array<Maybe<UsersPermissionsUserConnectionUsername>>>;
@@ -1295,6 +1798,15 @@ export type CreateEmailAuthPayload = {
   emailAuth?: Maybe<EmailAuth>;
 };
 
+export type CreateFinbigInput = {
+  data?: InputMaybe<FinbigInput>;
+};
+
+export type CreateFinbigPayload = {
+  __typename?: "createFinbigPayload";
+  finbig?: Maybe<Finbig>;
+};
+
 export type CreateRoleInput = {
   data?: InputMaybe<RoleInput>;
 };
@@ -1302,6 +1814,15 @@ export type CreateRoleInput = {
 export type CreateRolePayload = {
   __typename?: "createRolePayload";
   role?: Maybe<UsersPermissionsRole>;
+};
+
+export type CreateSubscriptionHistoryInput = {
+  data?: InputMaybe<SubscriptionHistoryInput>;
+};
+
+export type CreateSubscriptionHistoryPayload = {
+  __typename?: "createSubscriptionHistoryPayload";
+  subscriptionHistory?: Maybe<SubscriptionHistory>;
 };
 
 export type CreateTokenInput = {
@@ -1349,6 +1870,15 @@ export type DeleteFilePayload = {
   file?: Maybe<UploadFile>;
 };
 
+export type DeleteFinbigInput = {
+  where?: InputMaybe<InputId>;
+};
+
+export type DeleteFinbigPayload = {
+  __typename?: "deleteFinbigPayload";
+  finbig?: Maybe<Finbig>;
+};
+
 export type DeleteRoleInput = {
   where?: InputMaybe<InputId>;
 };
@@ -1356,6 +1886,15 @@ export type DeleteRoleInput = {
 export type DeleteRolePayload = {
   __typename?: "deleteRolePayload";
   role?: Maybe<UsersPermissionsRole>;
+};
+
+export type DeleteSubscriptionHistoryInput = {
+  where?: InputMaybe<InputId>;
+};
+
+export type DeleteSubscriptionHistoryPayload = {
+  __typename?: "deleteSubscriptionHistoryPayload";
+  subscriptionHistory?: Maybe<SubscriptionHistory>;
 };
 
 export type DeleteTokenInput = {
@@ -1414,6 +1953,24 @@ export type EditFileInput = {
   width?: InputMaybe<Scalars["Int"]>;
 };
 
+export type EditFinbigInput = {
+  apiName?: InputMaybe<Scalars["String"]>;
+  category?: InputMaybe<Scalars["String"]>;
+  contents?: InputMaybe<Scalars["String"]>;
+  created_by?: InputMaybe<Scalars["ID"]>;
+  description?: InputMaybe<Scalars["String"]>;
+  isBest?: InputMaybe<Scalars["Boolean"]>;
+  isShow?: InputMaybe<Scalars["Boolean"]>;
+  order?: InputMaybe<Scalars["Int"]>;
+  period?: InputMaybe<Scalars["String"]>;
+  published_at?: InputMaybe<Scalars["DateTime"]>;
+  thumbnail?: InputMaybe<Scalars["String"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  type?: InputMaybe<Scalars["String"]>;
+  updated_by?: InputMaybe<Scalars["ID"]>;
+  viewCount?: InputMaybe<Scalars["Long"]>;
+};
+
 export type EditLocaleInput = {
   code?: InputMaybe<Scalars["String"]>;
   created_by?: InputMaybe<Scalars["ID"]>;
@@ -1429,6 +1986,19 @@ export type EditRoleInput = {
   type?: InputMaybe<Scalars["String"]>;
   updated_by?: InputMaybe<Scalars["ID"]>;
   users?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+};
+
+export type EditSubscriptionHistoryInput = {
+  MID?: InputMaybe<Scalars["String"]>;
+  created_by?: InputMaybe<Scalars["ID"]>;
+  paymentMethod?: InputMaybe<Scalars["String"]>;
+  paymentStatus?: InputMaybe<Scalars["String"]>;
+  period?: InputMaybe<Scalars["Int"]>;
+  price?: InputMaybe<Scalars["Int"]>;
+  published_at?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  updated_by?: InputMaybe<Scalars["ID"]>;
+  user?: InputMaybe<Scalars["ID"]>;
 };
 
 export type EditTokenInput = {
@@ -1447,6 +2017,7 @@ export type EditUserInput = {
   deletedAt?: InputMaybe<Scalars["DateTime"]>;
   email?: InputMaybe<Scalars["String"]>;
   emailReception?: InputMaybe<Scalars["Boolean"]>;
+  expirationDate?: InputMaybe<Scalars["DateTime"]>;
   isAdmin?: InputMaybe<Scalars["Boolean"]>;
   isDeleted?: InputMaybe<Scalars["Boolean"]>;
   isSubscribe?: InputMaybe<Scalars["Boolean"]>;
@@ -1457,6 +2028,8 @@ export type EditUserInput = {
   resetPasswordToken?: InputMaybe<Scalars["String"]>;
   role?: InputMaybe<Scalars["ID"]>;
   smsReception?: InputMaybe<Scalars["Boolean"]>;
+  subscriptionDate?: InputMaybe<Scalars["DateTime"]>;
+  subscription_histories?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   updated_by?: InputMaybe<Scalars["ID"]>;
   username?: InputMaybe<Scalars["String"]>;
 };
@@ -1484,6 +2057,16 @@ export type UpdateEmailAuthPayload = {
   emailAuth?: Maybe<EmailAuth>;
 };
 
+export type UpdateFinbigInput = {
+  data?: InputMaybe<EditFinbigInput>;
+  where?: InputMaybe<InputId>;
+};
+
+export type UpdateFinbigPayload = {
+  __typename?: "updateFinbigPayload";
+  finbig?: Maybe<Finbig>;
+};
+
 export type UpdateRoleInput = {
   data?: InputMaybe<EditRoleInput>;
   where?: InputMaybe<InputId>;
@@ -1492,6 +2075,16 @@ export type UpdateRoleInput = {
 export type UpdateRolePayload = {
   __typename?: "updateRolePayload";
   role?: Maybe<UsersPermissionsRole>;
+};
+
+export type UpdateSubscriptionHistoryInput = {
+  data?: InputMaybe<EditSubscriptionHistoryInput>;
+  where?: InputMaybe<InputId>;
+};
+
+export type UpdateSubscriptionHistoryPayload = {
+  __typename?: "updateSubscriptionHistoryPayload";
+  subscriptionHistory?: Maybe<SubscriptionHistory>;
 };
 
 export type UpdateTokenInput = {

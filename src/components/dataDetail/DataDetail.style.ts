@@ -27,7 +27,6 @@ export const DataDetailContentsWrapper = styled.div`
 export const DataDetailImg = styled.img`
   width: 465px;
   height: 444px;
-  border: 1px solid #999999;
 `;
 
 export const DataDetailTitle = styled.div`
@@ -40,7 +39,7 @@ export const DataDetailContents = styled.div`
   font-size: 14px;
   color: #999999;
   /* margin-bottom: 100px; */
-  height: 130px;
+  height: 180px;
 `;
 
 export const DataDetailTableWrapper = styled.div`

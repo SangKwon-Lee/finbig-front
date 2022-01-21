@@ -19,7 +19,7 @@ const AdminLayoutPresenter: React.FC<AdminLayoutProps> = ({ menu }) => {
         <AdminLayoutMenuTitle
           isActive={menu === "구독"}
           onClick={() => {
-            navigate("/admin/subscribe");
+            navigate("/admin/subsciption");
           }}
         >
           구독관리
@@ -35,7 +35,7 @@ const AdminLayoutPresenter: React.FC<AdminLayoutProps> = ({ menu }) => {
         <AdminLayoutMenuTitle
           isActive={menu === "정산"}
           onClick={() => {
-            navigate("/admin/subscribe");
+            navigate("/admin/subsciption");
           }}
         >
           정산관리

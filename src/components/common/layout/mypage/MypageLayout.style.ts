@@ -6,6 +6,7 @@ interface IMypageLayoutProps {
 
 export const MypageMenuWrapper = styled.div`
   width: 226px;
+  min-width: 226px;
   height: 340px;
   border: 2px solid #d7d7d7;
 `;
