@@ -13,6 +13,8 @@ export const AdminUsersBody = styled.div`
   flex-direction: column;
   padding: 60px 85px;
   width: 100%;
+  background-color: #f2f2f2;
+  max-width: 1920px;
 `;
 
 export const AdminUsersTitle = styled.div`

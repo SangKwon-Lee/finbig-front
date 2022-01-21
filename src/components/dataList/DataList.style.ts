@@ -112,3 +112,10 @@ export const DataUpdateBtn = styled.button`
   width: 58px;
   height: 25px;
 `;
+
+export const DataListImgBlank = styled.div`
+  width: 280px;
+  height: 320px;
+  border: none;
+  outline: none;
+`;

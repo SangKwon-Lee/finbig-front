@@ -4,13 +4,16 @@ export const AdminVisualListWrapper = styled.div`
   min-height: 1200px;
   background-color: #f2f2f2;
   display: flex;
-  width: 1920px;
+  min-width: 1920px;
+  height: 100vh;
 `;
 export const AdminVisualListBody = styled.div`
   display: flex;
   flex-direction: column;
   padding: 60px 85px;
   width: 100%;
+  background-color: #f2f2f2;
+  max-width: 1920px;
 `;
 
 export const AdminVisualListTitle = styled.div`
@@ -20,7 +23,7 @@ export const AdminVisualListTitle = styled.div`
 `;
 
 export const AdminVisualListTableWrapper = styled.div`
-  width: 1500px;
+  width: 100%;
 `;
 
 export const AdminVisualListTableHeaderWrapper = styled.div`
@@ -98,7 +101,6 @@ export const AdminVisualCreateBtn = styled.button`
 `;
 
 export const AdminVisualPaginationWrapper = styled.div`
-  width: 500px;
   display: flex;
   justify-content: center;
   align-self: center;

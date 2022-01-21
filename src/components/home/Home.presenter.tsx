@@ -24,14 +24,60 @@ import {
   CenterImg,
   CenterLeftContentsWrapper,
   CenterMiddleContentsWrapper,
+  BestDataImg,
 } from "./Home.style";
 import mainBg from "../../assets/images/mainBg.png";
 import mapBg from "../../assets/images/mapBg.png";
 import dataBg from "../../assets/images/dataBg.png";
-
 import ReportStockItem from "./ReportStockItem";
+import { Finbig, Maybe } from "../../commons/types/generated/types";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import styled from "@emotion/styled";
+import { useNavigate } from "react-router";
+import {
+  DataBestBtn,
+  DataBtnWrapper,
+  DataContents,
+  DataImg,
+  DataTitle,
+  DataUpdateBtn,
+  DataWrapper,
+} from "../dataList/DataList.style";
 
-const HomePresenter = () => {
+interface HomeProps {
+  bestData?: Maybe<Maybe<Finbig>[]> | undefined;
+  updateData?: Maybe<Maybe<Finbig>[]> | undefined;
+}
+
+function SampleNextArrow(props: any) {
+  return <div style={{ display: "none" }} />;
+}
+
+const StyledSlider = styled(Slider)`
+  .slick-slide div {
+    outline: none; // 슬라이드 클릭시 파란선을 제거하기 위해서 작성
+    overflow: hidden;
+  }
+  .slick-arrow {
+    display: none;
+  }
+`;
+
+const settings = {
+  className: "center",
+  centerMode: true,
+  infinite: true,
+  centerPadding: "0px",
+  slidesToShow: 5,
+  speed: 500,
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SampleNextArrow />,
+};
+
+const HomePresenter: React.FC<HomeProps> = ({ bestData, updateData }) => {
+  const navigate = useNavigate();
   return (
     <>
       <ContainerWrapper>
@@ -87,9 +133,52 @@ const HomePresenter = () => {
           <ReportStockItem />
         </CenterWrapper>
         <UpdateTitle>신규 업데이트된 데이터</UpdateTitle>
-        <UpdateWrapper></UpdateWrapper>
+        <UpdateWrapper>
+          {updateData?.map((data) => (
+            <DataWrapper key={data?.id}>
+              <DataImg
+                src={String(data?.thumbnail)}
+                onClick={() => {
+                  navigate(`/data/${data?.id}`);
+                }}
+              />
+              <DataTitle
+                onClick={() => {
+                  navigate(`/data/${data?.id}`);
+                }}
+              >
+                {data?.title}
+              </DataTitle>
+              <DataContents
+                onClick={() => {
+                  navigate(`/data/${data?.id}`);
+                }}
+              >
+                {data?.description}
+              </DataContents>
+              <DataBtnWrapper>
+                <DataBestBtn>Best</DataBestBtn>
+                <DataUpdateBtn>Update</DataUpdateBtn>
+              </DataBtnWrapper>
+            </DataWrapper>
+          ))}
+        </UpdateWrapper>
         <PopularWrapper>
           <PopularTitle>인기 데이터</PopularTitle>
+          <>
+            <StyledSlider {...settings}>
+              {bestData?.map((data) => (
+                <div key={data?.id}>
+                  <BestDataImg
+                    src={String(data?.thumbnail)}
+                    onClick={() => {
+                      navigate(`/data/${data?.id}`);
+                    }}
+                  />
+                </div>
+              ))}
+            </StyledSlider>
+          </>
         </PopularWrapper>
       </ContainerWrapper>
     </>

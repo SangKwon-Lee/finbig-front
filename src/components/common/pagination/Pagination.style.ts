@@ -28,6 +28,7 @@ export const Page = styled.button`
   background-color: ${(props: PaginationProps) =>
     props.isActive ? "black" : "white"};
   margin: 0px 4px 0px 4px;
+  border-radius: 5px;
 `;
 
 export const ArrowLeft = styled.img`

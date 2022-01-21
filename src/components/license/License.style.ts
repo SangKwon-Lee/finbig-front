@@ -149,3 +149,40 @@ export const LicenseNoticeContents = styled.div`
   font-size: 14px;
   color: #999999;
 `;
+
+export const LicenseModalTilte = styled.div`
+  font-size: 16px;
+  font-family: SpoqaHanSansNeo-Bold;
+  margin-bottom: 16px;
+  align-self: center;
+`;
+
+export const LicenseModalText = styled.div``;
+
+export const LicenseModalBtnWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+`;
+
+export const LicenseModalCancelBtn = styled.button`
+  width: 137px;
+  height: 46px;
+  background-color: white;
+  color: black;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid black;
+  outline: none;
+`;
+
+export const LicenseModalBtn = styled.button`
+  width: 137px;
+  height: 46px;
+  background-color: #4033a2;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+`;

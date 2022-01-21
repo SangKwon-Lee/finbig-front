@@ -1,4 +1,3 @@
-import { DummyDataList } from "../common/dummy";
 import {
   DataBestBtn,
   DataBtnWrapper,
@@ -7,6 +6,7 @@ import {
   DataListBody,
   DataListCategoryTitle,
   DataListCategoryWrapper,
+  DataListImgBlank,
   DataListResult,
   DataListResultNum,
   DataListSelectBox,
@@ -19,12 +19,39 @@ import {
 } from "./DataList.style";
 import { useNavigate, useParams } from "react-router";
 import PaginationContainer from "../common/pagination/Pagination.container";
+import { Finbig, Maybe } from "../../commons/types/generated/types";
+import { VisualListPaginationWrapper } from "../visualList/VisualList.style";
 
-const DataListPresenter = () => {
+interface DataListProps {
+  finbigs?: Maybe<Maybe<Finbig>[]> | undefined;
+  blackLength: number;
+  listInput: {
+    start: number;
+    limit: number;
+  };
+  setListInput: React.Dispatch<
+    React.SetStateAction<{
+      start: number;
+      limit: number;
+    }>
+  >;
+  dataCount: any;
+  dataTotalCount: any;
+  handleViewCount: (dataId: string, viewCount: number) => Promise<void>;
+}
+
+const DataListPresenter: React.FC<DataListProps> = ({
+  finbigs,
+  blackLength,
+  listInput,
+  setListInput,
+  dataCount,
+  dataTotalCount,
+  handleViewCount,
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate();
   const { search } = useParams();
-
   return (
     <DataListWrapper>
       <DataListTitle>{search ? "검색 결과" : "데이터 상품"}</DataListTitle>
@@ -41,7 +68,8 @@ const DataListPresenter = () => {
       </DataListCategoryWrapper>
       <DataListSelectWrapper>
         <DataListResult>
-          상품이 모두<DataListResultNum> 8개</DataListResultNum> 있습니다
+          상품이 모두<DataListResultNum> {dataTotalCount}개</DataListResultNum>
+          &nbsp;있습니다
         </DataListResult>
         <DataListSelectBox defaultValue="상품정렬">
           <option disabled value="상품정렬">
@@ -52,19 +80,51 @@ const DataListPresenter = () => {
         </DataListSelectBox>
       </DataListSelectWrapper>
       <DataListBody>
-        {DummyDataList.map((data, index) => (
-          <DataWrapper key={index}>
-            <DataImg />
-            <DataTitle>{data.title}</DataTitle>
-            <DataContents>{data.description}</DataContents>
+        {finbigs?.map((data) => (
+          <DataWrapper key={data?.id}>
+            <DataImg
+              src={String(data?.thumbnail)}
+              onClick={() => {
+                handleViewCount(String(data?.id), data?.viewCount);
+                navigate(`/data/${data?.id}`);
+              }}
+            />
+            <DataTitle
+              onClick={() => {
+                handleViewCount(String(data?.id), data?.viewCount);
+                navigate(`/data/${data?.id}`);
+              }}
+            >
+              {data?.title}
+            </DataTitle>
+            <DataContents
+              onClick={() => {
+                handleViewCount(String(data?.id), data?.viewCount);
+                navigate(`/data/${data?.id}`);
+              }}
+            >
+              {data?.description}
+            </DataContents>
             <DataBtnWrapper>
               <DataBestBtn>Best</DataBestBtn>
               <DataUpdateBtn>Update</DataUpdateBtn>
             </DataBtnWrapper>
           </DataWrapper>
         ))}
+        {new Array(6 - blackLength).fill(1).map((__, index) => (
+          <DataListImgBlank
+            key={index}
+            style={{ border: "none" }}
+          ></DataListImgBlank>
+        ))}
       </DataListBody>
-      {/* <PaginationContainer /> */}
+      <VisualListPaginationWrapper>
+        <PaginationContainer
+          listLength={dataCount}
+          listInput={listInput}
+          setListInput={setListInput}
+        />
+      </VisualListPaginationWrapper>
     </DataListWrapper>
   );
 };

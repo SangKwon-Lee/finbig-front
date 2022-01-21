@@ -84,7 +84,8 @@ const AdminUsersPresenter: React.FC<AdminUsersProps> = ({
                   {dayjs(data?.created_at).format("YYYY.MM.DD")}
                 </AdminUsersTableContents>
                 <AdminUsersTableContents>
-                  {dayjs(data?.deletedAt).format("YYYY.MM.DD")}
+                  {data?.deletedAt &&
+                    dayjs(data?.deletedAt).format("YYYY.MM.DD")}
                 </AdminUsersTableContents>
                 <AdminUsersTableContents style={{ flex: 2.2 }}>
                   <AdminUsersTableEditBtn>수정</AdminUsersTableEditBtn>
