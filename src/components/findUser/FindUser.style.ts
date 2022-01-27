@@ -104,7 +104,6 @@ export const FindIdBox = styled.div`
 
 export const FindIdResultTitle = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
 `;
 
 export const FindIdResultSubTitle = styled.div`
@@ -114,7 +113,6 @@ export const FindIdResultSubTitle = styled.div`
 
 export const FindId = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
   margin-bottom: 8px;
 `;
 

@@ -42,3 +42,27 @@ export const UPDATE_FINBIG_VIEWCOUNT = gql`
     }
   }
 `;
+
+export const FETCH_USER_VIEWDATA = gql`
+  query user($id: ID!) {
+    user(id: $id) {
+      finbigView {
+        id
+        title
+      }
+    }
+  }
+`;
+
+export const UPDATE_RECENT_DATA = gql`
+  mutation updateUser($input: updateUserInput) {
+    updateUser(input: $input) {
+      user {
+        finbigView {
+          id
+          title
+        }
+      }
+    }
+  }
+`;

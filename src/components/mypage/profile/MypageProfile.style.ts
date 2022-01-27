@@ -29,7 +29,7 @@ export const MypageProfileContentsWrapper = styled.div`
 
 export const MypageProfileTitle = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
+
   padding-bottom: 6px;
 `;
 
@@ -52,13 +52,13 @@ export const MypageProfileIDWrapper = styled.div`
 
 export const MypageProfileIDTitle = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
+
   width: 60px;
 `;
 
 export const MypageProfileID = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
+
   margin-left: 36px;
 `;
 

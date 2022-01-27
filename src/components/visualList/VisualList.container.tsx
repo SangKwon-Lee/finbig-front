@@ -18,6 +18,7 @@ const VisualListContainer = () => {
     start: 0,
     limit: 6,
   });
+
   //* 조회수 증가 뮤테이션
   const [updateVisual] = useMutation<Mutation, MutationUpdateVisualDatumArgs>(
     UPDATE_VISUAL_DATUM

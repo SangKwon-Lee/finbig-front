@@ -79,7 +79,6 @@ const MypageProfileContainer = () => {
   };
 
   //*회원정보 변경 함수
-
   const handleUpdateUser = async (data: any) => {
     try {
       const emailReception = data.emailReception === "true" ? true : false;

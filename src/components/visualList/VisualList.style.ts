@@ -50,7 +50,6 @@ export const VisualListType = styled.div`
 `;
 
 export const VisualListTitle = styled.div`
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   margin-bottom: 26px;
   cursor: pointer;

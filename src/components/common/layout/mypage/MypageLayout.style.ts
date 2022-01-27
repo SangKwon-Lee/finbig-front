@@ -17,7 +17,6 @@ export const MypageTitle = styled.div`
   background-color: #4033a2;
   color: white;
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;

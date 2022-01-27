@@ -37,7 +37,6 @@ export const CheckImg = styled.img`
 `;
 
 export const SignupSubTitle = styled.h2`
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
 `;
 

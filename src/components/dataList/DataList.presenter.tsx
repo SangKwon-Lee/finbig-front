@@ -7,6 +7,7 @@ import {
   DataListCategoryTitle,
   DataListCategoryWrapper,
   DataListImgBlank,
+  DataListNoDataText,
   DataListResult,
   DataListResultNum,
   DataListSelectBox,
@@ -35,9 +36,8 @@ interface DataListProps {
       limit: number;
     }>
   >;
-  dataCount: any;
-  dataTotalCount: any;
   handleViewCount: (dataId: string, viewCount: number) => Promise<void>;
+  handleRecentData: (dataId: any) => Promise<void>;
 }
 
 const DataListPresenter: React.FC<DataListProps> = ({
@@ -45,13 +45,12 @@ const DataListPresenter: React.FC<DataListProps> = ({
   blackLength,
   listInput,
   setListInput,
-  dataCount,
-  dataTotalCount,
+  handleRecentData,
   handleViewCount,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate();
-  const { search } = useParams();
+  const { search } = useParams() || "";
   return (
     <DataListWrapper>
       <DataListTitle>{search ? "검색 결과" : "데이터 상품"}</DataListTitle>
@@ -68,7 +67,14 @@ const DataListPresenter: React.FC<DataListProps> = ({
       </DataListCategoryWrapper>
       <DataListSelectWrapper>
         <DataListResult>
-          상품이 모두<DataListResultNum> {dataTotalCount}개</DataListResultNum>
+          상품이 모두
+          <DataListResultNum>
+            {
+              finbigs?.filter((data) => data?.title?.includes(search || ""))
+                .length
+            }
+            개
+          </DataListResultNum>
           &nbsp;있습니다
         </DataListResult>
         <DataListSelectBox defaultValue="상품정렬">
@@ -80,38 +86,49 @@ const DataListPresenter: React.FC<DataListProps> = ({
         </DataListSelectBox>
       </DataListSelectWrapper>
       <DataListBody>
-        {finbigs?.map((data) => (
-          <DataWrapper key={data?.id}>
-            <DataImg
-              src={String(data?.thumbnail)}
-              onClick={() => {
-                handleViewCount(String(data?.id), data?.viewCount);
-                navigate(`/data/${data?.id}`);
-              }}
-            />
-            <DataTitle
-              onClick={() => {
-                handleViewCount(String(data?.id), data?.viewCount);
-                navigate(`/data/${data?.id}`);
-              }}
-            >
-              {data?.title}
-            </DataTitle>
-            <DataContents
-              onClick={() => {
-                handleViewCount(String(data?.id), data?.viewCount);
-                navigate(`/data/${data?.id}`);
-              }}
-            >
-              {data?.description}
-            </DataContents>
-            <DataBtnWrapper>
-              <DataBestBtn>Best</DataBestBtn>
-              <DataUpdateBtn>Update</DataUpdateBtn>
-            </DataBtnWrapper>
-          </DataWrapper>
-        ))}
-        {new Array(6 - blackLength).fill(1).map((__, index) => (
+        {finbigs?.filter((data: any) => data?.title?.includes(search || ""))
+          .length !== 0 ? (
+          finbigs
+            ?.filter((data: any) => data?.title?.includes(search || ""))
+            .splice(listInput.start, listInput.limit)
+            ?.map((data) => (
+              <DataWrapper key={data?.id}>
+                <DataImg
+                  src={String(data?.thumbnail)}
+                  onClick={() => {
+                    handleViewCount(String(data?.id), data?.viewCount);
+                    handleRecentData(String(data?.id));
+                    navigate(`/data/${data?.id}`);
+                  }}
+                />
+                <DataTitle
+                  onClick={() => {
+                    handleViewCount(String(data?.id), data?.viewCount);
+                    handleRecentData(String(data?.id));
+                    navigate(`/data/${data?.id}`);
+                  }}
+                >
+                  {data?.title}
+                </DataTitle>
+                <DataContents
+                  onClick={() => {
+                    handleViewCount(String(data?.id), data?.viewCount);
+                    handleRecentData(String(data?.id));
+                    navigate(`/data/${data?.id}`);
+                  }}
+                >
+                  {data?.description}
+                </DataContents>
+                <DataBtnWrapper>
+                  {data?.isBest && <DataBestBtn>Best</DataBestBtn>}
+                  <DataUpdateBtn>Update</DataUpdateBtn>
+                </DataBtnWrapper>
+              </DataWrapper>
+            ))
+        ) : (
+          <DataListNoDataText>해당하는 상품이 없습니다</DataListNoDataText>
+        )}
+        {new Array(3 - blackLength).fill(1).map((__, index) => (
           <DataListImgBlank
             key={index}
             style={{ border: "none" }}
@@ -120,9 +137,13 @@ const DataListPresenter: React.FC<DataListProps> = ({
       </DataListBody>
       <VisualListPaginationWrapper>
         <PaginationContainer
-          listLength={dataCount}
+          listLength={
+            finbigs?.filter((data: any) => data?.title?.includes(search || ""))
+              .length
+          }
           listInput={listInput}
           setListInput={setListInput}
+          search={search || ""}
         />
       </VisualListPaginationWrapper>
     </DataListWrapper>

@@ -13,19 +13,68 @@ export const MypageMainWrapper = styled.div`
 export const MypageBody = styled.div`
   display: flex;
   width: 1100px;
-  justify-content: space-between;
 `;
 
-export const MypageMainContentsWrapper = styled.div`
-  width: 821px;
-  padding-top: 9px;
+export const MypageBodyColumn = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-left: 53px;
 `;
 
 export const MypageMainTitle = styled.div`
-  font-size: 16px;
+  margin-bottom: 18.5px;
 `;
 
 export const MypageMainUsername = styled.span`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
+`;
+
+export const MypageMainTableWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  border-top: 1px solid #c1c1c1;
+`;
+
+export const MypageMainTableHeader = styled.div`
+  width: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 47px;
+  background-color: #f3f3f3;
+  font-family: SpoqaHanSansNeo-Bold;
+  font-size: 14px;
+  border-right: 1px solid #c1c1c1;
+`;
+
+export const MypageMainTableContents = styled.div`
+  width: 100%;
+  display: flex;
+  padding-left: 38px;
+  align-items: center;
+  height: 47px;
+`;
+
+export const MypageMainDownloadWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 64.5px;
+`;
+
+export const MypageMainDownloadTitle = styled.div`
+  font-family: SpoqaHanSansNeo-Bold;
+`;
+
+export const MypageMainPlus = styled.div`
+  font-size: 14px;
+  color: #999999;
+`;
+
+export const MypageMainLine = styled.div`
+  width: 100%;
+  border-top: 1px solid #c1c1c1;
+  margin-top: 8px;
+  margin-bottom: 34.5px;
 `;

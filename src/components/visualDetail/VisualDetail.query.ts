@@ -11,6 +11,12 @@ export const FETCH_VISUAL_DATUM = gql`
       viewCount
       contents
       thumbnail
+      finbigs {
+        id
+        title
+        thumbnail
+        description
+      }
     }
   }
 `;

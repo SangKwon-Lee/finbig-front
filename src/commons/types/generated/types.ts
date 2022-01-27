@@ -161,11 +161,20 @@ export type Finbig = {
   order?: Maybe<Scalars["Int"]>;
   period?: Maybe<Scalars["String"]>;
   published_at?: Maybe<Scalars["DateTime"]>;
+  relationFinbigs?: Maybe<Array<Maybe<Finbig>>>;
   thumbnail?: Maybe<Scalars["String"]>;
   title?: Maybe<Scalars["String"]>;
   type?: Maybe<Scalars["String"]>;
   updated_at: Scalars["DateTime"];
+  user?: Maybe<UsersPermissionsUser>;
   viewCount?: Maybe<Scalars["Long"]>;
+};
+
+export type FinbigRelationFinbigsArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type FinbigAggregator = {
@@ -295,6 +304,12 @@ export type FinbigConnectionUpdated_At = {
   key?: Maybe<Scalars["DateTime"]>;
 };
 
+export type FinbigConnectionUser = {
+  __typename?: "FinbigConnectionUser";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["ID"]>;
+};
+
 export type FinbigConnectionViewCount = {
   __typename?: "FinbigConnectionViewCount";
   connection?: Maybe<FinbigConnection>;
@@ -318,6 +333,7 @@ export type FinbigGroupBy = {
   title?: Maybe<Array<Maybe<FinbigConnectionTitle>>>;
   type?: Maybe<Array<Maybe<FinbigConnectionType>>>;
   updated_at?: Maybe<Array<Maybe<FinbigConnectionUpdated_At>>>;
+  user?: Maybe<Array<Maybe<FinbigConnectionUser>>>;
   viewCount?: Maybe<Array<Maybe<FinbigConnectionViewCount>>>;
 };
 
@@ -332,10 +348,12 @@ export type FinbigInput = {
   order?: InputMaybe<Scalars["Int"]>;
   period?: InputMaybe<Scalars["String"]>;
   published_at?: InputMaybe<Scalars["DateTime"]>;
+  relationFinbigs?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   thumbnail?: InputMaybe<Scalars["String"]>;
   title?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<Scalars["String"]>;
   updated_by?: InputMaybe<Scalars["ID"]>;
+  user?: InputMaybe<Scalars["ID"]>;
   viewCount?: InputMaybe<Scalars["Long"]>;
 };
 
@@ -393,6 +411,7 @@ export type Morph =
   | FinbigConnectionTitle
   | FinbigConnectionType
   | FinbigConnectionUpdated_At
+  | FinbigConnectionUser
   | FinbigConnectionViewCount
   | FinbigGroupBy
   | I18NLocale
@@ -1341,6 +1360,8 @@ export type UserInput = {
   email: Scalars["String"];
   emailReception?: InputMaybe<Scalars["Boolean"]>;
   expirationDate?: InputMaybe<Scalars["DateTime"]>;
+  finbigDownload?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  finbigView?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   isAdmin?: InputMaybe<Scalars["Boolean"]>;
   isDeleted?: InputMaybe<Scalars["Boolean"]>;
   isSubscribe?: InputMaybe<Scalars["Boolean"]>;
@@ -1487,6 +1508,8 @@ export type UsersPermissionsUser = {
   email: Scalars["String"];
   emailReception?: Maybe<Scalars["Boolean"]>;
   expirationDate?: Maybe<Scalars["DateTime"]>;
+  finbigDownload?: Maybe<Array<Maybe<Finbig>>>;
+  finbigView?: Maybe<Array<Maybe<Finbig>>>;
   id: Scalars["ID"];
   isAdmin?: Maybe<Scalars["Boolean"]>;
   isDeleted?: Maybe<Scalars["Boolean"]>;
@@ -1500,6 +1523,20 @@ export type UsersPermissionsUser = {
   subscription_histories?: Maybe<Array<Maybe<SubscriptionHistory>>>;
   updated_at: Scalars["DateTime"];
   username: Scalars["String"];
+};
+
+export type UsersPermissionsUserFinbigDownloadArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type UsersPermissionsUserFinbigViewArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type UsersPermissionsUserSubscription_HistoriesArgs = {
@@ -1673,6 +1710,7 @@ export type VisualData = {
   contents?: Maybe<Scalars["String"]>;
   created_at: Scalars["DateTime"];
   description?: Maybe<Scalars["String"]>;
+  finbigs?: Maybe<Array<Maybe<Finbig>>>;
   id: Scalars["ID"];
   isShow?: Maybe<Scalars["Boolean"]>;
   published_at?: Maybe<Scalars["DateTime"]>;
@@ -1680,6 +1718,13 @@ export type VisualData = {
   title?: Maybe<Scalars["String"]>;
   updated_at: Scalars["DateTime"];
   viewCount?: Maybe<Scalars["Long"]>;
+};
+
+export type VisualDataFinbigsArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type VisualDataAggregator = {
@@ -1781,6 +1826,7 @@ export type VisualDatumInput = {
   contents?: InputMaybe<Scalars["String"]>;
   created_by?: InputMaybe<Scalars["ID"]>;
   description?: InputMaybe<Scalars["String"]>;
+  finbigs?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   isShow?: InputMaybe<Scalars["Boolean"]>;
   published_at?: InputMaybe<Scalars["DateTime"]>;
   thumbnail?: InputMaybe<Scalars["String"]>;
@@ -1964,10 +2010,12 @@ export type EditFinbigInput = {
   order?: InputMaybe<Scalars["Int"]>;
   period?: InputMaybe<Scalars["String"]>;
   published_at?: InputMaybe<Scalars["DateTime"]>;
+  relationFinbigs?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   thumbnail?: InputMaybe<Scalars["String"]>;
   title?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<Scalars["String"]>;
   updated_by?: InputMaybe<Scalars["ID"]>;
+  user?: InputMaybe<Scalars["ID"]>;
   viewCount?: InputMaybe<Scalars["Long"]>;
 };
 
@@ -2018,6 +2066,8 @@ export type EditUserInput = {
   email?: InputMaybe<Scalars["String"]>;
   emailReception?: InputMaybe<Scalars["Boolean"]>;
   expirationDate?: InputMaybe<Scalars["DateTime"]>;
+  finbigDownload?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  finbigView?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   isAdmin?: InputMaybe<Scalars["Boolean"]>;
   isDeleted?: InputMaybe<Scalars["Boolean"]>;
   isSubscribe?: InputMaybe<Scalars["Boolean"]>;
@@ -2039,6 +2089,7 @@ export type EditVisualDatumInput = {
   contents?: InputMaybe<Scalars["String"]>;
   created_by?: InputMaybe<Scalars["ID"]>;
   description?: InputMaybe<Scalars["String"]>;
+  finbigs?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   isShow?: InputMaybe<Scalars["Boolean"]>;
   published_at?: InputMaybe<Scalars["DateTime"]>;
   thumbnail?: InputMaybe<Scalars["String"]>;

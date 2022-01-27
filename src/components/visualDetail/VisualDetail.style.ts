@@ -24,7 +24,6 @@ export const VisualDetailType = styled.div`
 `;
 
 export const VisualDetailTitle = styled.div`
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   margin-bottom: 32px;
 `;

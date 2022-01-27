@@ -22,6 +22,10 @@ export const FETCH_VISUAL_DATUM = gql`
       viewCount
       contents
       thumbnail
+      finbigs {
+        id
+        title
+      }
     }
   }
 `;
@@ -32,6 +36,19 @@ export const UPDATE_VISUAL_DATUM = gql`
       visualDatum {
         id
       }
+    }
+  }
+`;
+
+export const FETCH_FINBIGS = gql`
+  query finbigs($sort: String, $limit: Int, $start: Int, $where: JSON) {
+    finbigs(sort: $sort, limit: $limit, start: $start, where: $where) {
+      id
+      title
+      category
+      isShow
+      created_at
+      updated_at
     }
   }
 `;

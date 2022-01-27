@@ -8,6 +8,7 @@ import {
   MutationDeleteVisualDatumArgs,
   MutationUpdateVisualDatumArgs,
 } from "../../../commons/types/generated/types";
+import WithAdminAuth from "../../common/hocs/withAdminAuth";
 import VisualListPresenter from "./VisualList.presenter";
 import {
   DELETE_VISUAL_DATUM,
@@ -29,7 +30,7 @@ const VisualListContainer = () => {
   //* 체크박스
   const [check, setCheck] = useState<any>([]);
 
-  //* 변경할 데이터 ID
+  //* 데이터 ID
   const [dataId, setDataId] = useState("");
 
   //* 삭제 모달
@@ -66,6 +67,7 @@ const VisualListContainer = () => {
         },
         sort: "created_at:desc",
       },
+      fetchPolicy: "no-cache",
     }
   );
 
@@ -170,4 +172,4 @@ const VisualListContainer = () => {
   );
 };
 
-export default VisualListContainer;
+export default WithAdminAuth(VisualListContainer);

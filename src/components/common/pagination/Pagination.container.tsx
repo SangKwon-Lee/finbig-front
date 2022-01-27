@@ -14,18 +14,27 @@ interface PaginationProps {
       limit: number;
     }>
   >;
+  search?: string;
 }
 
 const PaginationContainer: React.FC<PaginationProps> = ({
   listLength,
   listInput,
   setListInput,
+  search,
 }) => {
   const { limit } = listInput;
   const [pageArr, setPageArr] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
+    if (search) {
+      setPage(1);
+      setListInput({
+        ...listInput,
+        start: 0,
+      });
+    }
     if (listLength && listLength <= limit * 10) {
       const newPageArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(
         (data) => data < Math.ceil(listLength / limit) + 1
@@ -34,7 +43,7 @@ const PaginationContainer: React.FC<PaginationProps> = ({
       setPageArr(newPageArr);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listLength]);
+  }, [listLength, search]);
 
   //* 페이지 네이션
   const handleChangePage = (e: any) => {

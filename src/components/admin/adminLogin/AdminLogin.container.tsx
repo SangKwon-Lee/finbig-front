@@ -17,6 +17,7 @@ const AdminLoginContainer = () => {
     error: false,
   });
 
+  //* 관리자 로그인 함수
   const handleAdminLogin = async () => {
     try {
       const { data } = await adminLogin({
@@ -42,6 +43,7 @@ const AdminLoginContainer = () => {
     }
   };
 
+  //* 로그인 Input
   const handleLoginInput = (e: any) => {
     setLoginInput({
       ...loginInput,

@@ -26,7 +26,6 @@ export const LicenseTableHeaderWrapper = styled.div`
 export const LicenseTableLeftHeader = styled.div`
   width: 260px;
   height: 46px;
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   background-color: #f3f3f3;
   display: flex;
@@ -38,7 +37,6 @@ export const LicenseTableLeftHeader = styled.div`
 export const LicenseTableRightHeader = styled.div`
   width: 840px;
   height: 46px;
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   display: flex;
   justify-content: center;
@@ -55,7 +53,6 @@ export const LicenseTableContentsWrapper = styled.div`
 export const LicenseTablePeriodTitle = styled.div`
   width: 260px;
   height: 141px;
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   display: flex;
   justify-content: center;
@@ -71,7 +68,6 @@ export const LicenseTablePeriodContent = styled.div`
   width: 277px;
   height: 141px;
   display: flex;
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   justify-content: center;
   align-items: center;
@@ -81,7 +77,6 @@ export const LicenseTablePeriodContent = styled.div`
 export const LicenseTablePriceTitle = styled.div`
   width: 260px;
   height: 95px;
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   display: flex;
   justify-content: center;
@@ -92,7 +87,6 @@ export const LicenseTablePriceContent = styled.div`
   width: 277px;
   height: 95px;
   display: flex;
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   justify-content: center;
   align-items: center;
@@ -102,7 +96,6 @@ export const LicenseTablePriceContent = styled.div`
 export const LicenseTableBuyTitle = styled.div`
   width: 260px;
   height: 80px;
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   display: flex;
   justify-content: center;
@@ -113,7 +106,6 @@ export const LicenseTableBuyContent = styled.div`
   width: 277px;
   height: 80px;
   display: flex;
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   justify-content: center;
   align-items: center;
@@ -124,7 +116,6 @@ export const LicenseTableBuyBtn = styled.button`
   width: 144px;
   height: 48px;
   color: white;
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   background-color: #4033a2;
   border: none;
@@ -139,7 +130,6 @@ export const LicenseNoticeWrapper = styled.div`
 `;
 
 export const LicenseNoticeTitle = styled.div`
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   margin-top: 50px;
   margin-bottom: 20px;
@@ -151,7 +141,6 @@ export const LicenseNoticeContents = styled.div`
 `;
 
 export const LicenseModalTilte = styled.div`
-  font-size: 16px;
   font-family: SpoqaHanSansNeo-Bold;
   margin-bottom: 16px;
   align-self: center;

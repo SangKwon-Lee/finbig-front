@@ -171,7 +171,7 @@ const LicenseContainer = () => {
         },
       });
 
-      alert("구독 정보가 업데이트 됐습니다!");
+      alert("구독 정보가 업데이트 됐습니다");
     } catch (e) {
       console.log(e);
     } finally {
@@ -198,7 +198,7 @@ const LicenseContainer = () => {
           },
         },
       });
-      alert("구독 굳");
+      alert("구독 상품 결제가 완료됐습니다.");
     } catch (e) {
       console.log(e);
     } finally {

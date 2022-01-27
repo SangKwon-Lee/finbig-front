@@ -30,15 +30,23 @@ import { DatePicker } from "antd";
 import moment from "moment";
 import { Finbig, Maybe } from "../../commons/types/generated/types";
 import { Viewer } from "@toast-ui/react-editor";
+import { useNavigate } from "react-router";
 
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 
 interface DataDetailProps {
   data?: Maybe<Finbig> | undefined;
+  handleDate: (e: any) => void;
+  handleDownLoad: (dataId: any) => Promise<void>;
 }
 
-const DataDetailPresenter: React.FC<DataDetailProps> = ({ data }) => {
+const DataDetailPresenter: React.FC<DataDetailProps> = ({
+  data,
+  handleDate,
+  handleDownLoad,
+}) => {
+  const navigate = useNavigate();
   return (
     <DataDetailWrapper>
       <DataDetailBodyWrapper>
@@ -61,6 +69,7 @@ const DataDetailPresenter: React.FC<DataDetailProps> = ({ data }) => {
           <DataDetailPeriodWrapper>
             <DataDetailPeriodTitle>데이터 기간</DataDetailPeriodTitle>
             <RangePicker
+              onChange={handleDate}
               defaultValue={[
                 moment(new Date(), dateFormat),
                 moment(new Date(), dateFormat),
@@ -69,7 +78,9 @@ const DataDetailPresenter: React.FC<DataDetailProps> = ({ data }) => {
             />
           </DataDetailPeriodWrapper>
           <DataDetailBtnWrapper>
-            <DataDetailDownBtn>데이터 다운로드</DataDetailDownBtn>
+            <DataDetailDownBtn onClick={() => handleDownLoad(data?.id)}>
+              데이터 다운로드
+            </DataDetailDownBtn>
             <DataDetailLikeBtn>
               <DataDetailLikeImg src={SunSVG} />
             </DataDetailLikeBtn>
@@ -81,36 +92,28 @@ const DataDetailPresenter: React.FC<DataDetailProps> = ({ data }) => {
       {data?.contents && <Viewer initialValue={data.contents} />}
       <DataDetailOther>관련 상품</DataDetailOther>
       <DataDetailOhterWrapper>
-        <DataDetailOhterContentsWrapper>
-          <DataDetailOtherImg />
-          <DataDetailTitleWrapper>
-            <DataDetailOtherTilte>{data?.title}</DataDetailOtherTilte>
-            <DataDetailOtherContents>
-              내용
-              머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기
-            </DataDetailOtherContents>
-          </DataDetailTitleWrapper>
-        </DataDetailOhterContentsWrapper>
-        <DataDetailOhterContentsWrapper>
-          <DataDetailOtherImg />
-          <DataDetailTitleWrapper>
-            <DataDetailOtherTilte>콜라보 머시기</DataDetailOtherTilte>
-            <DataDetailOtherContents>
-              내용
-              머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기
-            </DataDetailOtherContents>
-          </DataDetailTitleWrapper>
-        </DataDetailOhterContentsWrapper>
-        <DataDetailOhterContentsWrapper>
-          <DataDetailOtherImg />
-          <DataDetailTitleWrapper>
-            <DataDetailOtherTilte>콜라보 머시기</DataDetailOtherTilte>
-            <DataDetailOtherContents>
-              내용
-              머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기머시기
-            </DataDetailOtherContents>
-          </DataDetailTitleWrapper>
-        </DataDetailOhterContentsWrapper>
+        {data?.relationFinbigs?.map((data) => (
+          <DataDetailOhterContentsWrapper>
+            <DataDetailOtherImg
+              src={String(data?.thumbnail)}
+              onClick={() => {
+                navigate(`/data/${data?.id}`);
+              }}
+            />
+            <DataDetailTitleWrapper>
+              <DataDetailOtherTilte
+                onClick={() => {
+                  navigate(`/data/${data?.id}`);
+                }}
+              >
+                {data?.title}
+              </DataDetailOtherTilte>
+              <DataDetailOtherContents>
+                {data?.description}
+              </DataDetailOtherContents>
+            </DataDetailTitleWrapper>
+          </DataDetailOhterContentsWrapper>
+        ))}
       </DataDetailOhterWrapper>
     </DataDetailWrapper>
   );
