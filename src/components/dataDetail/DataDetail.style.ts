@@ -136,7 +136,6 @@ export const DataDetailOther = styled.div`
   align-items: center;
   justify-content: center;
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
 `;
 
 export const DataDetailOhterWrapper = styled.div`
@@ -162,14 +161,14 @@ export const DataDetailTitleWrapper = styled.div`
 
 export const DataDetailOtherTilte = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
   margin-bottom: 23px;
+  cursor: pointer;
 `;
 
 export const DataDetailOtherImg = styled.img`
   width: 168px;
   height: 168px;
-  border: 1px solid #c1c1c1;
+  cursor: pointer;
 `;
 
 export const DataDetailOtherContents = styled.div`

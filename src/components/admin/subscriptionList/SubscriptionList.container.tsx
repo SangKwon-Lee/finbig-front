@@ -5,6 +5,7 @@ import {
   Query,
   QueryUsersArgs,
 } from "../../../commons/types/generated/types";
+import WithAdminAuth from "../../common/hocs/withAdminAuth";
 import SubscriptionPresenter from "./SubscriptionList.presenter";
 import {
   CANCEL_SUBSCRIPTION_USER,
@@ -58,4 +59,4 @@ const SubscriptionContainer = () => {
     />
   );
 };
-export default SubscriptionContainer;
+export default WithAdminAuth(SubscriptionContainer);

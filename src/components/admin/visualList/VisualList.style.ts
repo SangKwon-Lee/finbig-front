@@ -41,6 +41,7 @@ export const AdminVisualListTableHeaderTitle = styled.div`
   flex: 0.5;
   border-right: 1px solid #cccccc;
   text-align: center;
+  cursor: pointer;
 `;
 
 export const AdminVisualListPreview = styled.div`

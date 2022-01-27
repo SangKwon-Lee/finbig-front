@@ -332,7 +332,7 @@ const ReportStockItem = () => {
                 >
                   {priceToString(String(data.value))}
                 </CenterRightStockNum>
-                {data.ratio && (
+                {data.ratio ? (
                   <>
                     <CenterRightStockNumAndImg>
                       <CenterRightStockImg
@@ -355,6 +355,8 @@ const ReportStockItem = () => {
                       </CenterRightStockNum>
                     </CenterRightStockNumAndImg>
                   </>
+                ) : (
+                  ""
                 )}
               </CenterRightStockNumWrapper>
             </CenterRightStockWrapper>

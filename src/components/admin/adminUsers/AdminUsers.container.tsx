@@ -17,6 +17,7 @@ const AdminUsersContainer = () => {
     DELETE_USER
   );
 
+  //* 회원 탈퇴 시키는 함수
   const handleDeleteUser = async (e: any) => {
     try {
       await deleteUser({

@@ -79,7 +79,6 @@ export const DataImg = styled.img`
 
 export const DataTitle = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
   margin-top: 16px;
   margin-bottom: 16px;
 `;
@@ -118,4 +117,9 @@ export const DataListImgBlank = styled.div`
   height: 320px;
   border: none;
   outline: none;
+`;
+
+export const DataListNoDataText = styled.div`
+  text-align: center;
+  width: 100%;
 `;

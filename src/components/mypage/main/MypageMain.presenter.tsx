@@ -1,31 +1,128 @@
-import { UsersPermissionsUser } from "../../../commons/types/generated/types";
+import dayjs from "dayjs";
+import { useNavigate } from "react-router";
+import {
+  Maybe,
+  UsersPermissionsUser,
+} from "../../../commons/types/generated/types";
 import MypageLayoutContainer from "../../common/layout/mypage/MypageLayout.container";
 import {
+  DataListImgBlank,
+  MypageDataBestBtn,
+  MypageDataBtnWrapper,
+  MypageDataDescription,
+  MypageDataListWrapper,
+  MypageDataThumbnail,
+  MypageDataTitle,
+  MypageDataUpdateBtn,
+  MypageDataWrapper,
+} from "../recent/MypageRecent.style";
+import {
   MypageBody,
-  MypageMainContentsWrapper,
   MypageMainTitle,
   MypageMainUsername,
   MypageMainWrapper,
+  MypageBodyColumn,
+  MypageMainTableWrapper,
+  MypageMainTableHeader,
+  MypageMainTableContents,
+  MypageMainDownloadWrapper,
+  MypageMainDownloadTitle,
+  MypageMainPlus,
+  MypageMainLine,
 } from "./MypageMain.style";
-
+import { D_day } from "../../../utils/D_day";
 interface IMypageMainProps {
-  data: any;
-  userId: string | null;
+  data: Maybe<UsersPermissionsUser> | undefined;
+  blackLength: number;
 }
 
-const MypageMainPresenter: React.FC<IMypageMainProps> = ({ data, userId }) => {
-  const user: UsersPermissionsUser = data?.user;
-
+const MypageMainPresenter: React.FC<IMypageMainProps> = ({
+  data,
+  blackLength,
+}) => {
+  const navigate = useNavigate();
   return (
     <MypageMainWrapper>
       <MypageBody>
         <MypageLayoutContainer menu={"mypage"} />
-        <MypageMainContentsWrapper>
+        <MypageBodyColumn>
           <MypageMainTitle>
-            <MypageMainUsername>{user?.username}</MypageMainUsername>님
+            <MypageMainUsername>{data?.username}</MypageMainUsername>님
             안녕하세요!
           </MypageMainTitle>
-        </MypageMainContentsWrapper>
+          <MypageMainTableWrapper>
+            <MypageMainTableHeader>상품 명</MypageMainTableHeader>
+            <MypageMainTableContents>
+              {data?.subscription_histories &&
+                data?.subscription_histories.length > 0 &&
+                data?.isSubscribe &&
+                data?.subscription_histories[
+                  data?.subscription_histories.length - 1
+                ]?.title}
+            </MypageMainTableContents>
+          </MypageMainTableWrapper>
+          <MypageMainTableWrapper style={{ borderBottom: "1px solid #c1c1c1" }}>
+            <MypageMainTableHeader>구독 기간</MypageMainTableHeader>
+            <MypageMainTableContents>
+              {data?.isSubscribe &&
+                `${dayjs(data?.subscriptionDate).format(
+                  "YYYY.MM.DD"
+                )} ~ ${dayjs(data?.expirationDate).format(
+                  "YYYY.MM.DD"
+                )} 만료일 : ${D_day(data?.expirationDate)}일`}
+            </MypageMainTableContents>
+          </MypageMainTableWrapper>
+          <MypageMainDownloadWrapper>
+            <MypageMainDownloadTitle>다운로드 내역</MypageMainDownloadTitle>
+            <MypageMainPlus
+              onClick={() => {
+                navigate(`/mypage/download`);
+              }}
+            >
+              더 보기 +
+            </MypageMainPlus>
+          </MypageMainDownloadWrapper>
+          <MypageMainLine />
+          <MypageDataListWrapper>
+            {data &&
+              data?.finbigDownload?.slice(0, 6).map((data) => (
+                <MypageDataWrapper key={data?.id}>
+                  <MypageDataThumbnail
+                    src={String(data?.thumbnail)}
+                    onClick={() => {
+                      navigate(`/data/${data?.id}`);
+                    }}
+                  />
+                  <MypageDataTitle
+                    onClick={() => {
+                      navigate(`/data/${data?.id}`);
+                    }}
+                  >
+                    {data?.title}
+                  </MypageDataTitle>
+                  <MypageDataDescription
+                    onClick={() => {
+                      navigate(`/data/${data?.id}`);
+                    }}
+                  >
+                    {data?.description}
+                  </MypageDataDescription>
+                  <MypageDataBtnWrapper>
+                    {data?.isBest && (
+                      <MypageDataBestBtn>Best</MypageDataBestBtn>
+                    )}
+                    <MypageDataUpdateBtn>Update</MypageDataUpdateBtn>
+                  </MypageDataBtnWrapper>
+                </MypageDataWrapper>
+              ))}
+            {new Array(3 - blackLength).fill(1).map((__, index) => (
+              <DataListImgBlank
+                key={index}
+                style={{ border: "none" }}
+              ></DataListImgBlank>
+            ))}
+          </MypageDataListWrapper>
+        </MypageBodyColumn>
       </MypageBody>
     </MypageMainWrapper>
   );

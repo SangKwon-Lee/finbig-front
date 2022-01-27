@@ -27,8 +27,8 @@ export const FETCH_VISUAL_COUNT = gql`
 `;
 
 export const DELETE_VISUAL_DATUM = gql`
-  mutation updateVisualDatum($input: updateVisualDatumInput) {
-    updateVisualDatum(input: $input) {
+  mutation deleteVisualDatum($input: deleteVisualDatumInput) {
+    deleteVisualDatum(input: $input) {
       visualDatum {
         id
       }

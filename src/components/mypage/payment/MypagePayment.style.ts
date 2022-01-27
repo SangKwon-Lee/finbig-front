@@ -62,7 +62,6 @@ export const MypagePaymentTableContents = styled.div`
 
 export const MypagePaymentInfoTitle = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
   margin-top: 18px;
   margin-bottom: 18px;
 `;

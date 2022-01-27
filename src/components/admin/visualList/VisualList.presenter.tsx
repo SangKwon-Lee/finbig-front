@@ -45,6 +45,7 @@ interface VisualListProps {
   handleClose: () => void;
   handleChangeShow: (e: any) => Promise<void>;
 }
+
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -58,6 +59,7 @@ const style = {
   display: "flex",
   justifyContent: "space-between",
 };
+
 const VisualListPresenter: React.FC<VisualListProps> = ({
   visualList,
   listInput,
@@ -119,6 +121,9 @@ const VisualListPresenter: React.FC<VisualListProps> = ({
               <AdminVisualListTableHeaderTitle
                 style={{
                   flex: 5,
+                }}
+                onClick={() => {
+                  navigate(`/admin/visual/${data?.id}/edit`);
                 }}
               >
                 {data?.title}

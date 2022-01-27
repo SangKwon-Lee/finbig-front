@@ -1,6 +1,23 @@
 import AdminLayoutContainer from "../../common/layout/admin/AdminLayout.container";
 import WebEditor from "../../common/webEditor/WebEditor";
 import {
+  ModalCancel,
+  ModalTableBtn,
+  ModalTableContents,
+  ModalTableContentsWrapper,
+  ModalTableHeader,
+  ModalTableHeaderWrapper,
+  ModalTitle,
+  ModalTitleWrapper,
+  RelationBtn,
+  RelationTableContents,
+  RelationTableContentsBtn,
+  RelationTableContentsWrapper,
+  RelationTableHeader,
+  RelationTableHeaderWrapper,
+  RelationTitle,
+  RelationTitleWrapper,
+  RelationWrapper,
   VisualCreateBody,
   VisualCreateBtn,
   VisualCreateBtnWrapper,
@@ -26,7 +43,14 @@ import {
 } from "./VisualCreate.style";
 import BlankImg from "../../../assets/images/blankImg.png";
 import { useNavigate } from "react-router";
-import { Maybe, VisualData } from "../../../commons/types/generated/types";
+import {
+  Finbig,
+  Maybe,
+  VisualData,
+} from "../../../commons/types/generated/types";
+import { Box, Modal } from "@mui/material";
+import XWhite from "../../../assets/images/XWhite.svg";
+import dayjs from "dayjs";
 
 interface VisualCreateProps {
   input: {
@@ -36,6 +60,7 @@ interface VisualCreateProps {
     thumbnail: string;
     description: string;
     thumbnailName: string;
+    finbigs: any[];
   };
   editorRef: React.MutableRefObject<any>;
   handleInput: (e: any) => void;
@@ -44,6 +69,11 @@ interface VisualCreateProps {
   data: Maybe<VisualData> | undefined;
   path: string;
   handleEditVisual: () => Promise<void>;
+  open: boolean;
+  handleOpen: () => void;
+  handleClose: () => void;
+  finbigsData: Maybe<Maybe<Finbig>[]> | undefined;
+  handleRelationInput: (e: any) => void;
 }
 
 const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
@@ -55,6 +85,11 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
   data,
   path,
   handleEditVisual,
+  handleClose,
+  handleOpen,
+  open,
+  finbigsData,
+  handleRelationInput,
 }) => {
   const navigate = useNavigate();
   return (
@@ -75,6 +110,8 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
                 defaultValue={data?.category || "리츠"}
               >
                 <option value="리츠">리츠</option>
+                <option value="리츠2">리츠</option>
+                <option value="리츠3">리츠</option>
               </VisualCreateSelect>
             </VisualCreateInputContents>
           </VisualCreateInputWrapper>
@@ -150,6 +187,49 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
             </VisualCreateInputContents>
           </VisualCreateInputWrapper>
         </VisualCreateInputBody>
+        <RelationWrapper>
+          <RelationTitleWrapper>
+            <RelationTitle>적용 데이터</RelationTitle>
+            <RelationBtn onClick={handleOpen}>적용 데이터 등록</RelationBtn>
+          </RelationTitleWrapper>
+          <RelationTableHeaderWrapper>
+            <RelationTableHeader>순서</RelationTableHeader>
+            <RelationTableHeader style={{ flex: 2.5 }}>
+              데이터 상품 명
+            </RelationTableHeader>
+            <RelationTableHeader>등록일 / 수정일</RelationTableHeader>
+            <RelationTableHeader>노출여부</RelationTableHeader>
+            <RelationTableHeader style={{ borderRight: "none" }}>
+              삭제
+            </RelationTableHeader>
+          </RelationTableHeaderWrapper>
+          {finbigsData
+            ?.filter((data) => input.finbigs.includes(data?.id))
+            ?.map((data) => (
+              <RelationTableContentsWrapper key={data?.id}>
+                <RelationTableContents>{data?.id}</RelationTableContents>
+                <RelationTableContents style={{ flex: 2.5 }}>
+                  {data?.title}
+                </RelationTableContents>
+                <RelationTableContents>
+                  {dayjs(data?.created_at).format("YYYY.MM.DD")}
+                  <br />
+                  {dayjs(data?.updated_at).format("YYYY.MM.DD")}
+                </RelationTableContents>
+                <RelationTableContents>
+                  {data?.isShow ? "노출" : "미노출"}
+                </RelationTableContents>
+                <RelationTableContents>
+                  <RelationTableContentsBtn
+                    id={data?.id}
+                    onClick={handleRelationInput}
+                  >
+                    삭제
+                  </RelationTableContentsBtn>
+                </RelationTableContents>
+              </RelationTableContentsWrapper>
+            ))}
+        </RelationWrapper>
         <VisualCreateBtnWrapper>
           <VisualCreateCancleBtn
             onClick={() => {
@@ -169,6 +249,67 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
           )}
         </VisualCreateBtnWrapper>
       </VisualCreateBody>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 953,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: "column",
+            paddingBottom: 3,
+            height: "80%",
+            overflow: "scroll",
+          }}
+        >
+          <ModalTitleWrapper>
+            <ModalTitle>적용 데이터 선택</ModalTitle>
+            <ModalCancel onClick={handleClose} src={XWhite} />
+          </ModalTitleWrapper>
+          <ModalTableHeaderWrapper>
+            <ModalTableHeader style={{ flex: 0.7 }}>순번</ModalTableHeader>
+            <ModalTableHeader style={{ flex: 5 }}>
+              데이터 상품 명
+            </ModalTableHeader>
+            <ModalTableHeader>카테고리</ModalTableHeader>
+            <ModalTableHeader style={{ borderRight: "none" }}>
+              선택
+            </ModalTableHeader>
+          </ModalTableHeaderWrapper>
+          {finbigsData?.map((data) => (
+            <ModalTableContentsWrapper key={data?.id}>
+              <ModalTableContents style={{ flex: 0.7 }}>
+                {data?.id}
+              </ModalTableContents>
+              <ModalTableContents style={{ flex: 5 }}>
+                {data?.title}
+              </ModalTableContents>
+              <ModalTableContents>{data?.category}</ModalTableContents>
+              <ModalTableContents style={{ borderRight: "none" }}>
+                {input.finbigs.includes(data?.id) ? (
+                  <ModalTableBtn id={data?.id} onClick={handleRelationInput}>
+                    해제
+                  </ModalTableBtn>
+                ) : (
+                  <ModalTableBtn id={data?.id} onClick={handleRelationInput}>
+                    선택
+                  </ModalTableBtn>
+                )}
+              </ModalTableContents>
+            </ModalTableContentsWrapper>
+          ))}
+        </Box>
+      </Modal>
     </VisualCreateWrapper>
   );
 };

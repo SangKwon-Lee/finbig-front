@@ -36,7 +36,6 @@ export const MenuTitleWrapper = styled.div`
 `;
 
 export const MenuTitle = styled.div`
-  font-size: 16px;
   cursor: pointer;
 `;
 

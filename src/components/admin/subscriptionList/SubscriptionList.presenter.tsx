@@ -3,7 +3,7 @@ import {
   Maybe,
   UsersPermissionsUser,
 } from "../../../commons/types/generated/types";
-import { dday } from "../../../utils/D_day";
+import { D_day } from "../../../utils/D_day";
 import AdminLayoutContainer from "../../common/layout/admin/AdminLayout.container";
 import {
   SubscriptionListBody,
@@ -93,7 +93,7 @@ const SubscriptionPresenter: React.FC<SubscriptionProps> = ({
                 <SubscriptionTableTitle>
                   {dayjs(data?.expirationDate).format("YYYY.MM.DD")}
                   <br />
-                  {dday(data?.expirationDate)}
+                  {D_day(data?.expirationDate)}
                 </SubscriptionTableTitle>
                 <SubscriptionTableTitle style={{ flex: 1.5 }}>
                   임시

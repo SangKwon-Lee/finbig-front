@@ -15,10 +15,12 @@ const MypageWithdrawContainer = () => {
   //* 약관동의 체크
   const [check, setCheck] = useState(false);
 
+  //* 탈퇴
   const [deleteUser] = useMutation<Mutation, MutationUpdateUserArgs>(
     DELETE_USER
   );
 
+  //* 탈퇴 함수
   const handleDeleteUser = async () => {
     if (check) {
       try {

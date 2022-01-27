@@ -157,7 +157,7 @@ const HomePresenter: React.FC<HomeProps> = ({ bestData, updateData }) => {
                 {data?.description}
               </DataContents>
               <DataBtnWrapper>
-                <DataBestBtn>Best</DataBestBtn>
+                {data?.isBest && <DataBestBtn>Best</DataBestBtn>}
                 <DataUpdateBtn>Update</DataUpdateBtn>
               </DataBtnWrapper>
             </DataWrapper>

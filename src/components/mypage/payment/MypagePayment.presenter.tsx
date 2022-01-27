@@ -3,6 +3,7 @@ import {
   Maybe,
   UsersPermissionsUser,
 } from "../../../commons/types/generated/types";
+import { D_day } from "../../../utils/D_day";
 import { priceToString } from "../../../utils/priceToString";
 import MypageLayoutContainer from "../../common/layout/mypage/MypageLayout.container";
 import {
@@ -26,18 +27,17 @@ interface MypagePaymentProps {
 const MypagePaymentPresenter: React.FC<MypagePaymentProps> = ({
   paymentHistory,
 }) => {
-  let today = dayjs();
-  let expired_at = dayjs(paymentHistory?.expirationDate);
-  let result = expired_at.diff(today, "day", true);
-  let d_day = Math.floor(result);
   return (
     <MypagePaymentWrapper>
       <MypageBody>
         <MypageLayoutContainer menu="payment" />
         <MypageBodyColumn>
           <MypagePaymentDayTitle>
-            나의 남은 구독일은 <MypagePaymentDay>{d_day} </MypagePaymentDay>일
-            입니다.
+            나의 남은 구독일은
+            <MypagePaymentDay>
+              {D_day(paymentHistory?.expirationDate)}{" "}
+            </MypagePaymentDay>
+            일 입니다.
           </MypagePaymentDayTitle>
           <MypagePaymentTableWrapper>
             <MypagePayMentTableHeader style={{ backgroundColor: "#f3f3f3" }}>

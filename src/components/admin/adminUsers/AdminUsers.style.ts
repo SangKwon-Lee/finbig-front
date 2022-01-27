@@ -38,7 +38,6 @@ export const AdminUsersTableHeaderWrapper = styled.div`
 `;
 
 export const AdminUsersTableHeaderTitle = styled.div`
-  font-size: 16px;
   height: 100%;
   border-right: 1px solid #cccccc;
   display: flex;
@@ -55,7 +54,6 @@ export const AdminUsersTableContentsWrapper = styled.div`
 `;
 
 export const AdminUsersTableContents = styled.div`
-  font-size: 16px;
   height: 100%;
   border-right: 1px solid #cccccc;
   display: flex;

@@ -97,7 +97,6 @@ const ChangeEmailTitleWrapper = styled.div`
 `;
 const ChangeEmailTitle = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
 `;
 const ChangeEmailXSVG = styled.img`
   cursor: pointer;

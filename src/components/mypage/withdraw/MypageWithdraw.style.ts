@@ -23,7 +23,6 @@ export const MypageWithdrawContentsWrapper = styled.div`
 
 export const MypageWithdrawTitle = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
   padding-bottom: 6px;
 `;
 
@@ -58,7 +57,6 @@ export const MypageWithdrawBottomBox = styled.div`
 
 export const MypageWithdrawContentsTitle = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
   padding-bottom: 10px;
 `;
 
@@ -74,7 +72,6 @@ export const MypageWithdrawBottomLine = styled.div`
 
 export const MypageWithdrawAgree = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
   padding-top: 16.5px;
   padding-bottom: 10.5px;
   display: flex;

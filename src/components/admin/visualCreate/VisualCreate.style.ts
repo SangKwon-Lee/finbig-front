@@ -3,12 +3,8 @@ import styled from "@emotion/styled";
 export const VisualCreateWrapper = styled.div`
   min-height: 1200px;
   background-color: #f2f2f2;
-  height: 100vh;
   display: flex;
-
   min-width: 1920px;
-
-  height: 100vh;
 `;
 
 export const VisualCreateBody = styled.div`
@@ -44,7 +40,6 @@ export const VisualCreateInputLabel = styled.div`
   width: 184px;
   display: flex;
   align-items: center;
-  font-size: 16px;
   padding-left: 27px;
 `;
 
@@ -174,4 +169,145 @@ export const VisualCreateBtn = styled.button`
   background-color: #4033a2;
   outline: none;
   cursor: pointer;
+`;
+
+export const RelationWrapper = styled.div`
+  margin-top: 55px;
+  padding-right: 10px;
+`;
+
+export const RelationTitleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+export const RelationTitle = styled.div`
+  font-family: SpoqaHanSans-Bold;
+  font-size: 32px;
+`;
+
+export const RelationBtn = styled.button`
+  width: 137px;
+  height: 46px;
+  color: #4033a2;
+  border: 1px solid #4033a2;
+  font-family: SpoqaHanSans-Bold;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  background-color: white;
+`;
+
+export const RelationTableHeaderWrapper = styled.div`
+  width: 100%;
+  background-color: #e9e9e9;
+  display: flex;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+`;
+
+export const RelationTableHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0.5;
+  border-right: 1px solid #cccccc;
+  height: 57px;
+`;
+
+export const RelationTableContentsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+`;
+
+export const RelationTableContents = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0.5;
+  border-right: 1px solid #cccccc;
+  height: 57px;
+`;
+
+export const RelationTableContentsBtn = styled.button`
+  width: 88px;
+  height: 36px;
+  border: 1px solid #cccccc;
+  background-color: white;
+  color: #999999;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+`;
+
+export const ModalTitleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #4033a2;
+  padding: 0px 34px;
+  align-items: center;
+  min-height: 66px;
+`;
+
+export const ModalTitle = styled.div`
+  font-family: SpoqaHanSans-Bold;
+  color: white;
+  font-size: 17px;
+`;
+
+export const ModalCancel = styled.img`
+  cursor: pointer;
+`;
+
+export const ModalTableHeaderWrapper = styled.div`
+  display: flex;
+  margin-top: 30px;
+  margin-left: 28px;
+  margin-right: 28px;
+  background-color: #e9e9e9;
+  min-height: 57px;
+  border: 1px solid #cccccc;
+`;
+
+export const ModalTableHeader = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #cccccc;
+`;
+
+export const ModalTableContentsWrapper = styled.div`
+  display: flex;
+  margin-left: 28px;
+  margin-right: 28px;
+  border: 1px solid #cccccc;
+  border-top: none;
+`;
+
+export const ModalTableContents = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #cccccc;
+  height: 57px;
+`;
+
+export const ModalTableBtn = styled.button`
+  width: 68px;
+  height: 36px;
+  color: white;
+  background-color: #262246;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  border: none;
 `;

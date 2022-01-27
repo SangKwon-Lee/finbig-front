@@ -32,7 +32,6 @@ export const FooterMenuTitleWrapper = styled.div`
 
 export const FooterMenu = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
-  font-size: 16px;
   cursor: pointer;
 `;
 
