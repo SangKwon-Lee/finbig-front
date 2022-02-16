@@ -1,5 +1,34 @@
 import { gql } from "@apollo/client";
 
+// 빅데이터
+export const FETCH_FINBIG = gql`
+  query finbig($id: ID!) {
+    finbig(id: $id) {
+      id
+      created_at
+      updated_at
+      title
+      description
+      thumbnail
+      order
+      viewCount
+      isBest
+      category
+      type
+      period
+      contents
+      isShow
+      apiName
+      relationFinbigs {
+        id
+        title
+        description
+        thumbnail
+      }
+    }
+  }
+`;
+
 export const FETCH_FINBIGS = gql`
   query finbigs($sort: String, $limit: Int, $start: Int, $where: JSON) {
     finbigs(sort: $sort, limit: $limit, start: $start, where: $where) {
@@ -38,30 +67,7 @@ export const UPDATE_FINBIG_VIEWCOUNT = gql`
     updateFinbig(input: $input) {
       finbig {
         id
-      }
-    }
-  }
-`;
-
-export const FETCH_USER_VIEWDATA = gql`
-  query user($id: ID!) {
-    user(id: $id) {
-      finbigView {
-        id
         title
-      }
-    }
-  }
-`;
-
-export const UPDATE_RECENT_DATA = gql`
-  mutation updateUser($input: updateUserInput) {
-    updateUser(input: $input) {
-      user {
-        finbigView {
-          id
-          title
-        }
       }
     }
   }

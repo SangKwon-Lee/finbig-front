@@ -10,13 +10,12 @@ import {
   VisualListType,
   VisualListWrapper,
 } from "./VisualList.style";
-import { Maybe, VisualData } from "../../commons/types/generated/types";
 import dayjs from "dayjs";
 import PaginationContainer from "../common/pagination/Pagination.container";
 import BlankImg from "../../assets/images/blankImg.png";
 import { useNavigate } from "react-router";
+import { VisualDataQuery } from "../../commons/graphql/generated";
 interface VisualListProps {
-  visualList: Maybe<Maybe<VisualData>[]> | undefined;
   listLength: any;
   listInput: {
     start: number;
@@ -28,24 +27,30 @@ interface VisualListProps {
       limit: number;
     }>
   >;
+  visualList: VisualDataQuery | undefined;
+  visualListLoading: boolean;
   handleUpdateVisual: (dataId: string, viewCount: number) => Promise<void>;
 }
 
 const VisualListPresenter: React.FC<VisualListProps> = ({
-  visualList,
-  listLength,
   listInput,
   setListInput,
+  visualList,
+  listLength,
+  visualListLoading,
   handleUpdateVisual,
 }) => {
   let length = 0;
-  if (visualList) {
-    if (visualList.length === 3 || visualList.length === 6) {
+  if (!visualListLoading) {
+    if (
+      visualList?.visualData?.length === 3 ||
+      visualList?.visualData?.length === 6
+    ) {
       length = 6;
-    } else if (visualList.length < 3) {
-      length = visualList.length + 3;
+    } else if (Number(visualList?.visualData?.length) < 3) {
+      length = Number(visualList?.visualData?.length) + 3;
     } else {
-      length = visualList.length;
+      length = Number(visualList?.visualData?.length);
     }
   }
 
@@ -54,31 +59,32 @@ const VisualListPresenter: React.FC<VisualListProps> = ({
     <VisualListWrapper>
       <VisualListMainTitle>데이터 시각화 / 활용</VisualListMainTitle>
       <VisualListBody>
-        {visualList
-          ?.filter((data) => data?.isShow === true)
-          .map((data) => (
-            <VisualListContentsWrapper key={data?.id}>
-              <VisualListImg
-                src={data?.thumbnail ? data.thumbnail : BlankImg}
-                onClick={() => {
-                  handleUpdateVisual(String(data?.id), data?.viewCount);
-                  navigate(`/visual/${data?.id}`);
-                }}
-              />
-              <VisualListType>[{data?.category}]</VisualListType>
-              <VisualListTitle
-                onClick={() => {
-                  handleUpdateVisual(String(data?.id), data?.viewCount);
-                  navigate(`/visual/${data?.id}`);
-                }}
-              >
-                {data?.title}
-              </VisualListTitle>
-              <VisualListCreateAt>
-                {dayjs(data?.created_at).format("YYYY-MM-DD")}
-              </VisualListCreateAt>
-            </VisualListContentsWrapper>
-          ))}
+        {!visualListLoading &&
+          visualList?.visualData
+            ?.filter((data) => data?.isShow === true)
+            .map((data) => (
+              <VisualListContentsWrapper key={data?.id}>
+                <VisualListImg
+                  src={data?.thumbnail ? data.thumbnail : BlankImg}
+                  onClick={() => {
+                    handleUpdateVisual(String(data?.id), data?.viewCount);
+                    navigate(`/visual/${data?.id}`);
+                  }}
+                />
+                <VisualListType>[{data?.category}]</VisualListType>
+                <VisualListTitle
+                  onClick={() => {
+                    handleUpdateVisual(String(data?.id), data?.viewCount);
+                    navigate(`/visual/${data?.id}`);
+                  }}
+                >
+                  {data?.title}
+                </VisualListTitle>
+                <VisualListCreateAt>
+                  {dayjs(data?.created_at).format("YYYY-MM-DD")}
+                </VisualListCreateAt>
+              </VisualListContentsWrapper>
+            ))}
         {new Array(6 - length).fill(1).map((__, index) => (
           <VisualListImgBlank
             key={index}

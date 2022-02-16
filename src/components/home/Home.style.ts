@@ -6,7 +6,6 @@ interface HomeStypeProps {
 }
 
 export const Banner = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   height: 340px;
@@ -57,11 +56,9 @@ export const BannerContents = styled.div`
 export const ContainerWrapper = styled.div`
   display: flex;
   align-items: center;
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   flex-direction: column;
-  /* justify-content: center; */
 `;
 
 export const CenterWrapper = styled.div`
@@ -252,8 +249,6 @@ export const PopularWrapper = styled.div`
   flex-direction: column;
   background-color: #eeeeee;
   width: 100%;
-  /* height: 1000px; */
-  max-width: 1920px;
   min-width: 1100px;
   padding-top: 75px;
   padding-bottom: 48px;

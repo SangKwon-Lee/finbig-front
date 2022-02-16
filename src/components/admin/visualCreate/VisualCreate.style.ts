@@ -53,6 +53,8 @@ export const VisualCreateInputContents = styled.div`
   align-items: center;
   background-color: white;
   padding-left: 32px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `;
 
 export const VisualCreateSelect = styled.select`

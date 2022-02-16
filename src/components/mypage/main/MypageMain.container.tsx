@@ -1,20 +1,20 @@
-import { useQuery } from "@apollo/client";
-import { Query, QueryUserArgs } from "../../../commons/types/generated/types";
 import MypageMainPresenter from "./MypageMain.presenter";
-import { GET_USER } from "./MypageMain.query";
 import WithAuth from "../../common/hocs/withAuth";
 import { blankImg } from "../../../utils/blankImg";
 import { useEffect, useState } from "react";
+import { useUserQuery } from "../../../commons/graphql/generated";
 const MypageMainContainer = () => {
   const userId = sessionStorage.getItem("userId");
 
   //* 빈 이미지
   const [blackLength, setBlackLength] = useState<number>(1);
 
-  const { data } = useQuery<Query, QueryUserArgs>(GET_USER, {
+  //* 유저 정보
+  const { data } = useUserQuery({
     variables: {
       id: String(userId),
     },
+    fetchPolicy: "no-cache",
   });
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const MypageMainContainer = () => {
     }
   }, [data]);
 
-  return <MypageMainPresenter data={data?.user} blackLength={blackLength} />;
+  return <MypageMainPresenter data={data} blackLength={blackLength} />;
 };
 
 export default WithAuth(MypageMainContainer);

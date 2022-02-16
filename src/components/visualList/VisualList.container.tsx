@@ -1,16 +1,10 @@
-import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 import {
-  Mutation,
-  MutationUpdateVisualDatumArgs,
-  Query,
-  QueryVisualDataArgs,
-  QueryVisualDataConnectionArgs,
-} from "../../commons/types/generated/types";
-import { UPDATE_VISUAL_DATUM } from "../admin/visualCreate/VisualCreate.query";
-import { FETCH_VISUAL_DATA } from "../admin/visualList/VisualList.query";
+  useUpdateVisualDatumMutation,
+  useVisualDataConnectionQuery,
+  useVisualDataQuery,
+} from "../../commons/graphql/generated";
 import VisualListPresenter from "./VisualList.presenter";
-import { FETCH_VISUAL_COUNT } from "./VisualList.query";
 
 const VisualListContainer = () => {
   //* 페이지네이션 상태
@@ -20,36 +14,28 @@ const VisualListContainer = () => {
   });
 
   //* 조회수 증가 뮤테이션
-  const [updateVisual] = useMutation<Mutation, MutationUpdateVisualDatumArgs>(
-    UPDATE_VISUAL_DATUM
-  );
+  const [updateVisual] = useUpdateVisualDatumMutation();
 
   //* 데이터 불러오기 쿼리
-  const { data: visualList } = useQuery<Query, QueryVisualDataArgs>(
-    FETCH_VISUAL_DATA,
-    {
-      variables: {
-        start: listInput.start,
-        limit: listInput.limit,
-        where: {
-          isShow: true,
-        },
-        sort: "created_at:desc",
+  const { data: visualList, loading: visualListLoading } = useVisualDataQuery({
+    variables: {
+      start: listInput.start,
+      limit: listInput.limit,
+      where: {
+        isShow: true,
       },
-    }
-  );
+      sort: "created_at:desc",
+    },
+  });
 
   //* 데이터 전체 길이
-  const { data: visualCount } = useQuery<Query, QueryVisualDataConnectionArgs>(
-    FETCH_VISUAL_COUNT,
-    {
-      variables: {
-        where: {
-          isShow: true,
-        },
+  const { data: visualCount } = useVisualDataConnectionQuery({
+    variables: {
+      where: {
+        isShow: true,
       },
-    }
-  );
+    },
+  });
 
   //* 조회수 증가 함수
   const handleUpdateVisual = async (dataId: string, viewCount: number) => {
@@ -67,16 +53,17 @@ const VisualListContainer = () => {
         },
       });
     } catch (e) {
-      console.log(e);
+      alert("오류가 발생했습니다.");
     }
   };
 
   return (
     <VisualListPresenter
-      visualList={visualList?.visualData}
-      listLength={visualCount?.visualDataConnection?.aggregate?.count}
       listInput={listInput}
       setListInput={setListInput}
+      visualList={visualList}
+      listLength={visualCount?.visualDataConnection?.aggregate?.count}
+      visualListLoading={visualListLoading}
       handleUpdateVisual={handleUpdateVisual}
     />
   );

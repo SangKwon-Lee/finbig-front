@@ -43,14 +43,13 @@ import {
 } from "./VisualCreate.style";
 import BlankImg from "../../../assets/images/blankImg.png";
 import { useNavigate } from "react-router";
-import {
-  Finbig,
-  Maybe,
-  VisualData,
-} from "../../../commons/types/generated/types";
 import { Box, Modal } from "@mui/material";
 import XWhite from "../../../assets/images/XWhite.svg";
 import dayjs from "dayjs";
+import {
+  FinbigsQuery,
+  VisualDatumQuery,
+} from "../../../commons/graphql/generated";
 
 interface VisualCreateProps {
   input: {
@@ -62,17 +61,18 @@ interface VisualCreateProps {
     thumbnailName: string;
     finbigs: any[];
   };
-  editorRef: React.MutableRefObject<any>;
-  handleInput: (e: any) => void;
-  registerImage: (file: any) => Promise<void>;
-  handleCreateVisual: () => Promise<void>;
-  data: Maybe<VisualData> | undefined;
-  path: string;
-  handleEditVisual: () => Promise<void>;
   open: boolean;
+  path: string;
+  editorRef: React.MutableRefObject<any>;
+  visualData: VisualDatumQuery | undefined;
+  finbigsData: FinbigsQuery | undefined;
+  finbigsLoading: boolean;
+  handleInput: (e: any) => void;
   handleOpen: () => void;
   handleClose: () => void;
-  finbigsData: Maybe<Maybe<Finbig>[]> | undefined;
+  registerImage: (file: any) => Promise<void>;
+  handleCreateVisual: () => Promise<void>;
+  handleEditVisual: () => Promise<void>;
   handleRelationInput: (e: any) => void;
 }
 
@@ -82,7 +82,7 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
   handleInput,
   registerImage,
   handleCreateVisual,
-  data,
+  visualData,
   path,
   handleEditVisual,
   handleClose,
@@ -90,6 +90,7 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
   open,
   finbigsData,
   handleRelationInput,
+  finbigsLoading,
 }) => {
   const navigate = useNavigate();
   return (
@@ -107,11 +108,13 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
               <VisualCreateSelect
                 onChange={handleInput}
                 name="category"
-                defaultValue={data?.category || "리츠"}
+                defaultValue={
+                  visualData?.visualDatum?.category || "투자기초 데이터"
+                }
               >
-                <option value="리츠">리츠</option>
-                <option value="리츠2">리츠</option>
-                <option value="리츠3">리츠</option>
+                <option value="투자기초 데이터">투자기초 데이터</option>
+                <option value="알고리즘 데이터">알고리즘 데이터</option>
+                <option value="콜라보">콜라보</option>
               </VisualCreateSelect>
             </VisualCreateInputContents>
           </VisualCreateInputWrapper>
@@ -124,7 +127,7 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
               <VisualCreateInputTitle
                 onChange={handleInput}
                 name="title"
-                defaultValue={data?.title || ""}
+                defaultValue={visualData?.visualDatum?.title || ""}
               />
             </VisualCreateInputContents>
           </VisualCreateInputWrapper>
@@ -166,7 +169,7 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
                 <VisualCreateInputDescription
                   onChange={handleInput}
                   name="description"
-                  defaultValue={data?.description || ""}
+                  defaultValue={visualData?.visualDatum?.description || ""}
                 />
                 <VisualCreateDescriptionText>
                   200자 이내로 작성해주세요
@@ -175,9 +178,7 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
             </VisualCreateInputContents>
           </VisualCreateInputWrapper>
           <VisualCreateInputWrapper>
-            <VisualCreateInputLabel style={{ height: "310px" }}>
-              데이터 설명
-            </VisualCreateInputLabel>
+            <VisualCreateInputLabel>데이터 설명</VisualCreateInputLabel>
             <VisualCreateInputContents>
               <WebEditor
                 bucket_name={"hiddenbox-photo"}
@@ -203,32 +204,33 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
               삭제
             </RelationTableHeader>
           </RelationTableHeaderWrapper>
-          {finbigsData
-            ?.filter((data) => input.finbigs.includes(data?.id))
-            ?.map((data) => (
-              <RelationTableContentsWrapper key={data?.id}>
-                <RelationTableContents>{data?.id}</RelationTableContents>
-                <RelationTableContents style={{ flex: 2.5 }}>
-                  {data?.title}
-                </RelationTableContents>
-                <RelationTableContents>
-                  {dayjs(data?.created_at).format("YYYY.MM.DD")}
-                  <br />
-                  {dayjs(data?.updated_at).format("YYYY.MM.DD")}
-                </RelationTableContents>
-                <RelationTableContents>
-                  {data?.isShow ? "노출" : "미노출"}
-                </RelationTableContents>
-                <RelationTableContents>
-                  <RelationTableContentsBtn
-                    id={data?.id}
-                    onClick={handleRelationInput}
-                  >
-                    삭제
-                  </RelationTableContentsBtn>
-                </RelationTableContents>
-              </RelationTableContentsWrapper>
-            ))}
+          {!finbigsLoading &&
+            finbigsData!
+              .finbigs!?.filter((data) => input.finbigs.includes(data?.id))
+              ?.map((data) => (
+                <RelationTableContentsWrapper key={data?.id}>
+                  <RelationTableContents>{data?.id}</RelationTableContents>
+                  <RelationTableContents style={{ flex: 2.5 }}>
+                    {data?.title}
+                  </RelationTableContents>
+                  <RelationTableContents>
+                    {dayjs(data?.created_at).format("YYYY.MM.DD")}
+                    <br />
+                    {dayjs(data?.updated_at).format("YYYY.MM.DD")}
+                  </RelationTableContents>
+                  <RelationTableContents>
+                    {data?.isShow ? "노출" : "미노출"}
+                  </RelationTableContents>
+                  <RelationTableContents>
+                    <RelationTableContentsBtn
+                      id={data?.id}
+                      onClick={handleRelationInput}
+                    >
+                      삭제
+                    </RelationTableContentsBtn>
+                  </RelationTableContents>
+                </RelationTableContentsWrapper>
+              ))}
         </RelationWrapper>
         <VisualCreateBtnWrapper>
           <VisualCreateCancleBtn
@@ -286,28 +288,29 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
               선택
             </ModalTableHeader>
           </ModalTableHeaderWrapper>
-          {finbigsData?.map((data) => (
-            <ModalTableContentsWrapper key={data?.id}>
-              <ModalTableContents style={{ flex: 0.7 }}>
-                {data?.id}
-              </ModalTableContents>
-              <ModalTableContents style={{ flex: 5 }}>
-                {data?.title}
-              </ModalTableContents>
-              <ModalTableContents>{data?.category}</ModalTableContents>
-              <ModalTableContents style={{ borderRight: "none" }}>
-                {input.finbigs.includes(data?.id) ? (
-                  <ModalTableBtn id={data?.id} onClick={handleRelationInput}>
-                    해제
-                  </ModalTableBtn>
-                ) : (
-                  <ModalTableBtn id={data?.id} onClick={handleRelationInput}>
-                    선택
-                  </ModalTableBtn>
-                )}
-              </ModalTableContents>
-            </ModalTableContentsWrapper>
-          ))}
+          {!finbigsLoading &&
+            finbigsData!.finbigs!.map((data) => (
+              <ModalTableContentsWrapper key={data?.id}>
+                <ModalTableContents style={{ flex: 0.7 }}>
+                  {data?.id}
+                </ModalTableContents>
+                <ModalTableContents style={{ flex: 5 }}>
+                  {data?.title}
+                </ModalTableContents>
+                <ModalTableContents>{data?.category}</ModalTableContents>
+                <ModalTableContents style={{ borderRight: "none" }}>
+                  {input.finbigs.includes(data?.id) ? (
+                    <ModalTableBtn id={data?.id} onClick={handleRelationInput}>
+                      해제
+                    </ModalTableBtn>
+                  ) : (
+                    <ModalTableBtn id={data?.id} onClick={handleRelationInput}>
+                      선택
+                    </ModalTableBtn>
+                  )}
+                </ModalTableContents>
+              </ModalTableContentsWrapper>
+            ))}
         </Box>
       </Modal>
     </VisualCreateWrapper>

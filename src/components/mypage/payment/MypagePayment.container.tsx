@@ -1,19 +1,18 @@
 import MypagePaymentPresenter from "./MypagePayment.presenter";
 import WithAuth from "../../common/hocs/withAuth";
-import { useQuery } from "@apollo/client";
-import { FETCH_USER_PAYMENT } from "./MypagePayment.query";
-import { QueryUserArgs, Query } from "../../../commons/types/generated/types";
+import { useUserQuery } from "../../../commons/graphql/generated";
 const MypagePaymentContainer = () => {
   const userId = sessionStorage.getItem("userId");
 
   //* 결제 내역
-  const { data } = useQuery<Query, QueryUserArgs>(FETCH_USER_PAYMENT, {
+  const { data } = useUserQuery({
     variables: {
       id: String(userId),
     },
+    fetchPolicy: "no-cache",
   });
 
-  return <MypagePaymentPresenter paymentHistory={data?.user} />;
+  return <MypagePaymentPresenter paymentHistory={data} />;
 };
 
 export default WithAuth(MypagePaymentContainer);

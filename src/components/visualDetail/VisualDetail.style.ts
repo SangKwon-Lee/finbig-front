@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const VisualDetailWrapper = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   display: flex;
@@ -37,7 +36,6 @@ export const VisualDetailContents = styled.div`
 `;
 
 export const VisualDetailDivide = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   border-top: 1px solid #c1c1c1;

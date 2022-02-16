@@ -1,21 +1,12 @@
-import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 import {
-  QueryVisualDataArgs,
-  Query,
-  QueryVisualDataConnectionArgs,
-  Mutation,
-  MutationDeleteVisualDatumArgs,
-  MutationUpdateVisualDatumArgs,
-} from "../../../commons/types/generated/types";
+  useDeleteVisualDatumMutation,
+  useUpdateVisualDatumMutation,
+  useVisualDataConnectionQuery,
+  useVisualDataQuery,
+} from "../../../commons/graphql/generated";
 import WithAdminAuth from "../../common/hocs/withAdminAuth";
 import VisualListPresenter from "./VisualList.presenter";
-import {
-  DELETE_VISUAL_DATUM,
-  FETCH_VISUAL_COUNT,
-  FETCH_VISUAL_DATA,
-  UPDATE_VISUAL_DATUM,
-} from "./VisualList.query";
 
 const VisualListContainer = () => {
   //* 페이지 네이션 상태
@@ -42,41 +33,19 @@ const VisualListContainer = () => {
   const handleClose = () => setOpen(false);
 
   //* 데이터 변경
-  const [updateVisual] = useMutation<Mutation, MutationUpdateVisualDatumArgs>(
-    UPDATE_VISUAL_DATUM
-  );
-
+  const [updateVisual] = useUpdateVisualDatumMutation();
   //* 데이터 삭제
-  const [deleteVisual] = useMutation<Mutation, MutationDeleteVisualDatumArgs>(
-    DELETE_VISUAL_DATUM
-  );
+  const [deleteVisual] = useDeleteVisualDatumMutation();
 
   //* 데이터 불러오기
-  const { data: visualList, refetch } = useQuery<Query, QueryVisualDataArgs>(
-    FETCH_VISUAL_DATA,
-    {
-      variables: {
-        start: listInput.start,
-        limit: listInput.limit,
-        where: {
-          _or: [
-            {
-              title: search,
-            },
-          ],
-        },
-        sort: "created_at:desc",
-      },
-      fetchPolicy: "no-cache",
-    }
-  );
-
-  //* 데이터 전체 길이
-  const { data: visualCount, refetch: CountRefetch } = useQuery<
-    Query,
-    QueryVisualDataConnectionArgs
-  >(FETCH_VISUAL_COUNT, {
+  const {
+    data: visualList,
+    refetch,
+    loading: visualListLoading,
+  } = useVisualDataQuery({
     variables: {
+      start: listInput.start,
+      limit: listInput.limit,
       where: {
         _or: [
           {
@@ -84,8 +53,24 @@ const VisualListContainer = () => {
           },
         ],
       },
+      sort: "created_at:desc",
     },
+    fetchPolicy: "no-cache",
   });
+
+  //* 데이터 전체 길이
+  const { data: visualCount, refetch: CountRefetch } =
+    useVisualDataConnectionQuery({
+      variables: {
+        where: {
+          _or: [
+            {
+              title: search,
+            },
+          ],
+        },
+      },
+    });
 
   //* 검색어
   const handleSearch = (e: any) => {
@@ -127,7 +112,7 @@ const VisualListContainer = () => {
       CountRefetch();
       alert("데이터가 삭제 됐습니다.");
     } catch (e) {
-      console.log(e);
+      alert("오류가 발생했습니다.");
     }
   };
 
@@ -147,27 +132,28 @@ const VisualListContainer = () => {
           },
         },
       });
-      handleClose();
       refetch();
     } catch (e) {
-      console.log(e);
+      alert("오류가 발생했습니다.");
+    } finally {
       handleClose();
     }
   };
 
   return (
     <VisualListPresenter
-      visualList={visualList?.visualData}
+      open={open}
       listInput={listInput}
       setListInput={setListInput}
+      visualList={visualList}
+      visualListLoading={visualListLoading}
       listLength={visualCount?.visualDataConnection?.aggregate?.count}
-      handleSearch={handleSearch}
-      handelCheck={handelCheck}
-      handleDeleteVisual={handleDeleteVisual}
-      open={open}
       handleOpen={handleOpen}
       handleClose={handleClose}
+      handelCheck={handelCheck}
+      handleSearch={handleSearch}
       handleChangeShow={handleChangeShow}
+      handleDeleteVisual={handleDeleteVisual}
     />
   );
 };

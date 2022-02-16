@@ -19,21 +19,21 @@ import XSVG from "../../../../assets/images/x.svg";
 import { useNavigate } from "react-router";
 
 interface IHeaderProps {
-  isSearch: boolean;
-  setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSearchWord: (e: React.ChangeEvent<HTMLInputElement>) => void;
   search: string;
+  isSearch: boolean;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
   handleLogout: () => void;
+  handleSearchWord: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const HeaderPresenter: React.FC<IHeaderProps> = ({
-  isSearch,
-  setIsSearch,
-  handleSearchWord,
   search,
+  isSearch,
   setSearch,
+  setIsSearch,
   handleLogout,
+  handleSearchWord,
 }) => {
   const navigate = useNavigate();
   return (
@@ -76,7 +76,12 @@ const HeaderPresenter: React.FC<IHeaderProps> = ({
                 navigate("/mypage/main");
               }}
             ></SVGIcon>
-            <SVGIcon src={MarketSVG}></SVGIcon>
+            <SVGIcon
+              src={MarketSVG}
+              onClick={() => {
+                navigate("/mypage/payment");
+              }}
+            ></SVGIcon>
             <SVGIcon src={LockSVG} onClick={handleLogout}></SVGIcon>
             <SVGIcon
               onClick={() => {

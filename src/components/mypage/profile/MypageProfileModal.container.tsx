@@ -1,76 +1,16 @@
 import styled from "@emotion/styled";
 import XSVG from "../../../assets/images/x.svg";
-import { ApolloQueryResult, gql, useMutation, useQuery } from "@apollo/client";
-import {
-  EmailAuth,
-  Mutation,
-  MutationCreateEmailAuthArgs,
-  MutationDeleteEmailAuthArgs,
-  MutationUpdateUserArgs,
-  Query,
-  QueryUserArgs,
-} from "../../../commons/types/generated/types";
+import { ApolloQueryResult } from "@apollo/client";
 import { useState } from "react";
-
-//* gql
-export const GET_USER = gql`
-  query user($id: ID!) {
-    user(id: $id) {
-      id
-      created_at
-      username
-      email
-      name
-      phone
-      smsReception
-      emailReception
-    }
-  }
-`;
-
-const EMAIL_AUTH = gql`
-  mutation createEmailAuth($input: createEmailAuthInput) {
-    createEmailAuth(input: $input) {
-      emailAuth {
-        id
-        code
-      }
-    }
-  }
-`;
-
-const EMAIL_AUTH_CHECK = gql`
-  query emailAuths {
-    emailAuths {
-      id
-      code
-    }
-  }
-`;
-
-const DELETE_EMAIL_AUTH = gql`
-  mutation deleteEmailAuth($input: deleteEmailAuthInput) {
-    deleteEmailAuth(input: $input) {
-      emailAuth {
-        id
-        code
-      }
-    }
-  }
-`;
-
-export const UPDATE_USER = gql`
-  mutation updateUser($input: updateUserInput!) {
-    updateUser(input: $input) {
-      user {
-        id
-        phone
-        smsReception
-        emailReception
-      }
-    }
-  }
-`;
+import {
+  Exact,
+  useCreateEmailAuthMutation,
+  useDeleteEmailAuthMutation,
+  useEmailAuthsQuery,
+  UserQuery,
+  useUpdateUserMutation,
+  useUserQuery,
+} from "../../../commons/graphql/generated";
 
 //* style
 const ChangeEmaillWrapper = styled.div`
@@ -171,9 +111,15 @@ const ChangeAuthBtn = styled.button`
 
 interface IMypageProfileModalProps {
   setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
-  userRefetch(
-    variables?: Partial<QueryUserArgs> | undefined
-  ): Promise<ApolloQueryResult<Query>>;
+  userRefetch: (
+    variables?:
+      | Partial<
+          Exact<{
+            id: string;
+          }>
+        >
+      | undefined
+  ) => Promise<ApolloQueryResult<UserQuery>>;
 }
 const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
   setIsModal,
@@ -189,25 +135,19 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
   const [email, setEmail] = useState("");
   const [auth, setAuth] = useState("");
   //* 이메일 인증 Mutation
-  const [emailAuth] = useMutation<Mutation, MutationCreateEmailAuthArgs>(
-    EMAIL_AUTH
-  );
+  const [emailAuth] = useCreateEmailAuthMutation();
 
   //* 이메일 인증 후 데이터 삭제
-  const [deleteEmailAuth] = useMutation<Mutation, MutationDeleteEmailAuthArgs>(
-    DELETE_EMAIL_AUTH
-  );
+  const [deleteEmailAuth] = useDeleteEmailAuthMutation();
 
   //* 이메일 인증 코드 데이터
-  const { data, refetch } = useQuery(EMAIL_AUTH_CHECK);
+  const { data, refetch } = useEmailAuthsQuery();
 
   //* 회원정보 변경 뮤테이션
-  const [updateUser] = useMutation<Mutation, MutationUpdateUserArgs>(
-    UPDATE_USER
-  );
+  const [updateUser] = useUpdateUserMutation();
 
   //* 유저 정보 불러오기
-  const { data: userData } = useQuery<Query, QueryUserArgs>(GET_USER, {
+  const { data: userData } = useUserQuery({
     variables: {
       id: String(sessionStorage.getItem("userId")),
     },
@@ -234,14 +174,13 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
       });
       refetch();
     } catch (error) {
-      console.log(error);
       alert("이미 가입된 이메일입니다.");
     }
   };
 
   //* 인증번호 확인
   const handleEmailAuthCheck = async () => {
-    let Auth: EmailAuth[] = data?.emailAuths.filter(
+    let Auth: any[] = data!.emailAuths!.filter(
       (data: any) => data.code === auth
     );
     if (Auth.length === 1) {
@@ -262,7 +201,6 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
         });
         alert("인증이 완료됐습니다.");
       } catch (error) {
-        console.log(error);
         setIsAuth({
           ...isAuth,
           isError: true,
@@ -293,9 +231,7 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
       });
       alert("이메일이 변경됐습니다.");
       userRefetch();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   return (
     <ChangeEmaillWrapper>

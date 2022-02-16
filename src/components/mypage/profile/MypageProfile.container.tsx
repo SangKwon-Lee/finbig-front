@@ -1,16 +1,12 @@
-import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import {
-  QueryUserArgs,
-  Query,
-  MutationLoginArgs,
-  Mutation,
-  MutationUpdateUserArgs,
-} from "../../../commons/types/generated/types";
 import MypageProfilePresenter from "./MypageProfile.presenter";
-import { GET_USER, LOGIN, UPDATE_USER } from "./MypageProfile.query";
 import WithAuth from "../../common/hocs/withAuth";
+import {
+  useLoginMutation,
+  useUpdateUserMutation,
+  useUserQuery,
+} from "../../../commons/graphql/generated";
 const MypageProfileContainer = () => {
   const navigate = useNavigate();
 
@@ -29,27 +25,17 @@ const MypageProfileContainer = () => {
   const [pwError, setPwError] = useState(false);
 
   //* 유저 정보 불러오기
-  const { data: userData, refetch: userRefetch } = useQuery<
-    Query,
-    QueryUserArgs
-  >(GET_USER, {
+  const { data: userData, refetch: userRefetch } = useUserQuery({
     variables: {
       id: String(sessionStorage.getItem("userId")),
     },
   });
 
   //* 로그인 뮤테이션
-  const [login] = useMutation<Mutation, MutationLoginArgs>(LOGIN);
+  const [login] = useLoginMutation();
 
   //* 회원정보 변경 뮤테이션
-  const [updateUser] = useMutation<Mutation, MutationUpdateUserArgs>(
-    UPDATE_USER
-  );
-
-  //* 스탭 함수
-  // const handleStep = () => {
-  //   setStep(() => step + 1);
-  // };
+  const [updateUser] = useUpdateUserMutation();
 
   //* 회원정보 변경을 위한 로그인
   const handleLogin = async () => {
@@ -65,8 +51,8 @@ const MypageProfileContainer = () => {
       setPwError(false);
       setStep(() => step + 1);
     } catch (error) {
+      alert("비밀번호가 일치하지 않습니다.");
       setPwError(true);
-      console.log(error);
     }
   };
 
@@ -102,21 +88,29 @@ const MypageProfileContainer = () => {
       alert("회원정보가 변경됐습니다.");
       navigate("/mypage/main");
     } catch (error) {
-      console.log(error);
+      alert("오류가 발생했습니다.");
+    }
+  };
+
+  //* 엔터 키 누를 시 로그인 실행
+  const onEnterLogin = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleLogin();
     }
   };
 
   return (
     <MypageProfilePresenter
-      userData={userData}
-      handleLogin={handleLogin}
-      handlePasswordInput={handlePasswordInput}
-      pwError={pwError}
       step={step}
-      handleUpdateUser={handleUpdateUser}
       isModal={isModal}
       setIsModal={setIsModal}
+      pwError={pwError}
+      userData={userData}
       userRefetch={userRefetch}
+      handleLogin={handleLogin}
+      onEnterLogin={onEnterLogin}
+      handlePasswordInput={handlePasswordInput}
+      handleUpdateUser={handleUpdateUser}
     />
   );
 };

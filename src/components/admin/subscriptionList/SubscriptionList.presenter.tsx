@@ -1,8 +1,5 @@
 import dayjs from "dayjs";
-import {
-  Maybe,
-  UsersPermissionsUser,
-} from "../../../commons/types/generated/types";
+import { UsersQuery } from "../../../commons/graphql/generated";
 import { D_day } from "../../../utils/D_day";
 import AdminLayoutContainer from "../../common/layout/admin/AdminLayout.container";
 import {
@@ -16,13 +13,15 @@ import {
 } from "./SubscriptionList.style";
 
 interface SubscriptionProps {
-  subscriptionList: Maybe<Maybe<UsersPermissionsUser>[]> | undefined;
-  handlecancelSubscription: (e: any) => Promise<void>;
+  subscriptionList: UsersQuery | undefined;
+  loading: boolean;
+  handlecancelSubscription: (e: React.MouseEvent<HTMLElement>) => Promise<void>;
 }
 
 const SubscriptionPresenter: React.FC<SubscriptionProps> = ({
   subscriptionList,
   handlecancelSubscription,
+  loading,
 }) => {
   return (
     <SubscriptionListWrapper>
@@ -56,8 +55,8 @@ const SubscriptionPresenter: React.FC<SubscriptionProps> = ({
               구독해지
             </SubscriptionTableTitle>
           </SubscriptionTableHeader>
-          {subscriptionList &&
-            subscriptionList.map((data) => (
+          {!loading &&
+            subscriptionList!.users!.map((data) => (
               <SubscriptionTableHeader key={data?.id}>
                 <SubscriptionTableTitle style={{ flex: 0.4 }}>
                   {data?.id}
@@ -96,7 +95,7 @@ const SubscriptionPresenter: React.FC<SubscriptionProps> = ({
                   {D_day(data?.expirationDate)}
                 </SubscriptionTableTitle>
                 <SubscriptionTableTitle style={{ flex: 1.5 }}>
-                  임시
+                  {data?.downloadCount}
                 </SubscriptionTableTitle>
                 <SubscriptionTableTitle style={{ borderRight: "none" }}>
                   <SubscriptionCancelBtn

@@ -1,8 +1,4 @@
 import dayjs from "dayjs";
-import {
-  Maybe,
-  UsersPermissionsUser,
-} from "../../../commons/types/generated/types";
 import { D_day } from "../../../utils/D_day";
 import { priceToString } from "../../../utils/priceToString";
 import MypageLayoutContainer from "../../common/layout/mypage/MypageLayout.container";
@@ -19,9 +15,9 @@ import {
   MypagePaymentDayTitle,
   MypagePaymentDay,
 } from "./MypagePayment.style";
-
+import { UserQuery } from "../../../commons/graphql/generated";
 interface MypagePaymentProps {
-  paymentHistory?: Maybe<UsersPermissionsUser> | undefined;
+  paymentHistory?: UserQuery | undefined;
 }
 
 const MypagePaymentPresenter: React.FC<MypagePaymentProps> = ({
@@ -35,7 +31,7 @@ const MypagePaymentPresenter: React.FC<MypagePaymentProps> = ({
           <MypagePaymentDayTitle>
             나의 남은 구독일은
             <MypagePaymentDay>
-              {D_day(paymentHistory?.expirationDate)}{" "}
+              {D_day(paymentHistory?.user?.expirationDate)}{" "}
             </MypagePaymentDay>
             일 입니다.
           </MypagePaymentDayTitle>
@@ -51,26 +47,28 @@ const MypagePaymentPresenter: React.FC<MypagePaymentProps> = ({
                 결제금액
               </MypagePaymentTableTitle>
             </MypagePayMentTableHeader>
-            {paymentHistory?.subscription_histories &&
-              paymentHistory?.subscription_histories.map((data) => (
-                <MypagePayMentTableHeader key={data?.id}>
-                  <MypagePaymentTableContents>
-                    {dayjs(data?.created_at).format("YYYY.MM.DD")}
-                  </MypagePaymentTableContents>
-                  <MypagePaymentTableContents style={{ flex: 1.5 }}>
-                    {data?.title}
-                  </MypagePaymentTableContents>
-                  <MypagePaymentTableContents>
-                    {data?.paymentMethod === "CARD" ? "카드 결제" : "결제"}
-                  </MypagePaymentTableContents>
-                  <MypagePaymentTableContents>
-                    {data?.paymentStatus}
-                  </MypagePaymentTableContents>
-                  <MypagePaymentTableContents style={{ borderRight: "none" }}>
-                    {priceToString(data?.price)}
-                  </MypagePaymentTableContents>
-                </MypagePayMentTableHeader>
-              ))}
+            {paymentHistory?.user?.subscription_histories &&
+              paymentHistory?.user?.subscription_histories
+                .map((data) => (
+                  <MypagePayMentTableHeader key={data?.id}>
+                    <MypagePaymentTableContents>
+                      {dayjs(data?.created_at).format("YYYY.MM.DD")}
+                    </MypagePaymentTableContents>
+                    <MypagePaymentTableContents style={{ flex: 1.5 }}>
+                      {data?.title}
+                    </MypagePaymentTableContents>
+                    <MypagePaymentTableContents>
+                      {data?.paymentMethod === "CARD" ? "카드 결제" : "결제"}
+                    </MypagePaymentTableContents>
+                    <MypagePaymentTableContents>
+                      {data?.paymentStatus}
+                    </MypagePaymentTableContents>
+                    <MypagePaymentTableContents style={{ borderRight: "none" }}>
+                      {priceToString(data?.price)}
+                    </MypagePaymentTableContents>
+                  </MypagePayMentTableHeader>
+                ))
+                .reverse()}
           </MypagePaymentTableWrapper>
           <MypagePaymentInfoTitle>
             세금계산서 발행에 대한 안내

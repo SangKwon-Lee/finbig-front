@@ -30,7 +30,6 @@ import mainBg from "../../assets/images/mainBg.png";
 import mapBg from "../../assets/images/mapBg.png";
 import dataBg from "../../assets/images/dataBg.png";
 import ReportStockItem from "./ReportStockItem";
-import { Finbig, Maybe } from "../../commons/types/generated/types";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -45,10 +44,13 @@ import {
   DataUpdateBtn,
   DataWrapper,
 } from "../dataList/DataList.style";
+import { FinbigsQuery } from "../../commons/graphql/generated";
 
 interface HomeProps {
-  bestData?: Maybe<Maybe<Finbig>[]> | undefined;
-  updateData?: Maybe<Maybe<Finbig>[]> | undefined;
+  bestData: FinbigsQuery | undefined;
+  updateData: FinbigsQuery | undefined;
+  bestLoading: boolean;
+  updateLoading: boolean;
 }
 
 function SampleNextArrow(props: any) {
@@ -74,9 +76,16 @@ const settings = {
   speed: 500,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SampleNextArrow />,
+  autoplay: true,
+  autoplaySpeed: 3000,
 };
 
-const HomePresenter: React.FC<HomeProps> = ({ bestData, updateData }) => {
+const HomePresenter: React.FC<HomeProps> = ({
+  bestData,
+  updateData,
+  bestLoading,
+  updateLoading,
+}) => {
   const navigate = useNavigate();
   return (
     <>
@@ -110,7 +119,13 @@ const HomePresenter: React.FC<HomeProps> = ({ bestData, updateData }) => {
                 수집, 정제, 처리 하는 핀테크 기업입니다.
               </CenterLeftSubTitle>
               <CenterButton>
-                <CenterButtonTilte>View More</CenterButtonTilte>
+                <CenterButtonTilte
+                  onClick={() => {
+                    navigate(`/dataList`);
+                  }}
+                >
+                  View More
+                </CenterButtonTilte>
               </CenterButton>
             </CenterLeftContentsWrapper>
           </CenterLeft>
@@ -126,7 +141,13 @@ const HomePresenter: React.FC<HomeProps> = ({ bestData, updateData }) => {
                 시각화 및 활용 사례입니다.
               </CenterMiddleSubTitle>
               <CenterButton>
-                <CenterButtonTilte>View More</CenterButtonTilte>
+                <CenterButtonTilte
+                  onClick={() => {
+                    navigate(`/visualList`);
+                  }}
+                >
+                  View More
+                </CenterButtonTilte>
               </CenterButton>
             </CenterMiddleContentsWrapper>
           </CenterMiddle>
@@ -134,49 +155,51 @@ const HomePresenter: React.FC<HomeProps> = ({ bestData, updateData }) => {
         </CenterWrapper>
         <UpdateTitle>신규 업데이트된 데이터</UpdateTitle>
         <UpdateWrapper>
-          {updateData?.map((data) => (
-            <DataWrapper key={data?.id}>
-              <DataImg
-                src={String(data?.thumbnail)}
-                onClick={() => {
-                  navigate(`/data/${data?.id}`);
-                }}
-              />
-              <DataTitle
-                onClick={() => {
-                  navigate(`/data/${data?.id}`);
-                }}
-              >
-                {data?.title}
-              </DataTitle>
-              <DataContents
-                onClick={() => {
-                  navigate(`/data/${data?.id}`);
-                }}
-              >
-                {data?.description}
-              </DataContents>
-              <DataBtnWrapper>
-                {data?.isBest && <DataBestBtn>Best</DataBestBtn>}
-                <DataUpdateBtn>Update</DataUpdateBtn>
-              </DataBtnWrapper>
-            </DataWrapper>
-          ))}
+          {!updateLoading &&
+            updateData?.finbigs?.map((data) => (
+              <DataWrapper key={data?.id}>
+                <DataImg
+                  src={String(data?.thumbnail)}
+                  onClick={() => {
+                    navigate(`/data/${data?.id}`);
+                  }}
+                />
+                <DataTitle
+                  onClick={() => {
+                    navigate(`/data/${data?.id}`);
+                  }}
+                >
+                  {data?.title}
+                </DataTitle>
+                <DataContents
+                  onClick={() => {
+                    navigate(`/data/${data?.id}`);
+                  }}
+                >
+                  {data?.description}
+                </DataContents>
+                <DataBtnWrapper>
+                  {data?.isBest && <DataBestBtn>Best</DataBestBtn>}
+                  <DataUpdateBtn>Update</DataUpdateBtn>
+                </DataBtnWrapper>
+              </DataWrapper>
+            ))}
         </UpdateWrapper>
         <PopularWrapper>
           <PopularTitle>인기 데이터</PopularTitle>
           <>
             <StyledSlider {...settings}>
-              {bestData?.map((data) => (
-                <div key={data?.id}>
-                  <BestDataImg
-                    src={String(data?.thumbnail)}
-                    onClick={() => {
-                      navigate(`/data/${data?.id}`);
-                    }}
-                  />
-                </div>
-              ))}
+              {!bestLoading &&
+                bestData?.finbigs?.map((data) => (
+                  <div key={data?.id}>
+                    <BestDataImg
+                      src={String(data?.thumbnail)}
+                      onClick={() => {
+                        navigate(`/data/${data?.id}`);
+                      }}
+                    />
+                  </div>
+                ))}
             </StyledSlider>
           </>
         </PopularWrapper>

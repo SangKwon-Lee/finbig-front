@@ -1,36 +1,26 @@
-import { useMutation, useQuery } from "@apollo/client";
 import {
-  Mutation,
-  MutationUpdateUserArgs,
-  Query,
-  QueryUsersArgs,
-} from "../../../commons/types/generated/types";
+  useUpdateUserMutation,
+  useUsersQuery,
+} from "../../../commons/graphql/generated";
 import WithAdminAuth from "../../common/hocs/withAdminAuth";
 import SubscriptionPresenter from "./SubscriptionList.presenter";
-import {
-  CANCEL_SUBSCRIPTION_USER,
-  FETCH_SUBSCRIPTION_USERS,
-} from "./SubscriptionList.query";
 
 const SubscriptionContainer = () => {
-  const { data, refetch } = useQuery<Query, QueryUsersArgs>(
-    FETCH_SUBSCRIPTION_USERS,
-    {
-      variables: {
-        where: {
-          isSubscribe: true,
-        },
+  //* 구독한 유저들의 목록
+  const { data, refetch, loading } = useUsersQuery({
+    variables: {
+      where: {
+        isSubscribe: true,
       },
-    }
-  );
+    },
+  });
 
   //* 구독 해지 뮤테이션
-  const [cancleSubscription] = useMutation<Mutation, MutationUpdateUserArgs>(
-    CANCEL_SUBSCRIPTION_USER
-  );
+  const [cancleSubscription] = useUpdateUserMutation();
 
   //* 구독 해지 버튼
-  const handlecancelSubscription = async (e: any) => {
+  const handlecancelSubscription = async (e: React.MouseEvent<HTMLElement>) => {
+    const id = e.currentTarget.id;
     try {
       await cancleSubscription({
         variables: {
@@ -40,7 +30,7 @@ const SubscriptionContainer = () => {
               expirationDate: new Date(),
             },
             where: {
-              id: String(e.target.id),
+              id: String(id),
             },
           },
         },
@@ -48,13 +38,14 @@ const SubscriptionContainer = () => {
       refetch();
       alert("해지 되었습니다.");
     } catch (e) {
-      console.log(e);
+      alert("오류가 발생했습니다.");
     }
   };
 
   return (
     <SubscriptionPresenter
-      subscriptionList={data?.users}
+      subscriptionList={data}
+      loading={loading}
       handlecancelSubscription={handlecancelSubscription}
     />
   );

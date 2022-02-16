@@ -24,8 +24,14 @@ import {
 } from "./License.style";
 import { Box, Modal } from "@mui/material";
 import { priceToString } from "../../utils/priceToString";
+
 interface ILicenseProps {
-  handleBuy: () => void;
+  open: boolean;
+  paymentInput: {
+    title: string;
+    price: number;
+    period: number;
+  };
   setPaymentInput: React.Dispatch<
     React.SetStateAction<{
       title: string;
@@ -33,21 +39,16 @@ interface ILicenseProps {
       period: number;
     }>
   >;
-  paymentInput: {
-    title: string;
-    price: number;
-    period: number;
-  };
-  open: boolean;
+  handleBuy: () => void;
   handleOpen: () => void;
   handleClose: () => void;
 }
 
 const LicensePresenter: React.FC<ILicenseProps> = ({
-  handleBuy,
-  setPaymentInput,
-  paymentInput,
   open,
+  paymentInput,
+  setPaymentInput,
+  handleBuy,
   handleOpen,
   handleClose,
 }) => {

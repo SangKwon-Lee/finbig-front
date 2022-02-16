@@ -9,7 +9,6 @@ interface IFindUserProps {
 
 //* 아이디 찾기
 export const FindUserWrapper = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   display: flex;

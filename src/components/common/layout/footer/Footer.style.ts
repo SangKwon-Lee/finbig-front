@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 
 export const FooterWrapper = styled.div`
   display: flex;
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   height: 333px;
@@ -45,7 +44,6 @@ export const FooterContents = styled.div`
 `;
 
 export const FooterBottomWrapper = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   height: 64px;
@@ -76,4 +74,5 @@ export const FooterBottomRightWrapper = styled.div`
 
 export const FooterBottomRight = styled.div`
   color: #333333;
+  cursor: pointer;
 `;

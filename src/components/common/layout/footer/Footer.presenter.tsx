@@ -21,7 +21,12 @@ const FooterPresenter = () => {
     <>
       <FooterWrapper>
         <FooterMenuWrapper>
-          <FooterLogo src={LogoSVG}></FooterLogo>
+          <FooterLogo
+            src={LogoSVG}
+            onClick={() => {
+              navigate(`/`);
+            }}
+          ></FooterLogo>
           <FooterMenuTitleWrapper>
             <FooterMenu
               onClick={() => {
@@ -32,7 +37,7 @@ const FooterPresenter = () => {
             </FooterMenu>
             <FooterMenu
               onClick={() => {
-                navigate(`/license`);
+                navigate(`/visualList`);
               }}
             >
               데이터 시각화/활용

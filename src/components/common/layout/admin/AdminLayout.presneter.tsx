@@ -32,14 +32,14 @@ const AdminLayoutPresenter: React.FC<AdminLayoutProps> = ({ menu }) => {
         >
           게시물 관리
         </AdminLayoutMenuTitle>
-        <AdminLayoutMenuTitle
+        {/* <AdminLayoutMenuTitle
           isActive={menu === "정산"}
           onClick={() => {
             navigate("/admin/subsciption");
           }}
         >
           정산관리
-        </AdminLayoutMenuTitle>
+        </AdminLayoutMenuTitle> */}
         <AdminLayoutMenuTitle
           isActive={menu === "회원"}
           onClick={() => {

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const LoginWrapper = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   display: flex;

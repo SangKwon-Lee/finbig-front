@@ -1,21 +1,13 @@
-import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
-import {
-  EmailAuth,
-  Mutation,
-  MutationCreateEmailAuthArgs,
-  MutationDeleteEmailAuthArgs,
-  MutationUpdateUserArgs,
-} from "../../commons/types/generated/types";
 import FindUserPresenter from "./FindUser.presenter";
-import {
-  DELETE_EMAIL_AUTH,
-  EMAIL_AUTH,
-  EMAIL_AUTH_CHECK,
-  FETCH_USERS,
-  UPDATE_USER,
-} from "./FindUser.query";
 import { useNavigate } from "react-router";
+import {
+  useCreateEmailAuthMutation,
+  useDeleteEmailAuthMutation,
+  useEmailAuthsQuery,
+  useUpdateUserMutation,
+  useUsersQuery,
+} from "../../commons/graphql/generated";
 const FindUserContainer = () => {
   const navigate = useNavigate();
 
@@ -50,7 +42,7 @@ const FindUserContainer = () => {
   });
 
   //* 아이디 찾기 쿼리
-  const { fetchMore } = useQuery(FETCH_USERS, {
+  const { fetchMore } = useUsersQuery({
     variables: {
       where: {
         name: "",
@@ -60,25 +52,20 @@ const FindUserContainer = () => {
   });
 
   //* 이메일 인증 Mutation
-  const [emailAuth] = useMutation<Mutation, MutationCreateEmailAuthArgs>(
-    EMAIL_AUTH
-  );
+
+  const [emailAuth] = useCreateEmailAuthMutation();
 
   //* 이메일 인증 후 데이터 삭제
-  const [deleteEmailAuth] = useMutation<Mutation, MutationDeleteEmailAuthArgs>(
-    DELETE_EMAIL_AUTH
-  );
+  const [deleteEmailAuth] = useDeleteEmailAuthMutation();
 
   //* 이메일 인증 코드 데이터
-  const { data, refetch } = useQuery(EMAIL_AUTH_CHECK);
+  const { data, refetch } = useEmailAuthsQuery();
 
   //* 비밀번호 업데이트
-  const [updateUser] = useMutation<Mutation, MutationUpdateUserArgs>(
-    UPDATE_USER
-  );
+  const [updateUser] = useUpdateUserMutation();
 
   //* 아이디, 비밀번호 찾기 클릭
-  const handleIsActive = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleIsActive = (e: any) => {
     const target = e.target as HTMLDivElement;
     if (target.id === "id") {
       setIsActive({
@@ -120,8 +107,8 @@ const FindUserContainer = () => {
         createdAt: data?.users[0].created_at,
       });
     } catch (error) {
+      alert("오류가 발생했습니다.");
       setIsFind("id");
-      console.log(error);
     }
   };
 
@@ -144,6 +131,7 @@ const FindUserContainer = () => {
           username: data?.users[0].username,
         });
       } catch (error) {
+        alert("오류가 발생했습니다.");
       } finally {
         setIsFind("pass");
       }
@@ -190,14 +178,14 @@ const FindUserContainer = () => {
           findError: false,
         });
       } catch (error) {
-        alert(error);
+        alert("오류가 발생했습니다.");
       }
     }
   };
 
   //* 인증번호 확인
   const handleEmailAuthCheck = async (auth: string) => {
-    let Auth: EmailAuth[] = data?.emailAuths.filter(
+    let Auth: any[] = data!.emailAuths!.filter(
       (data: any) => data.code === auth
     );
     if (Auth.length === 1) {
@@ -222,6 +210,7 @@ const FindUserContainer = () => {
           authError: false,
         });
       } catch (error) {
+        alert("오류가 발생했습니다.");
         setIsAuth({
           ...isAuth,
           isError: true,
@@ -262,17 +251,17 @@ const FindUserContainer = () => {
 
   return (
     <FindUserPresenter
-      isActive={isActive}
-      handleIsActive={handleIsActive}
-      handleFindId={handleFindId}
-      isFind={isFind}
-      resultId={resultId}
-      handleEmailAuth={handleEmailAuth}
       isAuth={isAuth}
+      isFind={isFind}
+      isActive={isActive}
+      resultId={resultId}
+      errorMsg={errorMsg}
+      handleEmailAuth={handleEmailAuth}
       handleEmailAuthCheck={handleEmailAuthCheck}
       handleFindPass={handleFindPass}
       handleResetPass={handleResetPass}
-      errorMsg={errorMsg}
+      handleFindId={handleFindId}
+      handleIsActive={handleIsActive}
     />
   );
 };

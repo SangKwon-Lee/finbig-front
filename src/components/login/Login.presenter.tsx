@@ -13,19 +13,19 @@ import {
 } from "./Login.style";
 
 interface ILoginProps {
-  handleLogin: () => Promise<void>;
-  loading: boolean;
-  handleChnageInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onEnterLogin: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   error: ApolloError | undefined;
+  loading: boolean;
+  handleLogin: () => Promise<void>;
+  onEnterLogin: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleChnageInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const LoginPresenter: React.FC<ILoginProps> = ({
-  handleLogin,
-  loading,
-  handleChnageInput,
-  onEnterLogin,
   error,
+  loading,
+  handleLogin,
+  onEnterLogin,
+  handleChnageInput,
 }) => {
   const navigate = useNavigate();
   return (

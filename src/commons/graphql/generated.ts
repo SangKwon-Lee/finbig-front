@@ -1,8 +1,11 @@
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -2081,3 +2084,1135 @@ export type UpdateVisualDatumPayload = {
   __typename?: 'updateVisualDatumPayload';
   visualDatum?: Maybe<VisualData>;
 };
+
+export type FinbigQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type FinbigQuery = { __typename?: 'Query', finbig?: { __typename?: 'Finbig', id: string, created_at: any, updated_at: any, title?: string | null, description?: string | null, thumbnail?: string | null, order?: number | null, viewCount?: any | null, isBest?: boolean | null, category?: string | null, type?: string | null, period?: string | null, contents?: string | null, isShow?: boolean | null, apiName?: string | null, relationFinbigs?: Array<{ __typename?: 'Finbig', id: string, title?: string | null, description?: string | null, thumbnail?: string | null } | null> | null } | null };
+
+export type FinbigsQueryVariables = Exact<{
+  sort?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  start?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Scalars['JSON']>;
+}>;
+
+
+export type FinbigsQuery = { __typename?: 'Query', finbigs?: Array<{ __typename?: 'Finbig', id: string, created_at: any, updated_at: any, title?: string | null, description?: string | null, thumbnail?: string | null, order?: number | null, viewCount?: any | null, isBest?: boolean | null, category?: string | null, type?: string | null, period?: string | null, contents?: string | null, isShow?: boolean | null, apiName?: string | null } | null> | null };
+
+export type FinbigsConnectionQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']>;
+}>;
+
+
+export type FinbigsConnectionQuery = { __typename?: 'Query', finbigsConnection?: { __typename?: 'FinbigConnection', aggregate?: { __typename?: 'FinbigAggregator', count?: number | null, totalCount?: number | null } | null } | null };
+
+export type UpdateFinbigMutationVariables = Exact<{
+  input?: InputMaybe<UpdateFinbigInput>;
+}>;
+
+
+export type UpdateFinbigMutation = { __typename?: 'Mutation', updateFinbig?: { __typename?: 'updateFinbigPayload', finbig?: { __typename?: 'Finbig', id: string, title?: string | null } | null } | null };
+
+export type CreateEmailAuthMutationVariables = Exact<{
+  input?: InputMaybe<CreateEmailAuthInput>;
+}>;
+
+
+export type CreateEmailAuthMutation = { __typename?: 'Mutation', createEmailAuth?: { __typename?: 'createEmailAuthPayload', emailAuth?: { __typename?: 'EmailAuth', code?: string | null } | null } | null };
+
+export type EmailAuthsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EmailAuthsQuery = { __typename?: 'Query', emailAuths?: Array<{ __typename?: 'EmailAuth', id: string, code?: string | null } | null> | null };
+
+export type DeleteEmailAuthMutationVariables = Exact<{
+  input?: InputMaybe<DeleteEmailAuthInput>;
+}>;
+
+
+export type DeleteEmailAuthMutation = { __typename?: 'Mutation', deleteEmailAuth?: { __typename?: 'deleteEmailAuthPayload', emailAuth?: { __typename?: 'EmailAuth', id: string, code?: string | null } | null } | null };
+
+export type CreateSubscriptionHistoryMutationVariables = Exact<{
+  input?: InputMaybe<CreateSubscriptionHistoryInput>;
+}>;
+
+
+export type CreateSubscriptionHistoryMutation = { __typename?: 'Mutation', createSubscriptionHistory?: { __typename?: 'createSubscriptionHistoryPayload', subscriptionHistory?: { __typename?: 'SubscriptionHistory', id: string, created_at: any, period?: number | null } | null } | null };
+
+export type LoginMutationVariables = Exact<{
+  input: UsersPermissionsLoginInput;
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UsersPermissionsLoginPayload', jwt?: string | null, user: { __typename?: 'UsersPermissionsMe', id: string, email: string, confirmed?: boolean | null, blocked?: boolean | null, role?: { __typename?: 'UsersPermissionsMeRole', id: string, name: string, description?: string | null, type?: string | null } | null } } };
+
+export type CreateTokenMutationVariables = Exact<{
+  input: CreateTokenInput;
+}>;
+
+
+export type CreateTokenMutation = { __typename?: 'Mutation', createToken?: { __typename?: 'createTokenPayload', token?: { __typename?: 'Token', id: string } | null } | null };
+
+export type FetchTokenMutationVariables = Exact<{
+  userId?: InputMaybe<Scalars['String']>;
+  token?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type FetchTokenMutation = { __typename?: 'Mutation', fetchToken?: { __typename?: 'Token', id: string, token?: string | null, userId?: string | null } | null };
+
+export type UpdateTokenMutationVariables = Exact<{
+  input?: InputMaybe<UpdateTokenInput>;
+}>;
+
+
+export type UpdateTokenMutation = { __typename?: 'Mutation', updateToken?: { __typename?: 'updateTokenPayload', token?: { __typename?: 'Token', id: string } | null } | null };
+
+export type DeleteTokenMutationVariables = Exact<{
+  input?: InputMaybe<DeleteTokenInput>;
+}>;
+
+
+export type DeleteTokenMutation = { __typename?: 'Mutation', deleteToken?: { __typename?: 'deleteTokenPayload', token?: { __typename?: 'Token', id: string } | null } | null };
+
+export type CreateUserMutationVariables = Exact<{
+  input: CreateUserInput;
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'createUserPayload', user?: { __typename?: 'UsersPermissionsUser', id: string, email: string, confirmed?: boolean | null, blocked?: boolean | null, role?: { __typename?: 'UsersPermissionsRole', id: string, name: string, description?: string | null, type?: string | null } | null } | null } | null };
+
+export type UsersQueryVariables = Exact<{
+  sort?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  start?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Scalars['JSON']>;
+}>;
+
+
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'UsersPermissionsUser', id: string, email: string, username: string, name?: string | null, smsReception?: boolean | null, emailReception?: boolean | null, phone?: string | null, isDeleted?: boolean | null, deletedAt?: any | null, downloadCount?: number | null, subscriptionDate?: any | null, expirationDate?: any | null, isSubscribe?: boolean | null, created_at: any, subscription_histories?: Array<{ __typename?: 'SubscriptionHistory', id: string, created_at: any, title?: string | null, price?: number | null, period?: number | null } | null> | null } | null> | null };
+
+export type UserQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'UsersPermissionsUser', id: string, email: string, username: string, name?: string | null, isSubscribe?: boolean | null, expirationDate?: any | null, smsReception?: boolean | null, subscriptionDate?: any | null, emailReception?: boolean | null, phone?: string | null, isAdmin?: boolean | null, isDeleted?: boolean | null, deletedAt?: any | null, downloadCount?: number | null, finbigDownload?: Array<{ __typename?: 'Finbig', id: string, title?: string | null, description?: string | null, thumbnail?: string | null, isBest?: boolean | null } | null> | null, finbigView?: Array<{ __typename?: 'Finbig', id: string, title?: string | null, description?: string | null, thumbnail?: string | null, isBest?: boolean | null } | null> | null, subscription_histories?: Array<{ __typename?: 'SubscriptionHistory', id: string, title?: string | null, price?: number | null, period?: number | null, created_at: any, paymentMethod?: string | null, paymentStatus?: string | null } | null> | null } | null };
+
+export type UpdateUserMutationVariables = Exact<{
+  input: UpdateUserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'updateUserPayload', user?: { __typename?: 'UsersPermissionsUser', id: string, email: string, phone?: string | null, smsReception?: boolean | null, expirationDate?: any | null, emailReception?: boolean | null } | null } | null };
+
+export type CreateVisualDatumMutationVariables = Exact<{
+  input?: InputMaybe<CreateVisualDatumInput>;
+}>;
+
+
+export type CreateVisualDatumMutation = { __typename?: 'Mutation', createVisualDatum?: { __typename?: 'createVisualDatumPayload', visualDatum?: { __typename?: 'VisualData', id: string, title?: string | null } | null } | null };
+
+export type VisualDatumQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type VisualDatumQuery = { __typename?: 'Query', visualDatum?: { __typename?: 'VisualData', id: string, created_at: any, title?: string | null, category?: string | null, description?: string | null, viewCount?: any | null, contents?: string | null, thumbnail?: string | null, finbigs?: Array<{ __typename?: 'Finbig', id: string, title?: string | null, thumbnail?: string | null, description?: string | null } | null> | null } | null };
+
+export type VisualDataQueryVariables = Exact<{
+  sort?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  start?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Scalars['JSON']>;
+}>;
+
+
+export type VisualDataQuery = { __typename?: 'Query', visualData?: Array<{ __typename?: 'VisualData', id: string, created_at: any, title?: string | null, category?: string | null, description?: string | null, viewCount?: any | null, isShow?: boolean | null, contents?: string | null, thumbnail?: string | null } | null> | null };
+
+export type VisualDataConnectionQueryVariables = Exact<{
+  where?: InputMaybe<Scalars['JSON']>;
+}>;
+
+
+export type VisualDataConnectionQuery = { __typename?: 'Query', visualDataConnection?: { __typename?: 'VisualDataConnection', aggregate?: { __typename?: 'VisualDataAggregator', count?: number | null } | null } | null };
+
+export type UpdateVisualDatumMutationVariables = Exact<{
+  input?: InputMaybe<UpdateVisualDatumInput>;
+}>;
+
+
+export type UpdateVisualDatumMutation = { __typename?: 'Mutation', updateVisualDatum?: { __typename?: 'updateVisualDatumPayload', visualDatum?: { __typename?: 'VisualData', id: string } | null } | null };
+
+export type DeleteVisualDatumMutationVariables = Exact<{
+  input?: InputMaybe<DeleteVisualDatumInput>;
+}>;
+
+
+export type DeleteVisualDatumMutation = { __typename?: 'Mutation', deleteVisualDatum?: { __typename?: 'deleteVisualDatumPayload', visualDatum?: { __typename?: 'VisualData', id: string } | null } | null };
+
+
+export const FinbigDocument = gql`
+    query finbig($id: ID!) {
+  finbig(id: $id) {
+    id
+    created_at
+    updated_at
+    title
+    description
+    thumbnail
+    order
+    viewCount
+    isBest
+    category
+    type
+    period
+    contents
+    isShow
+    apiName
+    relationFinbigs {
+      id
+      title
+      description
+      thumbnail
+    }
+  }
+}
+    `;
+
+/**
+ * __useFinbigQuery__
+ *
+ * To run a query within a React component, call `useFinbigQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFinbigQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFinbigQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFinbigQuery(baseOptions: Apollo.QueryHookOptions<FinbigQuery, FinbigQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FinbigQuery, FinbigQueryVariables>(FinbigDocument, options);
+      }
+export function useFinbigLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FinbigQuery, FinbigQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FinbigQuery, FinbigQueryVariables>(FinbigDocument, options);
+        }
+export type FinbigQueryHookResult = ReturnType<typeof useFinbigQuery>;
+export type FinbigLazyQueryHookResult = ReturnType<typeof useFinbigLazyQuery>;
+export type FinbigQueryResult = Apollo.QueryResult<FinbigQuery, FinbigQueryVariables>;
+export const FinbigsDocument = gql`
+    query finbigs($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  finbigs(sort: $sort, limit: $limit, start: $start, where: $where) {
+    id
+    created_at
+    updated_at
+    title
+    description
+    thumbnail
+    order
+    viewCount
+    isBest
+    category
+    type
+    period
+    contents
+    isShow
+    apiName
+  }
+}
+    `;
+
+/**
+ * __useFinbigsQuery__
+ *
+ * To run a query within a React component, call `useFinbigsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFinbigsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFinbigsQuery({
+ *   variables: {
+ *      sort: // value for 'sort'
+ *      limit: // value for 'limit'
+ *      start: // value for 'start'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useFinbigsQuery(baseOptions?: Apollo.QueryHookOptions<FinbigsQuery, FinbigsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FinbigsQuery, FinbigsQueryVariables>(FinbigsDocument, options);
+      }
+export function useFinbigsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FinbigsQuery, FinbigsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FinbigsQuery, FinbigsQueryVariables>(FinbigsDocument, options);
+        }
+export type FinbigsQueryHookResult = ReturnType<typeof useFinbigsQuery>;
+export type FinbigsLazyQueryHookResult = ReturnType<typeof useFinbigsLazyQuery>;
+export type FinbigsQueryResult = Apollo.QueryResult<FinbigsQuery, FinbigsQueryVariables>;
+export const FinbigsConnectionDocument = gql`
+    query finbigsConnection($where: JSON) {
+  finbigsConnection(where: $where) {
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+    `;
+
+/**
+ * __useFinbigsConnectionQuery__
+ *
+ * To run a query within a React component, call `useFinbigsConnectionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFinbigsConnectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFinbigsConnectionQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useFinbigsConnectionQuery(baseOptions?: Apollo.QueryHookOptions<FinbigsConnectionQuery, FinbigsConnectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FinbigsConnectionQuery, FinbigsConnectionQueryVariables>(FinbigsConnectionDocument, options);
+      }
+export function useFinbigsConnectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FinbigsConnectionQuery, FinbigsConnectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FinbigsConnectionQuery, FinbigsConnectionQueryVariables>(FinbigsConnectionDocument, options);
+        }
+export type FinbigsConnectionQueryHookResult = ReturnType<typeof useFinbigsConnectionQuery>;
+export type FinbigsConnectionLazyQueryHookResult = ReturnType<typeof useFinbigsConnectionLazyQuery>;
+export type FinbigsConnectionQueryResult = Apollo.QueryResult<FinbigsConnectionQuery, FinbigsConnectionQueryVariables>;
+export const UpdateFinbigDocument = gql`
+    mutation updateFinbig($input: updateFinbigInput) {
+  updateFinbig(input: $input) {
+    finbig {
+      id
+      title
+    }
+  }
+}
+    `;
+export type UpdateFinbigMutationFn = Apollo.MutationFunction<UpdateFinbigMutation, UpdateFinbigMutationVariables>;
+
+/**
+ * __useUpdateFinbigMutation__
+ *
+ * To run a mutation, you first call `useUpdateFinbigMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFinbigMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFinbigMutation, { data, loading, error }] = useUpdateFinbigMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateFinbigMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFinbigMutation, UpdateFinbigMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFinbigMutation, UpdateFinbigMutationVariables>(UpdateFinbigDocument, options);
+      }
+export type UpdateFinbigMutationHookResult = ReturnType<typeof useUpdateFinbigMutation>;
+export type UpdateFinbigMutationResult = Apollo.MutationResult<UpdateFinbigMutation>;
+export type UpdateFinbigMutationOptions = Apollo.BaseMutationOptions<UpdateFinbigMutation, UpdateFinbigMutationVariables>;
+export const CreateEmailAuthDocument = gql`
+    mutation createEmailAuth($input: createEmailAuthInput) {
+  createEmailAuth(input: $input) {
+    emailAuth {
+      code
+    }
+  }
+}
+    `;
+export type CreateEmailAuthMutationFn = Apollo.MutationFunction<CreateEmailAuthMutation, CreateEmailAuthMutationVariables>;
+
+/**
+ * __useCreateEmailAuthMutation__
+ *
+ * To run a mutation, you first call `useCreateEmailAuthMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateEmailAuthMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createEmailAuthMutation, { data, loading, error }] = useCreateEmailAuthMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateEmailAuthMutation(baseOptions?: Apollo.MutationHookOptions<CreateEmailAuthMutation, CreateEmailAuthMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateEmailAuthMutation, CreateEmailAuthMutationVariables>(CreateEmailAuthDocument, options);
+      }
+export type CreateEmailAuthMutationHookResult = ReturnType<typeof useCreateEmailAuthMutation>;
+export type CreateEmailAuthMutationResult = Apollo.MutationResult<CreateEmailAuthMutation>;
+export type CreateEmailAuthMutationOptions = Apollo.BaseMutationOptions<CreateEmailAuthMutation, CreateEmailAuthMutationVariables>;
+export const EmailAuthsDocument = gql`
+    query emailAuths {
+  emailAuths {
+    id
+    code
+  }
+}
+    `;
+
+/**
+ * __useEmailAuthsQuery__
+ *
+ * To run a query within a React component, call `useEmailAuthsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEmailAuthsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEmailAuthsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEmailAuthsQuery(baseOptions?: Apollo.QueryHookOptions<EmailAuthsQuery, EmailAuthsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EmailAuthsQuery, EmailAuthsQueryVariables>(EmailAuthsDocument, options);
+      }
+export function useEmailAuthsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EmailAuthsQuery, EmailAuthsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EmailAuthsQuery, EmailAuthsQueryVariables>(EmailAuthsDocument, options);
+        }
+export type EmailAuthsQueryHookResult = ReturnType<typeof useEmailAuthsQuery>;
+export type EmailAuthsLazyQueryHookResult = ReturnType<typeof useEmailAuthsLazyQuery>;
+export type EmailAuthsQueryResult = Apollo.QueryResult<EmailAuthsQuery, EmailAuthsQueryVariables>;
+export const DeleteEmailAuthDocument = gql`
+    mutation deleteEmailAuth($input: deleteEmailAuthInput) {
+  deleteEmailAuth(input: $input) {
+    emailAuth {
+      id
+      code
+    }
+  }
+}
+    `;
+export type DeleteEmailAuthMutationFn = Apollo.MutationFunction<DeleteEmailAuthMutation, DeleteEmailAuthMutationVariables>;
+
+/**
+ * __useDeleteEmailAuthMutation__
+ *
+ * To run a mutation, you first call `useDeleteEmailAuthMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteEmailAuthMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteEmailAuthMutation, { data, loading, error }] = useDeleteEmailAuthMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteEmailAuthMutation(baseOptions?: Apollo.MutationHookOptions<DeleteEmailAuthMutation, DeleteEmailAuthMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteEmailAuthMutation, DeleteEmailAuthMutationVariables>(DeleteEmailAuthDocument, options);
+      }
+export type DeleteEmailAuthMutationHookResult = ReturnType<typeof useDeleteEmailAuthMutation>;
+export type DeleteEmailAuthMutationResult = Apollo.MutationResult<DeleteEmailAuthMutation>;
+export type DeleteEmailAuthMutationOptions = Apollo.BaseMutationOptions<DeleteEmailAuthMutation, DeleteEmailAuthMutationVariables>;
+export const CreateSubscriptionHistoryDocument = gql`
+    mutation createSubscriptionHistory($input: createSubscriptionHistoryInput) {
+  createSubscriptionHistory(input: $input) {
+    subscriptionHistory {
+      id
+      created_at
+      period
+    }
+  }
+}
+    `;
+export type CreateSubscriptionHistoryMutationFn = Apollo.MutationFunction<CreateSubscriptionHistoryMutation, CreateSubscriptionHistoryMutationVariables>;
+
+/**
+ * __useCreateSubscriptionHistoryMutation__
+ *
+ * To run a mutation, you first call `useCreateSubscriptionHistoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSubscriptionHistoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSubscriptionHistoryMutation, { data, loading, error }] = useCreateSubscriptionHistoryMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateSubscriptionHistoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateSubscriptionHistoryMutation, CreateSubscriptionHistoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSubscriptionHistoryMutation, CreateSubscriptionHistoryMutationVariables>(CreateSubscriptionHistoryDocument, options);
+      }
+export type CreateSubscriptionHistoryMutationHookResult = ReturnType<typeof useCreateSubscriptionHistoryMutation>;
+export type CreateSubscriptionHistoryMutationResult = Apollo.MutationResult<CreateSubscriptionHistoryMutation>;
+export type CreateSubscriptionHistoryMutationOptions = Apollo.BaseMutationOptions<CreateSubscriptionHistoryMutation, CreateSubscriptionHistoryMutationVariables>;
+export const LoginDocument = gql`
+    mutation Login($input: UsersPermissionsLoginInput!) {
+  login(input: $input) {
+    jwt
+    user {
+      id
+      email
+      confirmed
+      blocked
+      role {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+}
+    `;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const CreateTokenDocument = gql`
+    mutation createToken($input: createTokenInput!) {
+  createToken(input: $input) {
+    token {
+      id
+    }
+  }
+}
+    `;
+export type CreateTokenMutationFn = Apollo.MutationFunction<CreateTokenMutation, CreateTokenMutationVariables>;
+
+/**
+ * __useCreateTokenMutation__
+ *
+ * To run a mutation, you first call `useCreateTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTokenMutation, { data, loading, error }] = useCreateTokenMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateTokenMutation(baseOptions?: Apollo.MutationHookOptions<CreateTokenMutation, CreateTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTokenMutation, CreateTokenMutationVariables>(CreateTokenDocument, options);
+      }
+export type CreateTokenMutationHookResult = ReturnType<typeof useCreateTokenMutation>;
+export type CreateTokenMutationResult = Apollo.MutationResult<CreateTokenMutation>;
+export type CreateTokenMutationOptions = Apollo.BaseMutationOptions<CreateTokenMutation, CreateTokenMutationVariables>;
+export const FetchTokenDocument = gql`
+    mutation fetchToken($userId: String, $token: String) {
+  fetchToken(userId: $userId, token: $token) {
+    id
+    token
+    userId
+  }
+}
+    `;
+export type FetchTokenMutationFn = Apollo.MutationFunction<FetchTokenMutation, FetchTokenMutationVariables>;
+
+/**
+ * __useFetchTokenMutation__
+ *
+ * To run a mutation, you first call `useFetchTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFetchTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [fetchTokenMutation, { data, loading, error }] = useFetchTokenMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useFetchTokenMutation(baseOptions?: Apollo.MutationHookOptions<FetchTokenMutation, FetchTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<FetchTokenMutation, FetchTokenMutationVariables>(FetchTokenDocument, options);
+      }
+export type FetchTokenMutationHookResult = ReturnType<typeof useFetchTokenMutation>;
+export type FetchTokenMutationResult = Apollo.MutationResult<FetchTokenMutation>;
+export type FetchTokenMutationOptions = Apollo.BaseMutationOptions<FetchTokenMutation, FetchTokenMutationVariables>;
+export const UpdateTokenDocument = gql`
+    mutation updateToken($input: updateTokenInput) {
+  updateToken(input: $input) {
+    token {
+      id
+    }
+  }
+}
+    `;
+export type UpdateTokenMutationFn = Apollo.MutationFunction<UpdateTokenMutation, UpdateTokenMutationVariables>;
+
+/**
+ * __useUpdateTokenMutation__
+ *
+ * To run a mutation, you first call `useUpdateTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTokenMutation, { data, loading, error }] = useUpdateTokenMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTokenMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTokenMutation, UpdateTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTokenMutation, UpdateTokenMutationVariables>(UpdateTokenDocument, options);
+      }
+export type UpdateTokenMutationHookResult = ReturnType<typeof useUpdateTokenMutation>;
+export type UpdateTokenMutationResult = Apollo.MutationResult<UpdateTokenMutation>;
+export type UpdateTokenMutationOptions = Apollo.BaseMutationOptions<UpdateTokenMutation, UpdateTokenMutationVariables>;
+export const DeleteTokenDocument = gql`
+    mutation deleteToken($input: deleteTokenInput) {
+  deleteToken(input: $input) {
+    token {
+      id
+    }
+  }
+}
+    `;
+export type DeleteTokenMutationFn = Apollo.MutationFunction<DeleteTokenMutation, DeleteTokenMutationVariables>;
+
+/**
+ * __useDeleteTokenMutation__
+ *
+ * To run a mutation, you first call `useDeleteTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTokenMutation, { data, loading, error }] = useDeleteTokenMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteTokenMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTokenMutation, DeleteTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteTokenMutation, DeleteTokenMutationVariables>(DeleteTokenDocument, options);
+      }
+export type DeleteTokenMutationHookResult = ReturnType<typeof useDeleteTokenMutation>;
+export type DeleteTokenMutationResult = Apollo.MutationResult<DeleteTokenMutation>;
+export type DeleteTokenMutationOptions = Apollo.BaseMutationOptions<DeleteTokenMutation, DeleteTokenMutationVariables>;
+export const CreateUserDocument = gql`
+    mutation createUser($input: createUserInput!) {
+  createUser(input: $input) {
+    user {
+      id
+      email
+      confirmed
+      blocked
+      role {
+        id
+        name
+        description
+        type
+      }
+    }
+  }
+}
+    `;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const UsersDocument = gql`
+    query users($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  users(sort: $sort, limit: $limit, start: $start, where: $where) {
+    id
+    email
+    username
+    name
+    smsReception
+    emailReception
+    phone
+    isDeleted
+    deletedAt
+    downloadCount
+    subscriptionDate
+    expirationDate
+    isSubscribe
+    created_at
+    downloadCount
+    subscription_histories {
+      id
+      created_at
+      title
+      price
+      period
+    }
+  }
+}
+    `;
+
+/**
+ * __useUsersQuery__
+ *
+ * To run a query within a React component, call `useUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUsersQuery({
+ *   variables: {
+ *      sort: // value for 'sort'
+ *      limit: // value for 'limit'
+ *      start: // value for 'start'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUsersQuery(baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+      }
+export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersQuery, UsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
+        }
+export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
+export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
+export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export const UserDocument = gql`
+    query user($id: ID!) {
+  user(id: $id) {
+    id
+    email
+    username
+    name
+    isSubscribe
+    expirationDate
+    smsReception
+    subscriptionDate
+    emailReception
+    phone
+    isAdmin
+    isDeleted
+    deletedAt
+    downloadCount
+    finbigDownload {
+      id
+      title
+      description
+      thumbnail
+      isBest
+    }
+    finbigView {
+      id
+      title
+      description
+      thumbnail
+      isBest
+    }
+    subscription_histories {
+      id
+      title
+      price
+      period
+      created_at
+      paymentMethod
+      paymentStatus
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserQuery__
+ *
+ * To run a query within a React component, call `useUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUserQuery(baseOptions: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+      }
+export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+        }
+export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
+export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
+export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
+export const UpdateUserDocument = gql`
+    mutation updateUser($input: updateUserInput!) {
+  updateUser(input: $input) {
+    user {
+      id
+      email
+      phone
+      smsReception
+      expirationDate
+      emailReception
+    }
+  }
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
+      }
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
+export const CreateVisualDatumDocument = gql`
+    mutation createVisualDatum($input: createVisualDatumInput) {
+  createVisualDatum(input: $input) {
+    visualDatum {
+      id
+      title
+    }
+  }
+}
+    `;
+export type CreateVisualDatumMutationFn = Apollo.MutationFunction<CreateVisualDatumMutation, CreateVisualDatumMutationVariables>;
+
+/**
+ * __useCreateVisualDatumMutation__
+ *
+ * To run a mutation, you first call `useCreateVisualDatumMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateVisualDatumMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createVisualDatumMutation, { data, loading, error }] = useCreateVisualDatumMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateVisualDatumMutation(baseOptions?: Apollo.MutationHookOptions<CreateVisualDatumMutation, CreateVisualDatumMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateVisualDatumMutation, CreateVisualDatumMutationVariables>(CreateVisualDatumDocument, options);
+      }
+export type CreateVisualDatumMutationHookResult = ReturnType<typeof useCreateVisualDatumMutation>;
+export type CreateVisualDatumMutationResult = Apollo.MutationResult<CreateVisualDatumMutation>;
+export type CreateVisualDatumMutationOptions = Apollo.BaseMutationOptions<CreateVisualDatumMutation, CreateVisualDatumMutationVariables>;
+export const VisualDatumDocument = gql`
+    query visualDatum($id: ID!) {
+  visualDatum(id: $id) {
+    id
+    created_at
+    title
+    category
+    description
+    viewCount
+    contents
+    thumbnail
+    finbigs {
+      id
+      title
+      thumbnail
+      description
+    }
+  }
+}
+    `;
+
+/**
+ * __useVisualDatumQuery__
+ *
+ * To run a query within a React component, call `useVisualDatumQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVisualDatumQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVisualDatumQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useVisualDatumQuery(baseOptions: Apollo.QueryHookOptions<VisualDatumQuery, VisualDatumQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VisualDatumQuery, VisualDatumQueryVariables>(VisualDatumDocument, options);
+      }
+export function useVisualDatumLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VisualDatumQuery, VisualDatumQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VisualDatumQuery, VisualDatumQueryVariables>(VisualDatumDocument, options);
+        }
+export type VisualDatumQueryHookResult = ReturnType<typeof useVisualDatumQuery>;
+export type VisualDatumLazyQueryHookResult = ReturnType<typeof useVisualDatumLazyQuery>;
+export type VisualDatumQueryResult = Apollo.QueryResult<VisualDatumQuery, VisualDatumQueryVariables>;
+export const VisualDataDocument = gql`
+    query visualData($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  visualData(sort: $sort, limit: $limit, start: $start, where: $where) {
+    id
+    created_at
+    title
+    category
+    description
+    viewCount
+    isShow
+    contents
+    thumbnail
+  }
+}
+    `;
+
+/**
+ * __useVisualDataQuery__
+ *
+ * To run a query within a React component, call `useVisualDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVisualDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVisualDataQuery({
+ *   variables: {
+ *      sort: // value for 'sort'
+ *      limit: // value for 'limit'
+ *      start: // value for 'start'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useVisualDataQuery(baseOptions?: Apollo.QueryHookOptions<VisualDataQuery, VisualDataQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VisualDataQuery, VisualDataQueryVariables>(VisualDataDocument, options);
+      }
+export function useVisualDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VisualDataQuery, VisualDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VisualDataQuery, VisualDataQueryVariables>(VisualDataDocument, options);
+        }
+export type VisualDataQueryHookResult = ReturnType<typeof useVisualDataQuery>;
+export type VisualDataLazyQueryHookResult = ReturnType<typeof useVisualDataLazyQuery>;
+export type VisualDataQueryResult = Apollo.QueryResult<VisualDataQuery, VisualDataQueryVariables>;
+export const VisualDataConnectionDocument = gql`
+    query visualDataConnection($where: JSON) {
+  visualDataConnection(where: $where) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+
+/**
+ * __useVisualDataConnectionQuery__
+ *
+ * To run a query within a React component, call `useVisualDataConnectionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVisualDataConnectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVisualDataConnectionQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useVisualDataConnectionQuery(baseOptions?: Apollo.QueryHookOptions<VisualDataConnectionQuery, VisualDataConnectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VisualDataConnectionQuery, VisualDataConnectionQueryVariables>(VisualDataConnectionDocument, options);
+      }
+export function useVisualDataConnectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VisualDataConnectionQuery, VisualDataConnectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VisualDataConnectionQuery, VisualDataConnectionQueryVariables>(VisualDataConnectionDocument, options);
+        }
+export type VisualDataConnectionQueryHookResult = ReturnType<typeof useVisualDataConnectionQuery>;
+export type VisualDataConnectionLazyQueryHookResult = ReturnType<typeof useVisualDataConnectionLazyQuery>;
+export type VisualDataConnectionQueryResult = Apollo.QueryResult<VisualDataConnectionQuery, VisualDataConnectionQueryVariables>;
+export const UpdateVisualDatumDocument = gql`
+    mutation updateVisualDatum($input: updateVisualDatumInput) {
+  updateVisualDatum(input: $input) {
+    visualDatum {
+      id
+    }
+  }
+}
+    `;
+export type UpdateVisualDatumMutationFn = Apollo.MutationFunction<UpdateVisualDatumMutation, UpdateVisualDatumMutationVariables>;
+
+/**
+ * __useUpdateVisualDatumMutation__
+ *
+ * To run a mutation, you first call `useUpdateVisualDatumMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateVisualDatumMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateVisualDatumMutation, { data, loading, error }] = useUpdateVisualDatumMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateVisualDatumMutation(baseOptions?: Apollo.MutationHookOptions<UpdateVisualDatumMutation, UpdateVisualDatumMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateVisualDatumMutation, UpdateVisualDatumMutationVariables>(UpdateVisualDatumDocument, options);
+      }
+export type UpdateVisualDatumMutationHookResult = ReturnType<typeof useUpdateVisualDatumMutation>;
+export type UpdateVisualDatumMutationResult = Apollo.MutationResult<UpdateVisualDatumMutation>;
+export type UpdateVisualDatumMutationOptions = Apollo.BaseMutationOptions<UpdateVisualDatumMutation, UpdateVisualDatumMutationVariables>;
+export const DeleteVisualDatumDocument = gql`
+    mutation deleteVisualDatum($input: deleteVisualDatumInput) {
+  deleteVisualDatum(input: $input) {
+    visualDatum {
+      id
+    }
+  }
+}
+    `;
+export type DeleteVisualDatumMutationFn = Apollo.MutationFunction<DeleteVisualDatumMutation, DeleteVisualDatumMutationVariables>;
+
+/**
+ * __useDeleteVisualDatumMutation__
+ *
+ * To run a mutation, you first call `useDeleteVisualDatumMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteVisualDatumMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteVisualDatumMutation, { data, loading, error }] = useDeleteVisualDatumMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteVisualDatumMutation(baseOptions?: Apollo.MutationHookOptions<DeleteVisualDatumMutation, DeleteVisualDatumMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteVisualDatumMutation, DeleteVisualDatumMutationVariables>(DeleteVisualDatumDocument, options);
+      }
+export type DeleteVisualDatumMutationHookResult = ReturnType<typeof useDeleteVisualDatumMutation>;
+export type DeleteVisualDatumMutationResult = Apollo.MutationResult<DeleteVisualDatumMutation>;
+export type DeleteVisualDatumMutationOptions = Apollo.BaseMutationOptions<DeleteVisualDatumMutation, DeleteVisualDatumMutationVariables>;

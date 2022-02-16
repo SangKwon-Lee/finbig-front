@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const DataDetailWrapper = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   display: flex;
@@ -110,7 +109,6 @@ export const DataDetailLikeImg = styled.img``;
 
 export const DataDetailDivider = styled.div`
   width: 100%;
-  max-width: 1920px;
   min-width: 1100px;
   border-top: 1px solid #cccccc;
   margin: 100px 0px 100px 0px;
@@ -126,7 +124,6 @@ export const DataDetailOther = styled.div`
   border-top: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
   width: 100%;
-  max-width: 1920px;
   min-width: 1100px;
   padding-top: 23px;
   padding-bottom: 23px;

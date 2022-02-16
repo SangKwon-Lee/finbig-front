@@ -1,9 +1,5 @@
 import dayjs from "dayjs";
 import { useNavigate } from "react-router";
-import {
-  Maybe,
-  UsersPermissionsUser,
-} from "../../../commons/types/generated/types";
 import MypageLayoutContainer from "../../common/layout/mypage/MypageLayout.container";
 import {
   DataListImgBlank,
@@ -31,8 +27,9 @@ import {
   MypageMainLine,
 } from "./MypageMain.style";
 import { D_day } from "../../../utils/D_day";
+import { UserQuery } from "../../../commons/graphql/generated";
 interface IMypageMainProps {
-  data: Maybe<UsersPermissionsUser> | undefined;
+  data?: UserQuery | undefined;
   blackLength: number;
 }
 
@@ -47,29 +44,29 @@ const MypageMainPresenter: React.FC<IMypageMainProps> = ({
         <MypageLayoutContainer menu={"mypage"} />
         <MypageBodyColumn>
           <MypageMainTitle>
-            <MypageMainUsername>{data?.username}</MypageMainUsername>님
+            <MypageMainUsername>{data?.user?.username}</MypageMainUsername>님
             안녕하세요!
           </MypageMainTitle>
           <MypageMainTableWrapper>
             <MypageMainTableHeader>상품 명</MypageMainTableHeader>
             <MypageMainTableContents>
-              {data?.subscription_histories &&
-                data?.subscription_histories.length > 0 &&
-                data?.isSubscribe &&
-                data?.subscription_histories[
-                  data?.subscription_histories.length - 1
+              {data?.user?.subscription_histories &&
+                data?.user?.subscription_histories.length > 0 &&
+                data?.user?.isSubscribe &&
+                data?.user?.subscription_histories[
+                  data?.user?.subscription_histories.length - 1
                 ]?.title}
             </MypageMainTableContents>
           </MypageMainTableWrapper>
           <MypageMainTableWrapper style={{ borderBottom: "1px solid #c1c1c1" }}>
             <MypageMainTableHeader>구독 기간</MypageMainTableHeader>
             <MypageMainTableContents>
-              {data?.isSubscribe &&
-                `${dayjs(data?.subscriptionDate).format(
+              {data?.user?.isSubscribe &&
+                `${dayjs(data?.user?.subscriptionDate).format(
                   "YYYY.MM.DD"
-                )} ~ ${dayjs(data?.expirationDate).format(
+                )} ~ ${dayjs(data?.user?.expirationDate).format(
                   "YYYY.MM.DD"
-                )} 만료일 : ${D_day(data?.expirationDate)}일`}
+                )} 만료일 : ${D_day(data?.user?.expirationDate)}일`}
             </MypageMainTableContents>
           </MypageMainTableWrapper>
           <MypageMainDownloadWrapper>
@@ -85,7 +82,7 @@ const MypageMainPresenter: React.FC<IMypageMainProps> = ({
           <MypageMainLine />
           <MypageDataListWrapper>
             {data &&
-              data?.finbigDownload?.slice(0, 6).map((data) => (
+              data?.user?.finbigDownload?.slice(0, 6).map((data) => (
                 <MypageDataWrapper key={data?.id}>
                   <MypageDataThumbnail
                     src={String(data?.thumbnail)}

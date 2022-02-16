@@ -59,7 +59,7 @@ const PaginationContainer: React.FC<PaginationProps> = ({
     //@ts-ignore
 
     if (page >= Math.ceil(listLength / limit)) {
-      alert("마지막 페이지 입니다");
+      alert("우마지막 페이지 입니다");
       return;
     }
     if (Number(page) === pageArr[pageArr.length - 1]) {

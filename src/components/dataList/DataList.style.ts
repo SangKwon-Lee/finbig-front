@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const DataListWrapper = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   display: flex;
@@ -26,7 +25,6 @@ export const DataListCategoryWrapper = styled.div`
 export const DataListCategoryTitle = styled.div`
   font-size: 14px;
   color: #999999;
-  cursor: pointer;
 `;
 
 export const DataListSelectWrapper = styled.div`
@@ -70,6 +68,7 @@ export const DataWrapper = styled.div`
   text-align: center;
   margin-bottom: 60px;
   cursor: pointer;
+  transition: all 0.3s;
 `;
 
 export const DataImg = styled.img`

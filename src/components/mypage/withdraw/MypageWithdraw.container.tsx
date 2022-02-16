@@ -1,13 +1,8 @@
-import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import {
-  Mutation,
-  MutationUpdateUserArgs,
-} from "../../../commons/types/generated/types";
+import { useUpdateUserMutation } from "../../../commons/graphql/generated";
 import WithAuth from "../../common/hocs/withAuth";
 import MypageWithdrawPresenter from "./MypageWithdraw.presenter";
-import { DELETE_USER } from "./MypageWithdraw.query";
 
 const MypageWithdrawContainer = () => {
   const navigate = useNavigate();
@@ -16,9 +11,7 @@ const MypageWithdrawContainer = () => {
   const [check, setCheck] = useState(false);
 
   //* 탈퇴
-  const [deleteUser] = useMutation<Mutation, MutationUpdateUserArgs>(
-    DELETE_USER
-  );
+  const [deleteUser] = useUpdateUserMutation();
 
   //* 탈퇴 함수
   const handleDeleteUser = async () => {
@@ -42,7 +35,7 @@ const MypageWithdrawContainer = () => {
         localStorage.clear();
         navigate("/");
       } catch (error) {
-        console.log(error);
+        alert("오류가 발생했습니다.");
       }
     } else {
       alert("안내사항에 동의해주셔야 합니다.");

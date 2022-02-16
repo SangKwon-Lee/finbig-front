@@ -1,65 +1,53 @@
-import { useMutation, useQuery } from "@apollo/client";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import moment from "moment";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import {
-  Mutation,
-  MutationCreateSubscriptionHistoryArgs,
-  MutationUpdateUserArgs,
-  Query,
-  QueryUserArgs,
-} from "../../commons/types/generated/types";
 import LicensePresenter from "./License.presenter";
-import {
-  FETCH_USER,
-  CREATE_SUBSCRIPTION_HISTORY,
-  UPDATE_SUBSCRIPTION_USER,
-} from "./License.query";
 import dayjs from "dayjs";
+import {
+  useCreateSubscriptionHistoryMutation,
+  useUpdateUserMutation,
+  useUserQuery,
+} from "../../commons/graphql/generated";
 
+//* 이노페이 결제
 const REACT_APP_INNOPAY_MID = process.env.REACT_APP_INNOPAY_MID;
 const REACT_APP_INNOPAY_MERCHANTKEY = process.env.REACT_APP_INNOPAY_MERCHANTKEY;
 
 const LicenseContainer = () => {
-  const userId = sessionStorage.getItem("userId");
   const navigate = useNavigate();
 
+  //*유저 아이디
+  const userId = sessionStorage.getItem("userId");
+
+  //* 결제 상품 정보
   const [paymentInput, setPaymentInput] = useState({
     title: "1개월 프리미엄 구독 상품",
     price: 0,
     period: 0,
   });
 
-  //* 결제 모달
+  //* 결제 모달 상태 및 함수
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   //* 유저 정보
-  const { data: User } = useQuery<Query, QueryUserArgs>(FETCH_USER, {
+  const { data: User } = useUserQuery({
     variables: {
       id: String(userId),
     },
   });
 
   //* 구독 상품 결제
-  const [createSubscription] = useMutation<
-    Mutation,
-    MutationCreateSubscriptionHistoryArgs
-  >(CREATE_SUBSCRIPTION_HISTORY);
+  const [createSubscription] = useCreateSubscriptionHistoryMutation();
 
   //* 유저의 구독 정보 업데이트
-  const [updateSubscriptionUser] = useMutation<
-    Mutation,
-    MutationUpdateUserArgs
-  >(UPDATE_SUBSCRIPTION_USER);
+  const [updateSubscriptionUser] = useUpdateUserMutation();
 
   //* 구매버튼
   const handleBuy = async () => {
-    if (!sessionStorage.getItem("accessToken")) {
+    if (!userId) {
       alert("로그인 후 이용 가능합니다.");
       navigate("/login");
       return;
@@ -68,6 +56,7 @@ const LicenseContainer = () => {
     handleInnoPay();
   };
 
+  //* 이노페이 결제 함수 순서 2번
   const InnoPayResult = (data: any) => {
     if (data.data === "close") {
       window.removeEventListener("message", InnoPayResult);
@@ -95,7 +84,7 @@ const LicenseContainer = () => {
     }
   };
 
-  //* 이노페이 결제 (결제 함수 1번 째)
+  //* 이노페이 결제 함수 순서 1번
   const handleInnoPay = async () => {
     const code = `${moment().format("YYYYMMDDHHmmss")}`;
     //@ts-ignore
@@ -117,7 +106,7 @@ const LicenseContainer = () => {
     window.addEventListener("message", InnoPayResult);
   };
 
-  //* 이노페이 결제 성공시 골드 충전 함수 (결제 함수 3번 째)
+  //* 이노페이 결제 성공시 골드 충전 함수 (결제 함수 순서 3번)
   const postPayment = async (result: any) => {
     try {
       // const code = `${moment().format("YYYYMMDDHHmmss")}`;
@@ -170,10 +159,9 @@ const LicenseContainer = () => {
           },
         },
       });
-
       alert("구독 정보가 업데이트 됐습니다");
     } catch (e) {
-      console.log(e);
+      alert("오류가 발생했습니다.");
     } finally {
       handleClose();
     }
@@ -198,9 +186,9 @@ const LicenseContainer = () => {
           },
         },
       });
-      alert("구독 상품 결제가 완료됐습니다.");
+      alert("구독 정보가 업데이트 됐습니다");
     } catch (e) {
-      console.log(e);
+      alert("오류가 발생했습니다.");
     } finally {
       handleClose();
     }
@@ -222,10 +210,10 @@ const LicenseContainer = () => {
         </Helmet>
       </HelmetProvider>
       <LicensePresenter
-        handleBuy={handleBuy}
-        setPaymentInput={setPaymentInput}
-        paymentInput={paymentInput}
         open={open}
+        paymentInput={paymentInput}
+        setPaymentInput={setPaymentInput}
+        handleBuy={handleBuy}
         handleOpen={handleOpen}
         handleClose={handleClose}
       />

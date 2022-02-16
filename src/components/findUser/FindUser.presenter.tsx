@@ -38,11 +38,11 @@ import dayjs from "dayjs";
 import { useNavigate } from "react-router";
 
 interface IFindUserProps {
+  isFind: string;
   isActive: {
     id: boolean;
     pass: boolean;
   };
-  isFind: string;
   resultId: {
     id: string;
     email: string;
@@ -58,7 +58,7 @@ interface IFindUserProps {
     authError: boolean;
     findError: boolean;
   };
-  handleIsActive: (e: React.MouseEvent<HTMLDivElement>) => void;
+  handleIsActive: (e: any) => void;
   handleFindId: (data: any) => Promise<void>;
   handleEmailAuth: (email: string) => Promise<void>;
   handleEmailAuthCheck: (auth: string) => Promise<void>;
@@ -290,7 +290,9 @@ const FindUserPresenter: React.FC<IFindUserProps> = ({
             )}
 
             <FindIdBtnWrapper>
-              <FindIdLeftBtn>비밀번호 찾기</FindIdLeftBtn>
+              <FindIdLeftBtn id="pass" onClick={handleIsActive}>
+                비밀번호 찾기
+              </FindIdLeftBtn>
               <FindIdRigthBtn
                 onClick={() => {
                   navigate("/login");
