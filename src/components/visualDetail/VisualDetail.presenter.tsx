@@ -1,4 +1,3 @@
-import { Maybe, VisualData } from "../../commons/types/generated/types";
 import {
   VisualDetailContents,
   VisualDetailDivide,
@@ -18,9 +17,10 @@ import {
   DataDetailTitleWrapper,
 } from "../dataDetail/DataDetail.style";
 import { useNavigate } from "react-router";
+import { VisualDatumQuery } from "../../commons/graphql/generated";
 
 interface VisualDetailProps {
-  data: Maybe<VisualData> | undefined;
+  data: VisualDatumQuery | undefined;
 }
 
 const VisualDetailPresenter: React.FC<VisualDetailProps> = ({ data }) => {
@@ -29,16 +29,20 @@ const VisualDetailPresenter: React.FC<VisualDetailProps> = ({ data }) => {
   return (
     <>
       <VisualDetailWrapper>
-        <VisualDetailImg src={data?.thumbnail || ""} />
+        <VisualDetailImg src={data?.visualDatum?.thumbnail || ""} />
         <VisualDetailType>[데이터 활용]</VisualDetailType>
-        <VisualDetailTitle>{data?.title}</VisualDetailTitle>
-        <VisualDetailContents>{data?.description}</VisualDetailContents>
+        <VisualDetailTitle>{data?.visualDatum?.title}</VisualDetailTitle>
+        <VisualDetailContents>
+          {data?.visualDatum?.description}
+        </VisualDetailContents>
         <VisualDetailDivide></VisualDetailDivide>
-        {data?.contents && <Viewer initialValue={data.contents} />}
+        {data?.visualDatum?.contents && (
+          <Viewer initialValue={data.visualDatum?.contents} />
+        )}
         <DataDetailOther>관련 상품</DataDetailOther>
         <DataDetailOhterWrapper>
-          {data?.finbigs?.map((data) => (
-            <DataDetailOhterContentsWrapper>
+          {data?.visualDatum?.finbigs?.map((data) => (
+            <DataDetailOhterContentsWrapper key={data?.id}>
               <DataDetailOtherImg
                 src={String(data?.thumbnail)}
                 onClick={() => {

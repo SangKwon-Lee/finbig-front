@@ -1,27 +1,17 @@
-import { useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import React, { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { GlobalContext } from "../../App";
 import {
-  Mutation,
-  MutationCreateTokenArgs,
-  MutationLoginArgs,
-  MutationUpdateTokenArgs,
-  MutationUpdateUserArgs,
-  Query,
-  QueryUserArgs,
-} from "../../commons/types/generated/types";
+  useCreateTokenMutation,
+  useFetchTokenMutation,
+  useLoginMutation,
+  useUpdateTokenMutation,
+  useUpdateUserMutation,
+  useUserQuery,
+} from "../../commons/graphql/generated";
 import LoginPresenter from "./Login.presenter";
-import {
-  CREATE_TOKEN,
-  FETCH_TOKEN,
-  FETCH_USER,
-  LOGIN,
-  UPDATE_IS_SUBSCRIPTION_USER,
-  UPDATE_TOKEN,
-} from "./Login.query";
 
 const LoginContainer = () => {
   //* 토큰 전역 함수
@@ -36,33 +26,26 @@ const LoginContainer = () => {
   });
 
   //* 로그인 뮤테이션
-  const [login, { loading, error }] = useMutation<Mutation, MutationLoginArgs>(
-    LOGIN
-  );
+  const [login, { loading, error }] = useLoginMutation();
+
   //* 기존 토큰 확인
-  const [fetchToken] = useMutation(FETCH_TOKEN);
+  const [fetchToken] = useFetchTokenMutation();
 
   //* 유저 정보 가져오기
-  const { fetchMore } = useQuery<Query, QueryUserArgs>(FETCH_USER, {
+  const { fetchMore } = useUserQuery({
     variables: {
       id: String(userId),
     },
   });
 
   //* 토근 정보 저장 뮤테이션
-  const [createToken] = useMutation<Mutation, MutationCreateTokenArgs>(
-    CREATE_TOKEN
-  );
+  const [createToken] = useCreateTokenMutation();
 
   //* 토큰 업데이트
-  const [updateToken] = useMutation<Mutation, MutationUpdateTokenArgs>(
-    UPDATE_TOKEN
-  );
+  const [updateToken] = useUpdateTokenMutation();
 
   //* 유저의 구독 만료일 업데이트
-  const [updateIsSubscription] = useMutation<Mutation, MutationUpdateUserArgs>(
-    UPDATE_IS_SUBSCRIPTION_USER
-  );
+  const [updateIsSubscription] = useUpdateUserMutation();
 
   //* 로그인 함수
   const handleLogin = async () => {
@@ -75,7 +58,6 @@ const LoginContainer = () => {
           },
         },
       });
-
       const { data: User } = await fetchMore({
         variables: {
           id: data?.login.user.id,
@@ -96,6 +78,7 @@ const LoginContainer = () => {
       setUserData(User?.user);
       handleToken(data?.login);
     } catch (e) {
+      console.log(e);
       return;
     }
   };
@@ -109,8 +92,8 @@ const LoginContainer = () => {
           token: String(data.jwt),
         },
       });
-      sessionStorage.setItem("token", tokenData.fetchToken.id);
-      handleUpdateToekn(data.jwt, tokenData.fetchToken.id);
+      sessionStorage.setItem("token", String(tokenData?.fetchToken?.id));
+      handleUpdateToekn(data.jwt, String(tokenData?.fetchToken?.id));
     } catch (e) {
       handleCreateToekn(data.jwt, data.user.id);
     }
@@ -131,9 +114,7 @@ const LoginContainer = () => {
       });
       sessionStorage.setItem("token", String(data?.createToken?.token?.id));
       navigate("/");
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   //* 기존 DB에 토큰이 있다면 토큰 업데이트
@@ -152,9 +133,7 @@ const LoginContainer = () => {
         },
       });
       navigate("/");
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   //* 인풋 바꾸기
@@ -188,18 +167,16 @@ const LoginContainer = () => {
           },
         },
       });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   return (
     <LoginPresenter
-      handleLogin={handleLogin}
-      loading={loading}
-      handleChnageInput={handleChnageInput}
-      onEnterLogin={onEnterLogin}
       error={error}
+      loading={loading}
+      handleLogin={handleLogin}
+      onEnterLogin={onEnterLogin}
+      handleChnageInput={handleChnageInput}
     />
   );
 };

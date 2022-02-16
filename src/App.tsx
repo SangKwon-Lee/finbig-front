@@ -5,6 +5,7 @@ import routes from "./routes";
 import useScrollReset from "./components/common/hooks/useScrollReset";
 import { Maybe, UsersPermissionsUser } from "./commons/types/generated/types";
 import SocketProvider from "../src/components/contexts/SocketContext";
+
 const userDataInit: Maybe<UsersPermissionsUser> | undefined = {
   id: "",
   email: "",

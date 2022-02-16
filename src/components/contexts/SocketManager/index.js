@@ -54,7 +54,7 @@ export default class {
     }
 
     this.queryManager.startManager(host, port);
-    console.log("[SocketManager] start manager");
+    // console.log("[SocketManager] start manager");
     return this.queryManager;
   }
 
@@ -67,7 +67,7 @@ export default class {
   }
 
   onConnectedServer() {
-    console.log("Observer.onConnectedServer1");
+    // console.log("Observer.onConnectedServer1");
     if (this.listener) {
       this.listener("Connected");
     }
@@ -89,7 +89,7 @@ export default class {
     if (this.listener) {
       this.listener("Closed");
     }
-    console.log("Observer.onClosedServer");
+    // console.log("Observer.onClosedServer");
   }
 
   reconnect() {
@@ -97,8 +97,8 @@ export default class {
       // 재접속시도 횟수 제한이 필요할 경우 || true 제거
       this.reconnectionCount++;
 
-      console.log("--------ReconnectServer--------");
-      console.log("reconnectionCount :", this.reconnectionCount);
+      // console.log("--------ReconnectServer--------");
+      // console.log("reconnectionCount :", this.reconnectionCount);
 
       this.connect(this.connectionUrl, this.opts);
     }

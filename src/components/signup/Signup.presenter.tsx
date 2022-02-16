@@ -38,6 +38,13 @@ import InfoSVG from "../../assets/images/info.svg";
 import BigCheckSVG from "../../assets/images/bigCheck.svg";
 
 interface ISignupProps {
+  step: number;
+  errorMsg: boolean;
+  isAuth: {
+    isSend: boolean;
+    isOk: boolean;
+    isError: boolean;
+  };
   checkInput: {
     first: boolean;
     second: boolean;
@@ -48,20 +55,13 @@ interface ISignupProps {
       second: boolean;
     }>
   >;
-  handleAllCheck: () => void;
-  handleNextBtn: () => void;
-  errorMsg: boolean;
-  step: number;
-  handleCreateUser: (data: MutationCreateUserArgs) => void;
-  handleEmailAuth: (email: string) => Promise<void>;
-  isAuth: {
-    isSend: boolean;
-    isOk: boolean;
-    isError: boolean;
-  };
-  handleEmailAuthCheck: (auth: string) => Promise<void>;
-  checkUsername: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isCheckName: boolean;
+  handleNextBtn: () => void;
+  checkUsername: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleAllCheck: () => void;
+  handleEmailAuth: (email: string) => Promise<void>;
+  handleCreateUser: (data: MutationCreateUserArgs) => void;
+  handleEmailAuthCheck: (auth: string) => Promise<void>;
 }
 
 const schma = yup.object({
@@ -92,18 +92,18 @@ const schma = yup.object({
 });
 
 const SignupPresenter: React.FC<ISignupProps> = ({
-  checkInput,
-  setCheckInput,
-  handleAllCheck,
-  handleNextBtn,
-  errorMsg,
   step,
+  isAuth,
+  errorMsg,
+  checkInput,
+  isCheckName,
+  checkUsername,
+  setCheckInput,
+  handleNextBtn,
+  handleAllCheck,
   handleCreateUser,
   handleEmailAuth,
-  isAuth,
   handleEmailAuthCheck,
-  checkUsername,
-  isCheckName,
 }) => {
   const {
     register,

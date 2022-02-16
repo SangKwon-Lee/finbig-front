@@ -7,7 +7,6 @@ interface IHeaderProps {
 }
 
 export const HeaderWrapper = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   height: 100px;
@@ -58,7 +57,6 @@ export const SearchWrapper = styled.div`
   background-color: white;
   height: ${(props: IHeaderProps) => (props.isSearch ? "130px" : "0px")};
   transition: all 0.6s;
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   display: flex;

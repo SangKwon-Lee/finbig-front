@@ -23,7 +23,7 @@ function SocketProvider(props) {
   const [connected, setConnected] = useState(false);
 
   React.useEffect(() => {
-    console.log("SOCKET!!!");
+    // console.log("SOCKET!!!");
     observer.current = new SocketManager();
     queryManager.current = observer.current.connect(SocketServer.koscom.url);
     observer.current?.addListener(listener);
@@ -33,7 +33,7 @@ function SocketProvider(props) {
   }, []);
 
   const reconnect = () => {
-    console.log("ASasdfsfdsfD");
+    // console.log("ASasdfsfdsfD");
     if (!observer.current) {
       observer.current = new SocketManager();
     }
@@ -43,12 +43,12 @@ function SocketProvider(props) {
 
   const listener = (event) => {
     if (event === "Connected") {
-      console.log("[SocketProvider] CONNECTED");
+      // console.log("[SocketProvider] CONNECTED");
       setConnected(true);
     } else {
       setConnected(false);
       queryManager.current = observer.current.connect(SocketServer.koscom.url);
-      console.log("[SocketProvider] DISCONNECTED - RECONNECT");
+      // console.log("[SocketProvider] DISCONNECTED - RECONNECT");
     }
   };
 

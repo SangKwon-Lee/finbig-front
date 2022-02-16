@@ -611,7 +611,7 @@ module.exports = (function (P) {
           if (t) return t.call(this, e);
           alert("There is no parse function : parse_" + y.FORMAT);
         } catch (t) {
-          console.log("AQuery.parseQuery : ", t.message, e);
+          // console.log("AQuery.parseQuery : ", t.message, e);
         }
         return null;
       }),
@@ -20192,23 +20192,21 @@ module.exports = (function (P) {
           {
             key: "onSocketConnected",
             value: function () {
-              console.log("onSocketConnected"),
-                (this.serverStarted = !0),
-                this.connectCallback();
+              // console.log("onSocketConnected"),
+              (this.serverStarted = !0), this.connectCallback();
             },
           },
           {
             key: "onSocketClosed",
             value: function () {
-              console.log("onSocketClosed"),
-                (this.serverStarted = !1),
-                this.closedCallback();
+              // console.log("onSocketClosed"),
+              (this.serverStarted = !1), this.closedCallback();
             },
           },
           {
             key: "onSocketError",
             value: function () {
-              console.log("onSocketError");
+              // console.log("onSocketError");
             },
           },
           {
@@ -21239,8 +21237,8 @@ module.exports = (function (P) {
                     2 == u[i].length
                       ? (u[i] = "0" + u[i])
                       : 1 == u[i].length && (u[i] = "00" + u[i]);
-                  (this.pcIp = u.join(".")),
-                    console.log("public ip : " + this.pcIp);
+                  this.pcIp = u.join(".");
+                  // console.log("public ip : " + this.pcIp);
                   break;
                 case PACKET_TYPE.z:
                   console.log("recv polling packet!!!"),

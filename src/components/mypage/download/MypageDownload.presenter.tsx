@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router";
-import {
-  Maybe,
-  UsersPermissionsUser,
-} from "../../../commons/types/generated/types";
+import { UserQuery } from "../../../commons/graphql/generated";
 import MypageLayoutContainer from "../../common/layout/mypage/MypageLayout.container";
 import {
   MypageRecentListText,
@@ -21,7 +18,7 @@ import {
 import { MypageBody, MypageDownloadWrapper } from "./MypageDownload.style";
 
 interface MypageDownloadProps {
-  data?: Maybe<UsersPermissionsUser> | undefined;
+  data?: UserQuery | undefined;
   blackLength: number;
 }
 
@@ -38,13 +35,13 @@ const MypageDownloadPresenter: React.FC<MypageDownloadProps> = ({
           <MypageRecentListText>
             상품이 모두
             <MypageRecentListNumber>
-              &nbsp; {data?.finbigDownload?.length}
+              &nbsp; {data?.user?.finbigDownload?.length}
             </MypageRecentListNumber>
             개 있습니다
           </MypageRecentListText>
           <MypageDataListWrapper>
             {data &&
-              data?.finbigDownload?.map((data) => (
+              data?.user?.finbigDownload?.map((data) => (
                 <MypageDataWrapper key={data?.id}>
                   <MypageDataThumbnail
                     src={String(data?.thumbnail)}

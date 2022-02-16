@@ -6,7 +6,6 @@ interface IMypageProfileProps {
 }
 
 export const MypageProfileWrapper = styled.div`
-  max-width: 1920px;
   min-width: 1100px;
   width: 100%;
   padding-top: 58px;
@@ -176,7 +175,7 @@ export const MypageRadioTitle = styled.label`
   font-size: 12px;
 `;
 
-export const MypageChangeEmailBtn = styled.button`
+export const MypageChangeEmailBtn = styled.div`
   width: 116px;
   height: 36px;
   background-color: #4033a2;
@@ -186,4 +185,7 @@ export const MypageChangeEmailBtn = styled.button`
   border: none;
   cursor: pointer;
   margin-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

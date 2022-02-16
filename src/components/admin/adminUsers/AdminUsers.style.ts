@@ -85,3 +85,114 @@ export const AdminUsersTableDeleteBtn = styled.button`
   outline: none;
   cursor: pointer;
 `;
+
+export const AdminUsersModalTitleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #4033a2;
+  padding: 0px 34px;
+  align-items: center;
+  min-height: 66px;
+`;
+
+export const AdminUsersModalTitle = styled.div`
+  font-family: SpoqaHanSans-Bold;
+  color: white;
+  font-size: 17px;
+`;
+
+export const AdminUsersModalCancel = styled.img`
+  cursor: pointer;
+`;
+
+export const AdminUsersModalTableHeaderWrapper = styled.div`
+  display: flex;
+  margin-top: 30px;
+  margin-left: 28px;
+  margin-right: 28px;
+  background-color: #e9e9e9;
+  min-height: 57px;
+  border: 1px solid #cccccc;
+`;
+
+export const AdminUsersModalTableHeader = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #cccccc;
+`;
+
+export const AdminUsersModalTableContentsWrapper = styled.div`
+  display: flex;
+  margin-left: 28px;
+  margin-right: 28px;
+  border: 1px solid #cccccc;
+  border-top: none;
+`;
+
+export const AdminUsersModalTableContents = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #cccccc;
+  height: 57px;
+`;
+
+export const AdminUsersModalTableInput = styled.input`
+  width: 80%;
+  height: 36px;
+  background-color: white;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  border: 1px solid #262246;
+  text-align: center;
+`;
+
+export const AdminUsersModalTableBtn = styled.button`
+  width: 68px;
+  height: 36px;
+  color: white;
+  background-color: #262246;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-self: flex-end;
+  margin-left: 28px;
+  margin-right: 28px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+`;
+
+export const AdminUsersModalTableRadio = styled.input`
+  margin-right: 8px;
+  margin-left: 15px;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid darkgray;
+  border-radius: 50%;
+  outline: none;
+  background: white;
+  :before {
+    content: "";
+    display: block;
+    width: 60%;
+    height: 60%;
+    margin: 20% auto;
+    border-radius: 50%;
+  }
+  :checked:before {
+    background: #999999;
+  }
+`;
+
+export const AdminUsersModalTableRadioTitle = styled.label`
+  font-size: 12px;
+`;

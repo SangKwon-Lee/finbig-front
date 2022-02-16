@@ -84,7 +84,7 @@ const WebEditor: React.FC<IWebEditorProps> = (props) => {
         template_mdate_format: "[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]",
         width: 1100,
 
-        // height: 600,
+        height: 800,
         image_caption: true,
         quickbars_selection_toolbar:
           "bold italic | quicklink h2 h3 blockquote quickimage quicktable",

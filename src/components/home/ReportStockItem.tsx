@@ -79,9 +79,7 @@ const ReportStockItem = () => {
           data.name === "나스닥 100"
       );
       setOverseasData(newData);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   //* 국내지표 가져오기

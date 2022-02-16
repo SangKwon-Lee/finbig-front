@@ -1,23 +1,14 @@
 import DataListPresenter from "./DataList.presenter";
-import { useMutation, useQuery } from "@apollo/client";
-import {
-  FETCH_FINBIGS,
-  FETCH_USER_VIEWDATA,
-  UPDATE_FINBIG_VIEWCOUNT,
-  UPDATE_RECENT_DATA,
-} from "./DataList.query";
-import {
-  Mutation,
-  MutationUpdateFinbigArgs,
-  MutationUpdateUserArgs,
-  Query,
-  QueryFinbigsArgs,
-  QueryUserArgs,
-} from "../../commons/types/generated/types";
 import { useState } from "react";
 import { useEffect } from "react";
 import { blankImg } from "../../utils/blankImg";
 import { useParams } from "react-router";
+import {
+  useFinbigsQuery,
+  useUpdateFinbigMutation,
+  useUpdateUserMutation,
+  useUserQuery,
+} from "../../commons/graphql/generated";
 
 const DataListContainer = () => {
   const userId = sessionStorage.getItem("userId");
@@ -29,12 +20,16 @@ const DataListContainer = () => {
     limit: 6,
   });
 
+  //* 정렬 상태
+  const [sort, setSort] = useState("id:asc");
+
   //* 빈 이미지
   const [blackLength, setBlackLength] = useState<number>(1);
 
   //* 데이터 상품 받아오기
-  const { data } = useQuery<Query, QueryFinbigsArgs>(FETCH_FINBIGS, {
+  const { data, loading } = useFinbigsQuery({
     variables: {
+      sort,
       where: {
         isShow: true,
       },
@@ -42,7 +37,7 @@ const DataListContainer = () => {
   });
 
   //* 최근 본 데이터 불러오기
-  const { data: MyData } = useQuery<Query, QueryUserArgs>(FETCH_USER_VIEWDATA, {
+  const { data: MyData } = useUserQuery({
     variables: {
       id: String(userId),
     },
@@ -50,15 +45,10 @@ const DataListContainer = () => {
   });
 
   //* 최근 본 데이터 뮤테이션
-  const [updateRecentData] = useMutation<Mutation, MutationUpdateUserArgs>(
-    UPDATE_RECENT_DATA
-  );
+  const [updateRecentData] = useUpdateUserMutation();
 
   //*조회수 증가 뮤테이션
-  const [updateFinbigViewCount] = useMutation<
-    Mutation,
-    MutationUpdateFinbigArgs
-  >(UPDATE_FINBIG_VIEWCOUNT);
+  const [updateFinbigViewCount] = useUpdateFinbigMutation();
 
   //* 길이 맞추기
   useEffect(() => {
@@ -89,9 +79,7 @@ const DataListContainer = () => {
           },
         },
       });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   //* 최근 본 데이터 함수
@@ -112,18 +100,22 @@ const DataListContainer = () => {
           },
         },
       });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
+  };
+
+  const handleSort = (e: any) => {
+    setSort(e.target.value);
   };
 
   return (
     <>
       <DataListPresenter
-        finbigs={data?.finbigs}
-        blackLength={blackLength}
+        finbigs={data}
+        loading={loading}
         listInput={listInput}
+        blackLength={blackLength}
         setListInput={setListInput}
+        handleSort={handleSort}
         handleViewCount={handleViewCount}
         handleRecentData={handleRecentData}
       />

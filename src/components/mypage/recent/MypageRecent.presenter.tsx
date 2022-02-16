@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router";
-import {
-  Maybe,
-  UsersPermissionsUser,
-} from "../../../commons/types/generated/types";
+import { UserQuery } from "../../../commons/graphql/generated";
 import MypageLayoutContainer from "../../common/layout/mypage/MypageLayout.container";
 import {
   MypageBody,
@@ -22,13 +19,15 @@ import {
 } from "./MypageRecent.style";
 
 interface MypageRecentProps {
-  data?: Maybe<UsersPermissionsUser> | undefined;
+  data?: UserQuery | undefined;
   blackLength: number;
+  loading: boolean;
 }
 
 const MypageRecentPresenter: React.FC<MypageRecentProps> = ({
   data,
   blackLength,
+  loading,
 }) => {
   const navigate = useNavigate();
   return (
@@ -39,13 +38,14 @@ const MypageRecentPresenter: React.FC<MypageRecentProps> = ({
           <MypageRecentListText>
             상품이 모두
             <MypageRecentListNumber>
-              &nbsp; {data?.finbigView?.length}
+              &nbsp; {data?.user?.finbigView?.length}
             </MypageRecentListNumber>
             개 있습니다
           </MypageRecentListText>
           <MypageDataListWrapper>
             {data &&
-              data?.finbigView?.map((data) => (
+              !loading &&
+              data?.user?.finbigView?.map((data) => (
                 <MypageDataWrapper key={data?.id}>
                   <MypageDataThumbnail
                     src={String(data?.thumbnail)}

@@ -1,8 +1,3 @@
-import {
-  Query,
-  QueryUserArgs,
-  UsersPermissionsUser,
-} from "../../../commons/types/generated/types";
 import MypageLayoutContainer from "../../common/layout/mypage/MypageLayout.container";
 import {
   MypageBody,
@@ -35,19 +30,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import MypageProfileModalContainer from "./MypageProfileModal.container";
 import { ApolloQueryResult } from "@apollo/client";
+import { Exact, UserQuery } from "../../../commons/graphql/generated";
 
 interface IMypageProfleProps {
-  userData: any;
-  handleLogin: () => Promise<void>;
-  handlePasswordInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  pwError: boolean;
   step: number;
-  handleUpdateUser: (data: any) => Promise<void>;
+  pwError: boolean;
   isModal: boolean;
   setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
-  userRefetch(
-    variables?: Partial<QueryUserArgs> | undefined
-  ): Promise<ApolloQueryResult<Query>>;
+  userData: UserQuery | undefined;
+  userRefetch: (
+    variables?:
+      | Partial<
+          Exact<{
+            id: string;
+          }>
+        >
+      | undefined
+  ) => Promise<ApolloQueryResult<UserQuery>>;
+  handleLogin: () => Promise<void>;
+  onEnterLogin: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleUpdateUser: (data: any) => Promise<void>;
+  handlePasswordInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const schma = yup.object({
@@ -78,13 +81,14 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
   isModal,
   setIsModal,
   userRefetch,
+  onEnterLogin,
 }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schma) });
-  const user: UsersPermissionsUser = userData?.user;
+
   const navigate = useNavigate();
 
   return (
@@ -104,7 +108,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
             <>
               <MypageProfileIDWrapper>
                 <MypageProfileIDTitle>아이디</MypageProfileIDTitle>
-                <MypageProfileID>{user?.username}</MypageProfileID>
+                <MypageProfileID>{userData?.user?.username}</MypageProfileID>
               </MypageProfileIDWrapper>
               <MypageProfileIDWrapper>
                 <MypageProfileIDTitle>비밀번호</MypageProfileIDTitle>
@@ -113,6 +117,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                   type="password"
                   onChange={handlePasswordInput}
                   pwError={pwError}
+                  onKeyPress={onEnterLogin}
                 />
                 {pwError && (
                   <>
@@ -129,7 +134,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                 <MypageProfileChangeWrapper style={{ marginBottom: "24px" }}>
                   <MypageProfileChangeTitle>아이디</MypageProfileChangeTitle>
                   <MypageProfileChangeContents>
-                    {user?.username}
+                    {userData?.user?.username}
                   </MypageProfileChangeContents>
                 </MypageProfileChangeWrapper>
                 <MypageProfileChangeWrapper>
@@ -167,8 +172,8 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                 />
                 <MypageProfileChangeWrapper>
                   <MypageProfileChangeTitle>이메일</MypageProfileChangeTitle>
-                  <MypageProfileChangeContents {...register("email")}>
-                    {user?.email}
+                  <MypageProfileChangeContents>
+                    {userData?.user?.email}
                   </MypageProfileChangeContents>
                   <MypageChangeEmailBtn
                     onClick={() => {
@@ -184,7 +189,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                 <MypageProfileChangeWrapper>
                   <MypageProfileChangeTitle>이름</MypageProfileChangeTitle>
                   <MypageProfileChangeContents>
-                    {user?.name}
+                    {userData?.user?.name}
                   </MypageProfileChangeContents>
                 </MypageProfileChangeWrapper>
                 <MypageProfileChangeWrapper style={{ marginTop: "23px" }}>
@@ -195,7 +200,9 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                     type="number"
                     placeholder="(-)없이 숫자만 입력해주세요"
                     {...register("phone")}
-                    defaultValue={user?.phone ? user?.phone : ""}
+                    defaultValue={
+                      userData?.user?.phone ? userData?.user?.phone : ""
+                    }
                   />
                 </MypageProfileChangeWrapper>
                 <MypageLine
@@ -205,7 +212,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                   <MypageProfileChangeTitle>
                     이메일 수신
                   </MypageProfileChangeTitle>
-                  {user?.emailReception === true && (
+                  {userData?.user?.emailReception === true && (
                     <>
                       <MypageProfileRadio
                         type="radio"
@@ -228,7 +235,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                       </MypageRadioTitle>
                     </>
                   )}
-                  {user?.emailReception === false && (
+                  {userData?.user?.emailReception === false && (
                     <>
                       <MypageProfileRadio
                         type="radio"
@@ -254,7 +261,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                 </MypageProfileChangeWrapper>
                 <MypageProfileChangeWrapper style={{ marginTop: "34px" }}>
                   <MypageProfileChangeTitle>SMS 수신</MypageProfileChangeTitle>
-                  {user?.smsReception && (
+                  {userData?.user?.smsReception && (
                     <>
                       <MypageProfileRadio
                         type="radio"
@@ -277,7 +284,7 @@ const MypageProfilePresenter: React.FC<IMypageProfleProps> = ({
                       </MypageRadioTitle>
                     </>
                   )}
-                  {user?.smsReception === false && (
+                  {userData?.user?.smsReception === false && (
                     <>
                       <MypageProfileRadio
                         type="radio"

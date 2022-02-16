@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { useNavigate } from "react-router";
-import { Maybe, VisualData } from "../../../commons/types/generated/types";
 import AdminLayoutContainer from "../../common/layout/admin/AdminLayout.container";
 import {
   AdminVisualListWrapper,
@@ -23,9 +22,10 @@ import {
 import SearchIcon from "../../../assets/images/search.svg";
 import PaginationContainer from "../../common/pagination/Pagination.container";
 import { Box, Modal } from "@mui/material";
+import { VisualDataQuery } from "../../../commons/graphql/generated";
 
 interface VisualListProps {
-  visualList: Maybe<Maybe<VisualData>[]> | undefined;
+  open: boolean;
   listInput: {
     start: number;
     limit: number;
@@ -37,13 +37,14 @@ interface VisualListProps {
     }>
   >;
   listLength: any;
-  handleSearch: (e: any) => void;
-  handelCheck: (e: any) => void;
-  handleDeleteVisual: () => Promise<void>;
-  open: boolean;
+  visualList: VisualDataQuery | undefined;
+  visualListLoading: boolean;
   handleOpen: (e: any) => void;
   handleClose: () => void;
+  handelCheck: (e: any) => void;
+  handleSearch: (e: any) => void;
   handleChangeShow: (e: any) => Promise<void>;
+  handleDeleteVisual: () => Promise<void>;
 }
 
 const style = {
@@ -72,6 +73,7 @@ const VisualListPresenter: React.FC<VisualListProps> = ({
   handleOpen,
   open,
   handleChangeShow,
+  visualListLoading,
 }) => {
   const navigate = useNavigate();
   return (
@@ -103,60 +105,61 @@ const VisualListPresenter: React.FC<VisualListProps> = ({
               노출여부
             </AdminVisualListTableHeaderTitle>
           </AdminVisualListTableHeaderWrapper>
-          {visualList?.map((data) => (
-            <AdminVisualListTableHeaderWrapper
-              style={{ backgroundColor: "white" }}
-              key={data?.id}
-            >
-              <AdminVisualListTableHeaderTitle>
-                <AdminVisualCheckBox
-                  value={data?.id}
-                  type="checkbox"
-                  onChange={handelCheck}
-                />
-              </AdminVisualListTableHeaderTitle>
-              <AdminVisualListTableHeaderTitle>
-                {data?.id}
-              </AdminVisualListTableHeaderTitle>
-              <AdminVisualListTableHeaderTitle
-                style={{
-                  flex: 5,
-                }}
-                onClick={() => {
-                  navigate(`/admin/visual/${data?.id}/edit`);
-                }}
+          {!visualListLoading &&
+            visualList?.visualData?.map((data) => (
+              <AdminVisualListTableHeaderWrapper
+                style={{ backgroundColor: "white" }}
+                key={data?.id}
               >
-                {data?.title}
-              </AdminVisualListTableHeaderTitle>
-              <AdminVisualListTableHeaderTitle style={{ flex: 1 }}>
-                {data?.category}
-              </AdminVisualListTableHeaderTitle>
-              <AdminVisualListTableHeaderTitle style={{ flex: 1 }}>
-                {data?.viewCount}
-              </AdminVisualListTableHeaderTitle>
-              <AdminVisualListTableHeaderTitle style={{ flex: 1.2 }}>
-                {dayjs(data?.created_at).format("YYYY.MM.DD")}
-              </AdminVisualListTableHeaderTitle>
-              <AdminVisualListTableHeaderTitle
-                style={{
-                  flex: 1,
-                  flexDirection: "column",
-                  cursor: "pointer",
-                }}
-                id={data?.id}
-                onClick={handleOpen}
-              >
-                {data?.isShow ? "노출" : "미노출"}
-                <AdminVisualListPreview
+                <AdminVisualListTableHeaderTitle>
+                  <AdminVisualCheckBox
+                    value={data?.id}
+                    type="checkbox"
+                    onChange={handelCheck}
+                  />
+                </AdminVisualListTableHeaderTitle>
+                <AdminVisualListTableHeaderTitle>
+                  {data?.id}
+                </AdminVisualListTableHeaderTitle>
+                <AdminVisualListTableHeaderTitle
+                  style={{
+                    flex: 5,
+                  }}
                   onClick={() => {
-                    navigate(`/admin/visual/${data?.id}`);
+                    navigate(`/admin/visual/${data?.id}/edit`);
                   }}
                 >
-                  [미리보기]
-                </AdminVisualListPreview>
-              </AdminVisualListTableHeaderTitle>
-            </AdminVisualListTableHeaderWrapper>
-          ))}
+                  {data?.title}
+                </AdminVisualListTableHeaderTitle>
+                <AdminVisualListTableHeaderTitle style={{ flex: 1 }}>
+                  {data?.category}
+                </AdminVisualListTableHeaderTitle>
+                <AdminVisualListTableHeaderTitle style={{ flex: 1 }}>
+                  {data?.viewCount}
+                </AdminVisualListTableHeaderTitle>
+                <AdminVisualListTableHeaderTitle style={{ flex: 1.2 }}>
+                  {dayjs(data?.created_at).format("YYYY.MM.DD")}
+                </AdminVisualListTableHeaderTitle>
+                <AdminVisualListTableHeaderTitle
+                  style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    cursor: "pointer",
+                  }}
+                  id={data?.id}
+                  onClick={handleOpen}
+                >
+                  {data?.isShow ? "노출" : "미노출"}
+                  <AdminVisualListPreview
+                    onClick={() => {
+                      navigate(`/admin/visual/${data?.id}`);
+                    }}
+                  >
+                    [미리보기]
+                  </AdminVisualListPreview>
+                </AdminVisualListTableHeaderTitle>
+              </AdminVisualListTableHeaderWrapper>
+            ))}
         </AdminVisualListTableWrapper>
         <AdminVisualPaginationWrapper>
           <PaginationContainer

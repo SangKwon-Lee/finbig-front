@@ -1,21 +1,20 @@
-import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import {
-  Mutation,
-  MutationLoginArgs,
-} from "../../../commons/types/generated/types";
-import { LOGIN } from "../../login/Login.query";
+import { useLoginMutation } from "../../../commons/graphql/generated";
 import AdminLoginPresneter from "./AdminLogin.presenter";
 
 const AdminLoginContainer = () => {
   const navigate = useNavigate();
-  const [adminLogin] = useMutation<Mutation, MutationLoginArgs>(LOGIN);
+
+  //* 로그인 Input 관리
   const [loginInput, setLoginInput] = useState({
     username: "",
     password: "",
     error: false,
   });
+
+  //* 관리자 로그인
+  const [adminLogin] = useLoginMutation();
 
   //* 관리자 로그인 함수
   const handleAdminLogin = async () => {
@@ -44,11 +43,18 @@ const AdminLoginContainer = () => {
   };
 
   //* 로그인 Input
-  const handleLoginInput = (e: any) => {
+  const handleLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginInput({
       ...loginInput,
       [e.target.name]: e.target.value,
     });
+  };
+
+  //* 엔터 키 누를 시 로그인 실행
+  const onEnterLogin = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleAdminLogin();
+    }
   };
 
   return (
@@ -56,6 +62,7 @@ const AdminLoginContainer = () => {
       handleLoginInput={handleLoginInput}
       handleAdminLogin={handleAdminLogin}
       loginInput={loginInput}
+      onEnterLogin={onEnterLogin}
     />
   );
 };

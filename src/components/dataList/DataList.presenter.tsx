@@ -20,11 +20,12 @@ import {
 } from "./DataList.style";
 import { useNavigate, useParams } from "react-router";
 import PaginationContainer from "../common/pagination/Pagination.container";
-import { Finbig, Maybe } from "../../commons/types/generated/types";
 import { VisualListPaginationWrapper } from "../visualList/VisualList.style";
+import { FinbigsQuery } from "../../commons/graphql/generated";
 
 interface DataListProps {
-  finbigs?: Maybe<Maybe<Finbig>[]> | undefined;
+  finbigs: FinbigsQuery | undefined;
+  loading: boolean;
   blackLength: number;
   listInput: {
     start: number;
@@ -36,15 +37,18 @@ interface DataListProps {
       limit: number;
     }>
   >;
+  handleSort: (e: any) => void;
   handleViewCount: (dataId: string, viewCount: number) => Promise<void>;
   handleRecentData: (dataId: any) => Promise<void>;
 }
 
 const DataListPresenter: React.FC<DataListProps> = ({
+  loading,
   finbigs,
-  blackLength,
   listInput,
+  blackLength,
   setListInput,
+  handleSort,
   handleRecentData,
   handleViewCount,
 }) => {
@@ -55,40 +59,66 @@ const DataListPresenter: React.FC<DataListProps> = ({
     <DataListWrapper>
       <DataListTitle>{search ? "검색 결과" : "데이터 상품"}</DataListTitle>
       <DataListCategoryWrapper>
-        <DataListCategoryTitle>전체 (8)</DataListCategoryTitle>
+        <DataListCategoryTitle>
+          {!loading &&
+            `전체 (${
+              finbigs?.finbigs?.filter((data) =>
+                data?.title?.includes(search || "")
+              ).length
+            })`}
+        </DataListCategoryTitle>
         <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>리츠 (1)</DataListCategoryTitle>
+        <DataListCategoryTitle>
+          {!loading &&
+            `투자기초 데이터 (${
+              finbigs?.finbigs
+                ?.filter((data) => data?.title?.includes(search || ""))
+                .filter((data) => data?.category === "투자기초 데이터").length
+            })`}
+        </DataListCategoryTitle>
         <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>주식 투자 (2)</DataListCategoryTitle>
+        <DataListCategoryTitle>
+          {!loading &&
+            `알고리즘 데이터 (${
+              finbigs?.finbigs
+                ?.filter((data) => data?.title?.includes(search || ""))
+                .filter((data) => data?.category === "알고리즘 데이터").length
+            })`}
+        </DataListCategoryTitle>
         <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>알고리즘 (2)</DataListCategoryTitle>
-        <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>펀드 (3)</DataListCategoryTitle>
+        <DataListCategoryTitle>
+          {!loading &&
+            `콜라보 (${
+              finbigs?.finbigs
+                ?.filter((data) => data?.title?.includes(search || ""))
+                .filter((data) => data?.category === "콜라보").length
+            })`}
+        </DataListCategoryTitle>
       </DataListCategoryWrapper>
       <DataListSelectWrapper>
         <DataListResult>
           상품이 모두
           <DataListResultNum>
-            {
-              finbigs?.filter((data) => data?.title?.includes(search || ""))
-                .length
-            }
+            {!loading &&
+              finbigs?.finbigs?.filter((data) =>
+                data?.title?.includes(search || "")
+              ).length}
             개
           </DataListResultNum>
           &nbsp;있습니다
         </DataListResult>
-        <DataListSelectBox defaultValue="상품정렬">
-          <option disabled value="상품정렬">
-            상품 정렬
-          </option>
-          <option>상품 뭐지</option>
-          <option>상품 리얼</option>
+        <DataListSelectBox defaultValue="id:asc" onChange={handleSort}>
+          <option value="id:asc">최신순</option>
+          <option value="order:desc">인기순</option>
+          <option value="viewCount:desc">조회순</option>
         </DataListSelectBox>
       </DataListSelectWrapper>
       <DataListBody>
-        {finbigs?.filter((data: any) => data?.title?.includes(search || ""))
-          .length !== 0 ? (
-          finbigs
+        {!loading &&
+        finbigs?.finbigs?.filter((data: any) =>
+          data?.title?.includes(search || "")
+        ).length !== 0 ? (
+          finbigs?.finbigs
             ?.filter((data: any) => data?.title?.includes(search || ""))
             .splice(listInput.start, listInput.limit)
             ?.map((data) => (
@@ -138,8 +168,9 @@ const DataListPresenter: React.FC<DataListProps> = ({
       <VisualListPaginationWrapper>
         <PaginationContainer
           listLength={
-            finbigs?.filter((data: any) => data?.title?.includes(search || ""))
-              .length
+            finbigs?.finbigs?.filter((data: any) =>
+              data?.title?.includes(search || "")
+            ).length
           }
           listInput={listInput}
           setListInput={setListInput}

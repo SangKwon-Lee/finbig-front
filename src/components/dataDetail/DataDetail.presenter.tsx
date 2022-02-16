@@ -28,15 +28,15 @@ import "antd/dist/antd.css";
 import SunSVG from "../../assets/images/sun.svg";
 import { DatePicker } from "antd";
 import moment from "moment";
-import { Finbig, Maybe } from "../../commons/types/generated/types";
 import { Viewer } from "@toast-ui/react-editor";
 import { useNavigate } from "react-router";
+import { FinbigQuery } from "../../commons/graphql/generated";
 
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 
 interface DataDetailProps {
-  data?: Maybe<Finbig> | undefined;
+  data?: FinbigQuery | undefined;
   handleDate: (e: any) => void;
   handleDownLoad: (dataId: any) => Promise<void>;
 }
@@ -50,15 +50,17 @@ const DataDetailPresenter: React.FC<DataDetailProps> = ({
   return (
     <DataDetailWrapper>
       <DataDetailBodyWrapper>
-        <DataDetailImg src={String(data?.thumbnail)} />
+        <DataDetailImg src={String(data?.finbig?.thumbnail)} />
         <DataDetailContentsWrapper>
-          <DataDetailTitle>{data?.title}</DataDetailTitle>
-          <DataDetailContents>{data?.description}</DataDetailContents>
+          <DataDetailTitle>{data?.finbig?.title}</DataDetailTitle>
+          <DataDetailContents>{data?.finbig?.description}</DataDetailContents>
           <DataDetailTableWrapper style={{ borderTop: "1px solid #c1c1c1" }}>
             <DataDetailTableTitle>제공유형</DataDetailTableTitle>
             <DataDetailTableContents>ZIP(csv)</DataDetailTableContents>
             <DataDetailTableTitle>업데이트 주기</DataDetailTableTitle>
-            <DataDetailTableContents>{data?.period}</DataDetailTableContents>
+            <DataDetailTableContents>
+              {data?.finbig?.period}
+            </DataDetailTableContents>
           </DataDetailTableWrapper>
           {/* <DataDetailTableWrapper>
             <DataDetailTableTitle>용량</DataDetailTableTitle>
@@ -78,7 +80,7 @@ const DataDetailPresenter: React.FC<DataDetailProps> = ({
             />
           </DataDetailPeriodWrapper>
           <DataDetailBtnWrapper>
-            <DataDetailDownBtn onClick={() => handleDownLoad(data?.id)}>
+            <DataDetailDownBtn onClick={() => handleDownLoad(data?.finbig?.id)}>
               데이터 다운로드
             </DataDetailDownBtn>
             <DataDetailLikeBtn>
@@ -88,12 +90,13 @@ const DataDetailPresenter: React.FC<DataDetailProps> = ({
         </DataDetailContentsWrapper>
       </DataDetailBodyWrapper>
       <DataDetailDivider />
-      {/* <DataDetailBigImg /> */}
-      {data?.contents && <Viewer initialValue={data.contents} />}
+      {data?.finbig?.contents && (
+        <Viewer initialValue={data?.finbig?.contents} />
+      )}
       <DataDetailOther>관련 상품</DataDetailOther>
       <DataDetailOhterWrapper>
-        {data?.relationFinbigs?.map((data) => (
-          <DataDetailOhterContentsWrapper>
+        {data?.finbig?.relationFinbigs?.map((data) => (
+          <DataDetailOhterContentsWrapper key={data?.id}>
             <DataDetailOtherImg
               src={String(data?.thumbnail)}
               onClick={() => {

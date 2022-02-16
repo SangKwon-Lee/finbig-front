@@ -1,21 +1,12 @@
-import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 import {
-  EmailAuth,
-  Mutation,
-  MutationCreateEmailAuthArgs,
-  MutationCreateUserArgs,
-  MutationDeleteEmailAuthArgs,
-} from "../../commons/types/generated/types";
+  useCreateEmailAuthMutation,
+  useCreateUserMutation,
+  useDeleteEmailAuthMutation,
+  useEmailAuthsQuery,
+  useUsersQuery,
+} from "../../commons/graphql/generated";
 import SignupPresenter from "./Signup.presenter";
-import {
-  CREATE_USER,
-  DELETE_EMAIL_AUTH,
-  EMAIL_AUTH,
-  EMAIL_AUTH_CHECK,
-  FETCH_USERS,
-} from "./Signup.query";
-
 const SignupContainer = () => {
   //* 이용약관 동의 스테이트
   const [checkInput, setCheckInput] = useState({
@@ -39,25 +30,19 @@ const SignupContainer = () => {
   const [isCheckName, setIsCheckName] = useState(false);
 
   //* 유저 생성 Mutation
-  const [createUser] = useMutation<Mutation, MutationCreateUserArgs>(
-    CREATE_USER
-  );
+  const [createUser] = useCreateUserMutation();
 
   //* 이메일 인증 Mutation
-  const [emailAuth] = useMutation<Mutation, MutationCreateEmailAuthArgs>(
-    EMAIL_AUTH
-  );
+  const [emailAuth] = useCreateEmailAuthMutation();
 
   //* 이메일 인증 후 데이터 삭제
-  const [deleteEmailAuth] = useMutation<Mutation, MutationDeleteEmailAuthArgs>(
-    DELETE_EMAIL_AUTH
-  );
+  const [deleteEmailAuth] = useDeleteEmailAuthMutation();
 
   //* 이메일 인증 코드 데이터
-  const { data, refetch } = useQuery(EMAIL_AUTH_CHECK);
+  const { data, refetch } = useEmailAuthsQuery();
 
   //* 중복 이름 확인 쿼리
-  const { fetchMore } = useQuery(FETCH_USERS, {
+  const { fetchMore } = useUsersQuery({
     variables: {
       where: {
         username: "",
@@ -109,13 +94,19 @@ const SignupContainer = () => {
                 smsReception,
                 name: data.name,
                 phone: data.phone,
+                role: "2",
+                confirmed: false,
+                isAdmin: false,
+                blocked: false,
+                isDeleted: false,
+                isSubscribe: false,
               },
             },
           },
         });
         setStep(() => step + 1);
       } catch (error) {
-        console.log(error);
+        alert("오류가 발생했습니다.");
       }
     } else {
       alert("내용 입력 및 인증번호를 확인해주세요.");
@@ -150,7 +141,7 @@ const SignupContainer = () => {
 
   //* 인증번호 확인
   const handleEmailAuthCheck = async (auth: string) => {
-    let Auth: EmailAuth[] = data?.emailAuths.filter(
+    let Auth: any[] = data!.emailAuths!.filter(
       (data: any) => data.code === auth
     );
     if (Auth.length === 1) {
@@ -170,7 +161,6 @@ const SignupContainer = () => {
           },
         });
       } catch (error) {
-        console.log(error);
         setIsAuth({
           ...isAuth,
           isError: true,
@@ -194,14 +184,12 @@ const SignupContainer = () => {
           },
         },
       });
-      if (checkUser?.data?.users.length === 1) {
+      if (checkUser!.data!.users!.length === 1) {
         setIsCheckName(true);
       } else {
         setIsCheckName(false);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (

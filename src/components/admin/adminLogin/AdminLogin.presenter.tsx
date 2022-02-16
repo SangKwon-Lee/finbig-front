@@ -8,19 +8,21 @@ import {
 import WhiteLogo from "../../../assets/images/whiteLogo.svg";
 
 interface AdminLoginProps {
-  handleAdminLogin: () => Promise<void>;
-  handleLoginInput: (e: any) => void;
   loginInput: {
     username: string;
     password: string;
     error: boolean;
   };
+  onEnterLogin: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleAdminLogin: () => Promise<void>;
+  handleLoginInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const AdminLoginPresneter: React.FC<AdminLoginProps> = ({
-  handleAdminLogin,
-  handleLoginInput,
   loginInput,
+  onEnterLogin,
+  handleLoginInput,
+  handleAdminLogin,
 }) => {
   return (
     <>
@@ -30,12 +32,14 @@ const AdminLoginPresneter: React.FC<AdminLoginProps> = ({
           placeholder="아이디"
           name="username"
           onChange={handleLoginInput}
+          onKeyPress={onEnterLogin}
         />
         <AdminInput
           placeholder="비밀번호"
           type="password"
           name="password"
           onChange={handleLoginInput}
+          onKeyPress={onEnterLogin}
         />
         {loginInput.error && (
           <AdminLoginError>

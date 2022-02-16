@@ -1,7 +1,11 @@
 import StockMarketPresenter from "./StockMarket.presenter";
 
 const StockMarketContainer = () => {
-  return <StockMarketPresenter />;
+  return (
+    <>
+      <StockMarketPresenter />
+    </>
+  );
 };
 
 export default StockMarketContainer;
