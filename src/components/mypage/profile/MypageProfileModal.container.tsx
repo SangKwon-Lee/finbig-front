@@ -8,6 +8,7 @@ import {
   useDeleteEmailAuthMutation,
   useEmailAuthsQuery,
   UserQuery,
+  useTokensQuery,
   useUpdateUserMutation,
   useUserQuery,
 } from "../../../commons/graphql/generated";
@@ -125,6 +126,19 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
   setIsModal,
   userRefetch,
 }) => {
+  const token = sessionStorage.getItem("accessToken");
+  const tokenId = sessionStorage.getItem("token");
+
+  //* 토큰
+  const { data: user } = useTokensQuery({
+    variables: {
+      where: {
+        token: token,
+        id: tokenId,
+      },
+    },
+  });
+
   //* 인증 상태
   const [isAuth, setIsAuth] = useState({
     isSend: false,
@@ -149,7 +163,7 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
   //* 유저 정보 불러오기
   const { data: userData } = useUserQuery({
     variables: {
-      id: String(sessionStorage.getItem("userId")),
+      id: String(user?.tokens![0]?.userId),
     },
   });
 

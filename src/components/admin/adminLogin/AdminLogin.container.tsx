@@ -32,7 +32,6 @@ const AdminLoginContainer = () => {
         error: false,
       });
       sessionStorage.setItem("accessToken", String(data?.login.jwt));
-      sessionStorage.setItem("userId", String(data?.login.user.id));
       navigate("/admin/users");
     } catch (e) {
       setLoginInput({

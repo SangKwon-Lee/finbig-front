@@ -1,14 +1,28 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useUserQuery } from "../../../commons/graphql/generated";
-
+import {
+  useTokensQuery,
+  useUserQuery,
+} from "../../../commons/graphql/generated";
 export default function WithAdminAuth(Component: any) {
   return function HandleCheckLogin(props: any) {
     const navigate = useNavigate();
-    const userId = sessionStorage.getItem("userId");
+    const token = sessionStorage.getItem("accessToken");
+    const tokenId = sessionStorage.getItem("token");
+
+    //* 토큰
+    const { data: user } = useTokensQuery({
+      variables: {
+        where: {
+          token: token,
+          id: tokenId,
+        },
+      },
+    });
+
     const { data, loading } = useUserQuery({
       variables: {
-        id: String(userId),
+        id: String(user?.tokens![0]?.userId),
       },
     });
 

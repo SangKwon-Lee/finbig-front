@@ -172,3 +172,7 @@ export const DataDetailOtherContents = styled.div`
   font-size: 12px;
   color: #999999;
 `;
+
+export const ViewerWrapper = styled.div`
+  width: 1100px;
+`;

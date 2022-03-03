@@ -2,9 +2,24 @@ import MypageMainPresenter from "./MypageMain.presenter";
 import WithAuth from "../../common/hocs/withAuth";
 import { blankImg } from "../../../utils/blankImg";
 import { useEffect, useState } from "react";
-import { useUserQuery } from "../../../commons/graphql/generated";
+import {
+  useTokensQuery,
+  useUserQuery,
+} from "../../../commons/graphql/generated";
+
 const MypageMainContainer = () => {
-  const userId = sessionStorage.getItem("userId");
+  const token = sessionStorage.getItem("accessToken");
+  const tokenId = sessionStorage.getItem("token");
+
+  //* 토큰
+  const { data: user } = useTokensQuery({
+    variables: {
+      where: {
+        token: token,
+        id: tokenId,
+      },
+    },
+  });
 
   //* 빈 이미지
   const [blackLength, setBlackLength] = useState<number>(1);
@@ -12,7 +27,7 @@ const MypageMainContainer = () => {
   //* 유저 정보
   const { data } = useUserQuery({
     variables: {
-      id: String(userId),
+      id: String(user?.tokens![0]?.userId),
     },
     fetchPolicy: "no-cache",
   });

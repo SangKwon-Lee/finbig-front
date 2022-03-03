@@ -16,14 +16,13 @@ export const DataListTitle = styled.div`
 
 export const DataListCategoryWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 465px;
   margin-top: 27px;
   margin-bottom: 78px;
 `;
 
 export const DataListCategoryTitle = styled.div`
   font-size: 14px;
+  margin: 0 5px;
   color: #999999;
 `;
 

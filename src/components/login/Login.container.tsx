@@ -1,22 +1,30 @@
 import dayjs from "dayjs";
-import React, { useContext } from "react";
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { GlobalContext } from "../../App";
 import {
   useCreateTokenMutation,
-  useFetchTokenMutation,
   useLoginMutation,
-  useUpdateTokenMutation,
+  useTokensQuery,
+  // useUpdateTokenMutation,
   useUpdateUserMutation,
   useUserQuery,
 } from "../../commons/graphql/generated";
 import LoginPresenter from "./Login.presenter";
-
 const LoginContainer = () => {
-  //* 토큰 전역 함수
-  const { setAccessToken, setUserData } = useContext(GlobalContext);
-  const userId = sessionStorage.getItem("userId");
+  const token = sessionStorage.getItem("accessToken");
+  const tokenId = sessionStorage.getItem("token");
+
+  //* 토큰
+  const { data: tokenData } = useTokensQuery({
+    variables: {
+      where: {
+        token: token,
+        id: tokenId,
+      },
+    },
+  });
+
   const navigate = useNavigate();
 
   //* 로그인 인풋
@@ -28,13 +36,10 @@ const LoginContainer = () => {
   //* 로그인 뮤테이션
   const [login, { loading, error }] = useLoginMutation();
 
-  //* 기존 토큰 확인
-  const [fetchToken] = useFetchTokenMutation();
-
   //* 유저 정보 가져오기
   const { fetchMore } = useUserQuery({
     variables: {
-      id: String(userId),
+      id: String(tokenData?.tokens![0]?.userId),
     },
   });
 
@@ -42,7 +47,7 @@ const LoginContainer = () => {
   const [createToken] = useCreateTokenMutation();
 
   //* 토큰 업데이트
-  const [updateToken] = useUpdateTokenMutation();
+  // const [updateToken] = useUpdateTokenMutation();
 
   //* 유저의 구독 만료일 업데이트
   const [updateIsSubscription] = useUpdateUserMutation();
@@ -73,29 +78,11 @@ const LoginContainer = () => {
         }
       }
       sessionStorage.setItem("accessToken", String(data?.login.jwt));
-      sessionStorage.setItem("userId", String(data?.login.user.id));
-      setAccessToken(String(data?.login.jwt));
-      setUserData(User?.user);
-      handleToken(data?.login);
-    } catch (e) {
-      console.log(e);
-      return;
-    }
-  };
 
-  //* 기존 토큰 있는지 체크
-  const handleToken = async (data: any) => {
-    try {
-      const { data: tokenData } = await fetchToken({
-        variables: {
-          userId: String(data.user.id),
-          token: String(data.jwt),
-        },
-      });
-      sessionStorage.setItem("token", String(tokenData?.fetchToken?.id));
-      handleUpdateToekn(data.jwt, String(tokenData?.fetchToken?.id));
+      handleCreateToekn(String(data?.login.jwt), String(User?.user?.id));
     } catch (e) {
-      handleCreateToekn(data.jwt, data.user.id);
+      alert("오류가 발생했습니다.");
+      return;
     }
   };
 
@@ -118,23 +105,24 @@ const LoginContainer = () => {
   };
 
   //* 기존 DB에 토큰이 있다면 토큰 업데이트
-  const handleUpdateToekn = async (token: string, id: string) => {
-    try {
-      await updateToken({
-        variables: {
-          input: {
-            where: {
-              id: String(id),
-            },
-            data: {
-              token,
-            },
-          },
-        },
-      });
-      navigate("/");
-    } catch (e) {}
-  };
+  // const handleUpdateToekn = async (token: string, id: string) => {
+  //   try {
+  //     const { data } = await updateToken({
+  //       variables: {
+  //         input: {
+  //           where: {
+  //             id: String(id),
+  //           },
+  //           data: {
+  //             token,
+  //           },
+  //         },
+  //       },
+  //     });
+  //     sessionStorage.setItem("accessToken", String(data?.updateToken?.token));
+  //     navigate("/");
+  //   } catch (e) {}
+  // };
 
   //* 인풋 바꾸기
   const handleChnageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,7 +150,7 @@ const LoginContainer = () => {
               isSubscribe: false,
             },
             where: {
-              id: String(userId),
+              id: String(tokenData?.tokens![0]?.userId),
             },
           },
         },

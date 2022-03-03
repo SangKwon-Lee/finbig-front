@@ -66,7 +66,6 @@ export const LOGIN = gql`
   }
 `;
 
-// 토큰 정보
 export const CREATE_TOKEN = gql`
   mutation createToken($input: createTokenInput!) {
     createToken(input: $input) {
@@ -92,6 +91,7 @@ export const UPDATE_TOKEN = gql`
     updateToken(input: $input) {
       token {
         id
+        token
       }
     }
   }
@@ -103,6 +103,27 @@ export const DELETE_TOKEN = gql`
       token {
         id
       }
+    }
+  }
+`;
+
+export const GET_TOKEN = gql`
+  query token($id: ID!) {
+    token(id: $id) {
+      id
+      created_at
+      userId
+      token
+    }
+  }
+`;
+
+export const FETCH_TOKENS = gql`
+  query tokens($sort: String, $limit: Int, $start: Int, $where: JSON) {
+    tokens(sort: $sort, limit: $limit, start: $start, where: $where) {
+      id
+      userId
+      token
     }
   }
 `;

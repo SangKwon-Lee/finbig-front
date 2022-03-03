@@ -23,6 +23,7 @@ import {
   DataDetailTitle,
   DataDetailTitleWrapper,
   DataDetailWrapper,
+  ViewerWrapper,
 } from "./DataDetail.style";
 import "antd/dist/antd.css";
 import SunSVG from "../../assets/images/sun.svg";
@@ -91,7 +92,9 @@ const DataDetailPresenter: React.FC<DataDetailProps> = ({
       </DataDetailBodyWrapper>
       <DataDetailDivider />
       {data?.finbig?.contents && (
-        <Viewer initialValue={data?.finbig?.contents} />
+        <ViewerWrapper>
+          <Viewer initialValue={data?.finbig?.contents} />
+        </ViewerWrapper>
       )}
       <DataDetailOther>관련 상품</DataDetailOther>
       <DataDetailOhterWrapper>

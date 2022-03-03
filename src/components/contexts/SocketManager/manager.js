@@ -20530,8 +20530,8 @@ module.exports = (function (P) {
           {
             key: "sendProcessByName",
             value: function (t, e, n) {
-              console.log("sendProcessByName", t),
-                (this.lastQueryTime = Date.now());
+              // console.log("sendProcessByName", t),
+              this.lastQueryTime = Date.now();
               var r = Q.a.getSafeQuery(t);
               return r
                 ? [this.sendProcess(r, "", "", e, n)]

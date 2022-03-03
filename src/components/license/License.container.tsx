@@ -6,10 +6,10 @@ import LicensePresenter from "./License.presenter";
 import dayjs from "dayjs";
 import {
   useCreateSubscriptionHistoryMutation,
+  useTokensQuery,
   useUpdateUserMutation,
   useUserQuery,
 } from "../../commons/graphql/generated";
-
 //* 이노페이 결제
 const REACT_APP_INNOPAY_MID = process.env.REACT_APP_INNOPAY_MID;
 const REACT_APP_INNOPAY_MERCHANTKEY = process.env.REACT_APP_INNOPAY_MERCHANTKEY;
@@ -17,8 +17,18 @@ const REACT_APP_INNOPAY_MERCHANTKEY = process.env.REACT_APP_INNOPAY_MERCHANTKEY;
 const LicenseContainer = () => {
   const navigate = useNavigate();
 
-  //*유저 아이디
-  const userId = sessionStorage.getItem("userId");
+  const token = sessionStorage.getItem("accessToken");
+  const tokenId = sessionStorage.getItem("token");
+
+  //* 토큰
+  const { data: user } = useTokensQuery({
+    variables: {
+      where: {
+        token: token,
+        id: tokenId,
+      },
+    },
+  });
 
   //* 결제 상품 정보
   const [paymentInput, setPaymentInput] = useState({
@@ -35,7 +45,7 @@ const LicenseContainer = () => {
   //* 유저 정보
   const { data: User } = useUserQuery({
     variables: {
-      id: String(userId),
+      id: String(user?.tokens![0]?.userId),
     },
   });
 
@@ -47,7 +57,7 @@ const LicenseContainer = () => {
 
   //* 구매버튼
   const handleBuy = async () => {
-    if (!userId) {
+    if (!String(user?.tokens![0]?.userId)) {
       alert("로그인 후 이용 가능합니다.");
       navigate("/login");
       return;
@@ -117,7 +127,7 @@ const LicenseContainer = () => {
               title: paymentInput.title,
               period: paymentInput.period,
               price: paymentInput.price,
-              user: String(userId),
+              user: String(user?.tokens![0]?.userId),
               MID: result.MID,
               paymentStatus: "결제 완료",
               paymentMethod: "CARD",
@@ -154,7 +164,7 @@ const LicenseContainer = () => {
               ),
             },
             where: {
-              id: String(userId),
+              id: String(user?.tokens![0]?.userId),
             },
           },
         },
@@ -181,7 +191,7 @@ const LicenseContainer = () => {
               expirationDate: newDate,
             },
             where: {
-              id: String(userId),
+              id: String(user?.tokens![0]?.userId),
             },
           },
         },

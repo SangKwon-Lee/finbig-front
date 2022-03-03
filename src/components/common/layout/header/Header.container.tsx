@@ -14,12 +14,12 @@ const HeaderContainer = (props: any) => {
   //* 토큰 삭제
   const [deleteToken] = useDeleteTokenMutation();
 
+  const token = sessionStorage.getItem("accessToken");
   const tokenId = sessionStorage.getItem("token");
-  const userId = sessionStorage.getItem("userId");
 
   //* 로그아웃
   const handleLogout = async () => {
-    if (userId) {
+    if (token) {
       try {
         const { data } = await deleteToken({
           variables: {

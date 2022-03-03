@@ -5,13 +5,25 @@ import { blankImg } from "../../utils/blankImg";
 import { useParams } from "react-router";
 import {
   useFinbigsQuery,
+  useTokensQuery,
   useUpdateFinbigMutation,
   useUpdateUserMutation,
   useUserQuery,
 } from "../../commons/graphql/generated";
-
 const DataListContainer = () => {
-  const userId = sessionStorage.getItem("userId");
+  const token = sessionStorage.getItem("accessToken");
+  const tokenId = sessionStorage.getItem("token");
+
+  //* 토큰
+  const { data: user } = useTokensQuery({
+    variables: {
+      where: {
+        token: token,
+        id: tokenId,
+      },
+    },
+  });
+
   const { search } = useParams();
 
   //* 페이지네이션 상태
@@ -36,10 +48,12 @@ const DataListContainer = () => {
     },
   });
 
+  console.log(data);
+
   //* 최근 본 데이터 불러오기
   const { data: MyData } = useUserQuery({
     variables: {
-      id: String(userId),
+      id: String(user?.tokens![0]?.userId),
     },
     fetchPolicy: "no-cache",
   });
@@ -84,7 +98,7 @@ const DataListContainer = () => {
 
   //* 최근 본 데이터 함수
   const handleRecentData = async (dataId: any) => {
-    if (!userId) return;
+    if (!String(user?.tokens![0]?.userId)) return;
     try {
       await updateRecentData({
         variables: {
@@ -95,7 +109,7 @@ const DataListContainer = () => {
                 .concat(dataId),
             },
             where: {
-              id: String(userId),
+              id: String(user?.tokens![0]?.userId),
             },
           },
         },

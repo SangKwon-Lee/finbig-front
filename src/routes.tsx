@@ -100,6 +100,15 @@ const AdminSubsciptionList = Loadable(
   )
 );
 
+//* 이용약관
+
+const Service = Loadable(
+  lazy(() => import("./components/terms/Service.container"))
+);
+const Privacypolicy = Loadable(
+  lazy(() => import("./components/terms/PrivacyPolicy.container"))
+);
+
 const routes = [
   {
     path: "/",
@@ -298,6 +307,14 @@ const routes = [
   {
     path: "/admin/subsciption",
     element: <AdminSubsciptionList />,
+  },
+  {
+    path: "/service",
+    element: <Service />,
+  },
+  {
+    path: "/privacypolicy",
+    element: <Privacypolicy />,
   },
 ];
 

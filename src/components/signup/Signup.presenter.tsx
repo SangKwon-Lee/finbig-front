@@ -33,9 +33,11 @@ import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { MutationCreateUserArgs } from "../../commons/types/generated/types";
 import InfoSVG from "../../assets/images/info.svg";
 import BigCheckSVG from "../../assets/images/bigCheck.svg";
+import { MutationCreateUserArgs } from "../../commons/graphql/generated";
+import ServiceContainer from "../terms/Service.container";
+import PrivacyPolicyContainer from "../terms/PrivacyPolicy.container";
 
 interface ISignupProps {
   step: number;
@@ -152,35 +154,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
               <SignupSubTitle>이용약관 동의(필수)</SignupSubTitle>
             </SignupTitleWrapper>
             <SignupBox>
-              전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어 있으며,
-              개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어
-              있으며, 개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수
-              및 선택 정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를
-              선택 할 수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도
-              포함 되어 있으며, 개별적으로도 동의를 선택 할 수 있습니다.전체
-              동의는 필수 및 선택 정보에 대한 동의도 포함 되어 있으며,
-              개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어
-              있으며, 개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수
-              및 선택 정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를
-              선택 할 수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도
-              포함 되어 있으며, 개별적으로도 동의를 선택 할 수 있습니다.전체
-              동의는 필수 및 선택 정보에 대한 동의도 포함 되어 있으며,
-              개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어 있으며,
-              개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수 있습니다. 있습니다.있습니다.전체 동의는 필수 및 선택 정보에
-              대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할 수
-              있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어
-              있으며, 개별적으로도 동의를 선택 할 수전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어
-              있으며, 개별적으로도 동의를 선택 할 수 있습니다. 있습니다.
+              <ServiceContainer />
             </SignupBox>
             <SignupTitleWrapper
               onClick={() => {
@@ -196,35 +170,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
               <SignupSubTitle>이용약관 동의(필수)</SignupSubTitle>
             </SignupTitleWrapper>
             <SignupBox>
-              전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어 있으며,
-              개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어
-              있으며, 개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수
-              및 선택 정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를
-              선택 할 수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도
-              포함 되어 있으며, 개별적으로도 동의를 선택 할 수 있습니다.전체
-              동의는 필수 및 선택 정보에 대한 동의도 포함 되어 있으며,
-              개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어
-              있으며, 개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수
-              및 선택 정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를
-              선택 할 수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도
-              포함 되어 있으며, 개별적으로도 동의를 선택 할 수 있습니다.전체
-              동의는 필수 및 선택 정보에 대한 동의도 포함 되어 있으며,
-              개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어 있으며,
-              개별적으로도 동의를 선택 할 수 있습니다.전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수 있습니다. 있습니다.있습니다.전체 동의는 필수 및 선택 정보에
-              대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할 수
-              있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어
-              있으며, 개별적으로도 동의를 선택 할 수전체 동의는 필수 및 선택
-              정보에 대한 동의도 포함 되어 있으며, 개별적으로도 동의를 선택 할
-              수 있습니다.전체 동의는 필수 및 선택 정보에 대한 동의도 포함 되어
-              있으며, 개별적으로도 동의를 선택 할 수 있습니다. 있습니다.
+              <PrivacyPolicyContainer />
             </SignupBox>
             {errorMsg && (
               <SignupErrorMsg>
@@ -246,7 +192,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
         {step === 1 && (
           <>
             <form onSubmit={handleSubmit(handleCreateUser)}>
-              <SignupSubTitle>전체 약관 동의</SignupSubTitle>
+              <SignupSubTitle>가입 정보 입력</SignupSubTitle>
               <Divider />
               <SignupInputWrapper>
                 <SignupInputTitle>아이디</SignupInputTitle>
@@ -303,14 +249,14 @@ const SignupPresenter: React.FC<ISignupProps> = ({
               <SignupInputWrapper>
                 <SignupInputTitle>이메일</SignupInputTitle>
                 <SignupInput
-                  disabled={isAuth.isSend}
+                  // disabled={isAuth.isSend}
                   style={{ width: "335px" }}
                   {...register("email")}
                 ></SignupInput>
                 {isAuth.isSend ? (
                   <>
                     <SignupEmailBtn
-                      disabled={isAuth.isOk}
+                      // disabled={isAuth.isOk}
                       onClick={() => handleEmailAuthCheck(getValues("auth"))}
                     >
                       인증번호 확인
@@ -333,7 +279,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                 ) : (
                   <>
                     <SignupEmailBtn
-                      disabled={isAuth.isOk}
+                      // disabled={isAuth.isOk}
                       onClick={() => {
                         handleEmailAuth(getValues("email"));
                       }}

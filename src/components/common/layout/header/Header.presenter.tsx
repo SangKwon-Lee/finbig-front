@@ -63,6 +63,13 @@ const HeaderPresenter: React.FC<IHeaderProps> = ({
             </MenuTitle>
             <MenuTitle
               onClick={() => {
+                navigate(`/stockMarket`);
+              }}
+            >
+              오늘의 시장
+            </MenuTitle>
+            <MenuTitle
+              onClick={() => {
                 navigate(`/license`);
               }}
             >
