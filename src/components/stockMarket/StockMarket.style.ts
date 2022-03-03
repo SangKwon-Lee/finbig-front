@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
 
+interface StockMarkeyStyle {
+  isDay: boolean;
+}
 export const backgroundColor = [
   { backgroundColor: "#ff2616" },
   { backgroundColor: "rgba(255, 38, 22, 0.5)" },
@@ -151,4 +154,21 @@ export const StockMarketExplanation = styled.div`
 export const StockMarketArrow = styled.img`
   margin-right: 5px;
   padding-bottom: 4px;
+`;
+
+export const StockMarketDayWrapper = styled.div`
+  display: flex;
+  align-self: flex-end;
+`;
+
+export const StockMarketDayBtn = styled.button`
+  margin-left: 10px;
+  outline: none;
+  font-size: 12px;
+  padding: 5px;
+  border: 1px solid #4033a2;
+  background-color: ${(props: StockMarkeyStyle) =>
+    props.isDay ? "#4033a2" : "white"};
+  cursor: pointer;
+  color: ${(props: StockMarkeyStyle) => (props.isDay ? "white" : "black")};
 `;

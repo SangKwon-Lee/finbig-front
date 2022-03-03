@@ -137,6 +137,7 @@ export const LicenseNoticeTitle = styled.div`
 export const LicenseNoticeContents = styled.div`
   font-size: 14px;
   color: #999999;
+  line-height: 24px;
 `;
 
 export const LicenseModalTilte = styled.div`

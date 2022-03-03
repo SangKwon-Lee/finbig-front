@@ -1,30 +1,31 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useFetchTokenMutation } from "../../../commons/graphql/generated";
+import { useTokensQuery } from "../../../commons/graphql/generated";
 
 export default function WithAuth(Component: any) {
   return function HandleCheckLogin(props: any) {
     const navigate = useNavigate();
-    const userId = sessionStorage.getItem("userId");
     const token = sessionStorage.getItem("accessToken");
+    const tokenId = sessionStorage.getItem("token");
 
     //* 토큰
-    const [fetchToken] = useFetchTokenMutation();
+    const { data: user, loading } = useTokensQuery({
+      variables: {
+        where: {
+          token: token,
+          id: tokenId,
+        },
+      },
+    });
 
     //* 토큰 체크
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleTokenCheck = async () => {
-      try {
-        await fetchToken({
-          variables: {
-            userId,
-            token,
-          },
-        });
-      } catch {
-        alert("로그인이 필요합니다.");
-        navigate("/login");
-        return false;
+      if (!loading) {
+        if (user?.tokens?.length === 0) {
+          alert("로그인이 필요합니다.");
+          navigate("/login");
+          return;
+        }
       }
     };
 
@@ -32,7 +33,7 @@ export default function WithAuth(Component: any) {
       handleTokenCheck();
       return;
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [loading, user]);
     return <Component {...props}></Component>;
   };
 }

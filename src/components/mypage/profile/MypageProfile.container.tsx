@@ -4,10 +4,24 @@ import MypageProfilePresenter from "./MypageProfile.presenter";
 import WithAuth from "../../common/hocs/withAuth";
 import {
   useLoginMutation,
+  useTokensQuery,
   useUpdateUserMutation,
   useUserQuery,
 } from "../../../commons/graphql/generated";
 const MypageProfileContainer = () => {
+  const token = sessionStorage.getItem("accessToken");
+  const tokenId = sessionStorage.getItem("token");
+
+  //* 토큰
+  const { data: user } = useTokensQuery({
+    variables: {
+      where: {
+        token: token,
+        id: tokenId,
+      },
+    },
+  });
+
   const navigate = useNavigate();
 
   //* 다음 스탭
@@ -27,7 +41,7 @@ const MypageProfileContainer = () => {
   //* 유저 정보 불러오기
   const { data: userData, refetch: userRefetch } = useUserQuery({
     variables: {
-      id: String(sessionStorage.getItem("userId")),
+      id: String(user?.tokens![0]?.userId),
     },
   });
 

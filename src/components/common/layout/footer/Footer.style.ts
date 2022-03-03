@@ -24,7 +24,7 @@ export const FooterLogo = styled.img`
 `;
 
 export const FooterMenuTitleWrapper = styled.div`
-  width: 365px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
 `;

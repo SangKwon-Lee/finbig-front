@@ -94,6 +94,39 @@ const DataListPresenter: React.FC<DataListProps> = ({
                 .filter((data) => data?.category === "콜라보").length
             })`}
         </DataListCategoryTitle>
+        <DataListCategoryTitle>/</DataListCategoryTitle>
+        <DataListCategoryTitle>
+          {!loading &&
+            `금융투자 기초데이터 (${
+              finbigs?.finbigs
+                ?.filter((data) => data?.title?.includes(search || ""))
+                .filter((data) => data?.category === "금융투자 기초데이터")
+                .length
+            })`}
+        </DataListCategoryTitle>
+        <DataListCategoryTitle>/</DataListCategoryTitle>
+        <DataListCategoryTitle>
+          {!loading &&
+            `리츠 (${
+              finbigs?.finbigs
+                ?.filter((data) => data?.title?.includes(search || ""))
+                .filter((data) => data?.category === "리츠 데이터").length
+            })`}
+        </DataListCategoryTitle>
+        <DataListCategoryTitle>/</DataListCategoryTitle>
+        <DataListCategoryTitle>
+          {!loading &&
+            `시세 데이터 (${
+              finbigs?.finbigs
+                ?.filter((data) => data?.title?.includes(search || ""))
+                .filter(
+                  (data) =>
+                    data?.category === "연간 시세 데이터" ||
+                    data?.category === "월간 시세 데이터" ||
+                    data?.category === "일간 시세 데이터"
+                ).length
+            })`}
+        </DataListCategoryTitle>
       </DataListCategoryWrapper>
       <DataListSelectWrapper>
         <DataListResult>

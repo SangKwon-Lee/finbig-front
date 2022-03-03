@@ -29,7 +29,7 @@ export const MenuSVGWrapper = styled.div`
 `;
 
 export const MenuTitleWrapper = styled.div`
-  width: 364px;
+  width: 430px;
   display: flex;
   justify-content: space-between;
 `;

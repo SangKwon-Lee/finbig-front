@@ -1,10 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useUpdateUserMutation } from "../../../commons/graphql/generated";
+import {
+  useTokensQuery,
+  useUpdateUserMutation,
+} from "../../../commons/graphql/generated";
 import WithAuth from "../../common/hocs/withAuth";
 import MypageWithdrawPresenter from "./MypageWithdraw.presenter";
-
 const MypageWithdrawContainer = () => {
+  const token = sessionStorage.getItem("accessToken");
+  const tokenId = sessionStorage.getItem("token");
+  //* 토큰
+  const { data: user } = useTokensQuery({
+    variables: {
+      where: {
+        token: token,
+        id: tokenId,
+      },
+    },
+  });
   const navigate = useNavigate();
 
   //* 약관동의 체크
@@ -25,7 +38,7 @@ const MypageWithdrawContainer = () => {
                 deletedAt: new Date(),
               },
               where: {
-                id: String(sessionStorage.getItem("userId")),
+                id: String(user?.tokens![0]?.userId),
               },
             },
           },

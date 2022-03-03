@@ -41,6 +41,13 @@ const FooterPresenter = () => {
               }}
             >
               데이터 시각화/활용
+            </FooterMenu>{" "}
+            <FooterMenu
+              onClick={() => {
+                navigate(`/stockmarket`);
+              }}
+            >
+              오늘의 시장
             </FooterMenu>
             <FooterMenu
               onClick={() => {
@@ -68,8 +75,20 @@ const FooterPresenter = () => {
             © 2021 INNOFIN. All Rights Reserved
           </FooterBottomLeft>
           <FooterBottomRightWrapper>
-            <FooterBottomRight>이용약관</FooterBottomRight>
-            <FooterBottomRight>개인정보취급처리방침</FooterBottomRight>
+            <FooterBottomRight
+              onClick={() => {
+                navigate(`/service`);
+              }}
+            >
+              이용약관
+            </FooterBottomRight>
+            <FooterBottomRight
+              onClick={() => {
+                navigate(`/privacypolicy`);
+              }}
+            >
+              개인정보취급처리방침
+            </FooterBottomRight>
           </FooterBottomRightWrapper>
         </FooterBottomContentsWrapper>
       </FooterBottomWrapper>

@@ -138,7 +138,7 @@ export const SignipErrorImg = styled.img`
   margin-right: 10px;
 `;
 
-export const SignupEmailBtn = styled.button`
+export const SignupEmailBtn = styled.div`
   width: 128px;
   height: 36px;
   outline: none;
@@ -147,6 +147,9 @@ export const SignupEmailBtn = styled.button`
   font-size: 14px;
   text-align: center;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 `;
 

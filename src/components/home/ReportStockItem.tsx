@@ -211,7 +211,6 @@ const ReportStockItem = () => {
     }
     setExchangeData(newData);
   };
-
   return (
     <>
       <CenterRight>

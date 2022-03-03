@@ -115,6 +115,13 @@ const SignupContainer = () => {
 
   //* 인증번호 발송
   const handleEmailAuth = async (email: string) => {
+    var regEmail =
+      // eslint-disable-next-line no-useless-escape
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    if (regEmail.test(email) === false) {
+      alert("이메일 형식이 아닙니다");
+      return;
+    }
     try {
       await emailAuth({
         variables: {
@@ -134,7 +141,6 @@ const SignupContainer = () => {
       });
       refetch();
     } catch (error) {
-      console.log(error);
       alert("이미 가입된 이메일입니다.");
     }
   };

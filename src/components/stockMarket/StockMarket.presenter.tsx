@@ -21,6 +21,8 @@ import {
   StockMarketTodayStockSnowNum,
   StockMarketExplanation,
   StockMarketArrow,
+  StockMarketDayWrapper,
+  StockMarketDayBtn,
 } from "./StockMarket.style";
 import SunImg from "../../assets/images/sun.svg";
 import SnowImg from "../../assets/images/snow.svg";
@@ -40,79 +42,13 @@ FusionCharts.options["license"]({
 ReactFC.fcRoot(FusionCharts, TreeMap, FusionTheme);
 
 const MarketSmallBox = ["+3%", "+2%", "+1%", "0%", "-1%", "-2%", "-3%"];
-const StockMarketPresenter = () => {
+const StockMarketPresenter: React.FC<any> = ({ etfData, handleDay, day }) => {
   const dataSource = {
     data: [
       {
         data: [
           {
-            data: [
-              {
-                label: "스마트카",
-                value: "519",
-                svalue: "10",
-              },
-              {
-                label: "전기기차",
-                value: "448",
-                svalue: "2.5",
-              },
-              {
-                label: "반도체",
-                value: "416",
-                svalue: "1.1",
-              },
-              {
-                label: "금융",
-                value: "304",
-                svalue: "0",
-              },
-              {
-                label: "원자재",
-                value: "159",
-                svalue: "-1",
-              },
-              {
-                label: "그린",
-                value: "191",
-                svalue: "-2",
-              },
-              {
-                label: "스타일",
-                value: "180",
-                svalue: "-3",
-              },
-              {
-                label: "부동산",
-                value: "180",
-                svalue: "3",
-              },
-              {
-                label: "건강관리",
-                value: "180",
-                svalue: "2",
-              },
-              {
-                label: "중공업",
-                value: "180",
-                svalue: "1",
-              },
-              {
-                label: "필수소비재",
-                value: "180",
-                svalue: "-1",
-              },
-              {
-                label: "커뮤니케이션",
-                value: "180",
-                svalue: "-2",
-              },
-              {
-                label: "운송",
-                value: "180",
-                svalue: "-3",
-              },
-            ],
+            data: etfData,
           },
         ],
       },
@@ -127,7 +63,15 @@ const StockMarketPresenter = () => {
       color: [
         {
           code: "#ff2616",
+          maxvalue: "20",
+        },
+        {
+          code: "#ff2616",
           maxvalue: "10",
+        },
+        {
+          code: "#ff2616",
+          maxvalue: "3",
         },
         {
           code: "#ff928a",
@@ -150,8 +94,12 @@ const StockMarketPresenter = () => {
           maxvalue: "-2",
         },
         {
+          code: "#518bf5",
+          maxvalue: "-3",
+        },
+        {
           code: "#0076ec",
-          maxvalue: "-10",
+          maxvalue: "-20",
         },
       ],
     },
@@ -159,9 +107,9 @@ const StockMarketPresenter = () => {
       hideTitle: "1",
       caption: "Today Keyword",
       algorithm: "squarified",
-      plottooltext: "<b>$label(+$svalue)</b>",
+      plottooltext: "<b>$label($svalue)</b>",
       theme: "fusion",
-      showPrintMenuItem: 0,
+      // showPrintMenuItem: 0,
       showChildLabels: 1,
       chartTopMargin: -30,
       plotborderthickness: ".5",
@@ -191,13 +139,44 @@ const StockMarketPresenter = () => {
           </StockMarketTitleWrapper>
           <StockMarketLine />
 
-          <ReactFC
-            type={"treemap"}
-            width={1100}
-            height={500}
-            dataFormat={"json"}
-            dataSource={dataSource}
-          />
+          {etfData.length > 1 ? (
+            <ReactFC
+              type={"treemap"}
+              width={1100}
+              height={500}
+              dataFormat={"json"}
+              dataSource={dataSource}
+            />
+          ) : (
+            <div>Loading...</div>
+          )}
+
+          <StockMarketDayWrapper>
+            <StockMarketDayBtn value="" onClick={handleDay} isDay={day === ""}>
+              실시간
+            </StockMarketDayBtn>
+            <StockMarketDayBtn
+              value="5D"
+              onClick={handleDay}
+              isDay={day === "5D"}
+            >
+              5 거래일 대비 변동률
+            </StockMarketDayBtn>
+            <StockMarketDayBtn
+              value="60D"
+              onClick={handleDay}
+              isDay={day === "60D"}
+            >
+              60 거래일 대비 변동률
+            </StockMarketDayBtn>
+            <StockMarketDayBtn
+              value="1Y"
+              onClick={handleDay}
+              isDay={day === "1Y"}
+            >
+              전년 말 종가 대비 변동률
+            </StockMarketDayBtn>
+          </StockMarketDayWrapper>
           <StockMarketMapSmallBoxWrapper>
             {MarketSmallBox.map((persent, index) => (
               <StockMarketMapSmallBox
@@ -219,29 +198,29 @@ const StockMarketPresenter = () => {
               </StockMarketTodayTitleWrapper>
               <StockMarketTodayStockWrapper>
                 <StockMarketTodayStockTitle>
-                  1. &nbsp;스마트카
+                  1. {etfData.length > 1 && etfData[0].label}
                 </StockMarketTodayStockTitle>
                 <StockMarketTodayStocHotkNum>
                   <StockMarketArrow src={UpArrowImg} />
-                  5.68%
+                  {etfData.length > 1 && etfData[0].svalue}
                 </StockMarketTodayStocHotkNum>
               </StockMarketTodayStockWrapper>
               <StockMarketTodayStockWrapper>
                 <StockMarketTodayStockTitle>
-                  2. &nbsp;필수소비재
+                  2. {etfData.length > 1 && etfData[1].label}
                 </StockMarketTodayStockTitle>
                 <StockMarketTodayStocHotkNum>
                   <StockMarketArrow src={UpArrowImg} />
-                  5%
+                  {etfData.length > 1 && etfData[1].svalue}
                 </StockMarketTodayStocHotkNum>
               </StockMarketTodayStockWrapper>
               <StockMarketTodayStockWrapper>
                 <StockMarketTodayStockTitle>
-                  3. &nbsp;커뮤니케이션
+                  3. {etfData.length > 1 && etfData[2].label}
                 </StockMarketTodayStockTitle>
                 <StockMarketTodayStocHotkNum>
                   <StockMarketArrow src={UpArrowImg} />
-                  5%
+                  {etfData.length > 1 && etfData[2].svalue}
                 </StockMarketTodayStocHotkNum>
               </StockMarketTodayStockWrapper>
             </StockMarketTodayBody>
@@ -259,30 +238,30 @@ const StockMarketPresenter = () => {
               </StockMarketTodayTitleWrapper>
               <StockMarketTodayStockWrapper>
                 <StockMarketTodayStockTitle>
-                  1. &nbsp;스마트카
+                  1. {etfData.length > 1 && etfData[etfData.length - 1].label}
                 </StockMarketTodayStockTitle>
 
                 <StockMarketTodayStockSnowNum>
                   <StockMarketArrow src={DownArrowImg} />
-                  5.68%
+                  {etfData.length > 1 && etfData[etfData.length - 1].svalue}
                 </StockMarketTodayStockSnowNum>
               </StockMarketTodayStockWrapper>
               <StockMarketTodayStockWrapper>
                 <StockMarketTodayStockTitle>
-                  2. &nbsp;필수소비재
+                  2. {etfData.length > 1 && etfData[etfData.length - 2].label}
                 </StockMarketTodayStockTitle>
                 <StockMarketTodayStockSnowNum>
                   <StockMarketArrow src={DownArrowImg} />
-                  5%
+                  {etfData.length > 1 && etfData[etfData.length - 2].svalue}
                 </StockMarketTodayStockSnowNum>
               </StockMarketTodayStockWrapper>
               <StockMarketTodayStockWrapper>
                 <StockMarketTodayStockTitle>
-                  3. &nbsp;커뮤니케이션
+                  3. {etfData.length > 1 && etfData[etfData.length - 3].label}
                 </StockMarketTodayStockTitle>
                 <StockMarketTodayStockSnowNum>
                   <StockMarketArrow src={DownArrowImg} />
-                  5%
+                  {etfData.length > 1 && etfData[etfData.length - 3].svalue}
                 </StockMarketTodayStockSnowNum>
               </StockMarketTodayStockWrapper>
             </StockMarketTodayBody>
