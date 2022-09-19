@@ -18,6 +18,7 @@ import {
 } from "./MypageWithdraw.style";
 import CheckGraySVG from "../../../assets/images/checkGray.svg";
 import CheckColorSVG from "../../../assets/images/checkColor.svg";
+import { useNavigate } from "react-router";
 
 interface IMypageWithdrawProps {
   check: boolean;
@@ -30,6 +31,7 @@ const MypageWithdrawPresenter: React.FC<IMypageWithdrawProps> = ({
   setCheck,
   handleDeleteUser,
 }) => {
+  const router = useNavigate();
   return (
     <MypageWithdrawWrapper>
       <MypageBody>
@@ -80,7 +82,9 @@ const MypageWithdrawPresenter: React.FC<IMypageWithdrawProps> = ({
             <MypageWithdrawBtn onClick={handleDeleteUser}>
               회원탈퇴
             </MypageWithdrawBtn>
-            <MypageWithdrawCancelBtn>취소</MypageWithdrawCancelBtn>
+            <MypageWithdrawCancelBtn onClick={() => router("/mypage/main")}>
+              취소
+            </MypageWithdrawCancelBtn>
           </MypageWithdrawBtnWrapper>
         </MypageWithdrawContentsWrapper>
       </MypageBody>

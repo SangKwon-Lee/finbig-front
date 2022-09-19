@@ -15,6 +15,10 @@ import PaginationContainer from "../common/pagination/Pagination.container";
 import BlankImg from "../../assets/images/blankImg.png";
 import { useNavigate } from "react-router";
 import { VisualDataQuery } from "../../commons/graphql/generated";
+import {
+  DataListCategoryWrapper,
+  DataListCategoryTitle,
+} from "../dataList/DataList.style";
 interface VisualListProps {
   listLength: any;
   listInput: {
@@ -27,41 +31,77 @@ interface VisualListProps {
       limit: number;
     }>
   >;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  blackLength: number;
   visualList: VisualDataQuery | undefined;
   visualListLoading: boolean;
   handleUpdateVisual: (dataId: string, viewCount: number) => Promise<void>;
 }
 
 const VisualListPresenter: React.FC<VisualListProps> = ({
+  search,
+  setSearch,
   listInput,
-  setListInput,
   visualList,
   listLength,
+  blackLength,
+  setListInput,
   visualListLoading,
   handleUpdateVisual,
 }) => {
-  let length = 0;
-  if (!visualListLoading) {
-    if (
-      visualList?.visualData?.length === 3 ||
-      visualList?.visualData?.length === 6
-    ) {
-      length = 6;
-    } else if (Number(visualList?.visualData?.length) < 3) {
-      length = Number(visualList?.visualData?.length) + 3;
-    } else {
-      length = Number(visualList?.visualData?.length);
-    }
-  }
-
   const navigate = useNavigate();
   return (
     <VisualListWrapper>
       <VisualListMainTitle>데이터 시각화 / 활용</VisualListMainTitle>
+      <DataListCategoryWrapper>
+        <DataListCategoryTitle
+          style={{ color: "##999999" }}
+          onClick={() => {
+            setSearch("");
+            navigate(`/visualList`);
+          }}
+        >
+          {!visualListLoading && `전체 (${listLength}종)`}
+        </DataListCategoryTitle>
+        <DataListCategoryTitle>/</DataListCategoryTitle>
+        <DataListCategoryTitle
+          style={{
+            fontWeight: search === "활용 사례" ? 700 : 400,
+            color: search === "활용 사례" ? "#111111" : "#999999",
+          }}
+          onClick={() => setSearch("활용 사례")}
+        >
+          {!visualListLoading &&
+            `활용 사례 (${
+              visualList?.visualData?.filter(
+                (data) => data?.category === "활용 사례"
+              ).length
+            }종)`}
+        </DataListCategoryTitle>
+        <DataListCategoryTitle>/</DataListCategoryTitle>
+        <DataListCategoryTitle
+          style={{
+            fontWeight: search === "시각화" ? 700 : 400,
+            color: search === "시각화" ? "#111111" : "#999999",
+          }}
+          onClick={() => setSearch("시각화")}
+        >
+          {!visualListLoading &&
+            `시각화 (${
+              visualList?.visualData?.filter(
+                (data) => data?.category === "시각화"
+              ).length
+            }종)`}
+        </DataListCategoryTitle>
+      </DataListCategoryWrapper>
       <VisualListBody>
         {!visualListLoading &&
+          Number(visualList?.visualData?.length) !== 0 &&
           visualList?.visualData
+            ?.filter((data: any) => data?.category?.includes(search || ""))
             ?.filter((data) => data?.isShow === true)
+            .splice(listInput.start, listInput.limit)
             .map((data) => (
               <VisualListContentsWrapper key={data?.id}>
                 <VisualListImg
@@ -85,7 +125,7 @@ const VisualListPresenter: React.FC<VisualListProps> = ({
                 </VisualListCreateAt>
               </VisualListContentsWrapper>
             ))}
-        {new Array(6 - length).fill(1).map((__, index) => (
+        {new Array(3 - blackLength).fill(1).map((__, index) => (
           <VisualListImgBlank
             key={index}
             style={{ border: "none" }}

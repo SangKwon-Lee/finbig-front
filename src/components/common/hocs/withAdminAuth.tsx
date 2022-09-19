@@ -11,7 +11,7 @@ export default function WithAdminAuth(Component: any) {
     const tokenId = sessionStorage.getItem("token");
 
     //* 토큰
-    const { data: user } = useTokensQuery({
+    const { data: tokenData, loading } = useTokensQuery({
       variables: {
         where: {
           token: token,
@@ -20,21 +20,33 @@ export default function WithAdminAuth(Component: any) {
       },
     });
 
-    const { data, loading } = useUserQuery({
+    const { fetchMore } = useUserQuery({
       variables: {
-        id: String(user?.tokens![0]?.userId),
+        id: String(tokenData?.tokens![0]?.userId),
       },
     });
 
-    useEffect(() => {
-      if (!loading) {
-        if (!data!.user!.isAdmin) {
+    const adminLogin = async () => {
+      try {
+        const { data } = await fetchMore({
+          variables: {
+            id: String(tokenData?.tokens![0]?.userId),
+          },
+        });
+        if (!data?.user?.isAdmin) {
           alert("관리자만 이용 가능합니다.");
           sessionStorage.clear();
           navigate("/");
         }
+      } catch (e) {}
+    };
+
+    useEffect(() => {
+      if (tokenData?.tokens![0]?.userId) {
+        adminLogin();
       }
-    });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return <Component {...props}></Component>;
   };

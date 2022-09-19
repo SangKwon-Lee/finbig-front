@@ -24,6 +24,7 @@ export const DataListCategoryTitle = styled.div`
   font-size: 14px;
   margin: 0 5px;
   color: #999999;
+  cursor: pointer;
 `;
 
 export const DataListSelectWrapper = styled.div`
@@ -84,6 +85,8 @@ export const DataTitle = styled.div`
 export const DataContents = styled.div`
   font-size: 12px;
   color: #999999;
+  text-align: left;
+  height: 40px;
 `;
 
 export const DataBtnWrapper = styled.div`

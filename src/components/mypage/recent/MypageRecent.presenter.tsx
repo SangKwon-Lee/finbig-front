@@ -43,8 +43,7 @@ const MypageRecentPresenter: React.FC<MypageRecentProps> = ({
             개 있습니다
           </MypageRecentListText>
           <MypageDataListWrapper>
-            {data &&
-              !loading &&
+            {Number(data?.user?.finbigView?.length) > 0 && !loading ? (
               data?.user?.finbigView?.map((data) => (
                 <MypageDataWrapper key={data?.id}>
                   <MypageDataThumbnail
@@ -71,10 +70,15 @@ const MypageRecentPresenter: React.FC<MypageRecentProps> = ({
                     {data?.isBest && (
                       <MypageDataBestBtn>Best</MypageDataBestBtn>
                     )}
-                    <MypageDataUpdateBtn>Update</MypageDataUpdateBtn>
+                    {data?.isUpdate && (
+                      <MypageDataUpdateBtn>Update</MypageDataUpdateBtn>
+                    )}
                   </MypageDataBtnWrapper>
                 </MypageDataWrapper>
-              ))}
+              ))
+            ) : (
+              <MypageDataTitle>최근 본 데이터가 없습니다</MypageDataTitle>
+            )}
             {new Array(3 - blackLength).fill(1).map((__, index) => (
               <DataListImgBlank
                 key={index}

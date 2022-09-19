@@ -19,6 +19,8 @@ export const FETCH_FINBIG = gql`
       contents
       isShow
       apiName
+      isUpdate
+      downloadPeriod
       relationFinbigs {
         id
         title
@@ -47,6 +49,7 @@ export const FETCH_FINBIGS = gql`
       contents
       isShow
       apiName
+      isUpdate
     }
   }
 `;

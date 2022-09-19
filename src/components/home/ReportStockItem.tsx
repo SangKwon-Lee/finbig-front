@@ -38,12 +38,12 @@ const domesticIndices = [
   {
     symbol: "kospi200",
     code: "101",
-    name: "코스피200",
+    name: "코스피 200",
   },
   {
     symbol: "kosdaq150",
     code: "401",
-    name: "코스닥150",
+    name: "코스닥 150",
   },
 ];
 const { REACT_APP_CMS_URL, REACT_APP_CMS_TOKEN } = process.env;
@@ -266,11 +266,11 @@ const ReportStockItem = () => {
                   </CenterRightStockNum>
                 </CenterRightStockNumAndImg>
                 <CenterRightStockNumAndImg>
-                  <CenterRightStockImg
+                  {/* <CenterRightStockImg
                     src={data.ratio > 0 ? upArrow : downArrow}
-                  />
+                  /> */}
                   <CenterRightStockNum isActive={data.ratio > 0 ? true : false}>
-                    {ratioFormat(data.ratio)}
+                    {`${ratioFormat(data.ratio)}%`}
                   </CenterRightStockNum>
                 </CenterRightStockNumAndImg>
               </CenterRightStockNumWrapper>
@@ -302,11 +302,11 @@ const ReportStockItem = () => {
                   </CenterRightStockNum>
                 </CenterRightStockNumAndImg>
                 <CenterRightStockNumAndImg>
-                  <CenterRightStockImg
+                  {/* <CenterRightStockImg
                     src={data.ratio > 0 ? upArrow : downArrow}
-                  />
+                  /> */}
                   <CenterRightStockNum isActive={data.ratio > 0 ? true : false}>
-                    {ratioFormat(data.ratio)}
+                    {`${ratioFormat(data.ratio)}%`}
                   </CenterRightStockNum>
                 </CenterRightStockNumAndImg>
               </CenterRightStockNumWrapper>
@@ -342,13 +342,13 @@ const ReportStockItem = () => {
                       </CenterRightStockNum>
                     </CenterRightStockNumAndImg>
                     <CenterRightStockNumAndImg>
-                      <CenterRightStockImg
+                      {/* <CenterRightStockImg
                         src={data.ratio > 0 ? upArrow : downArrow}
-                      />
+                      /> */}
                       <CenterRightStockNum
                         isActive={data.ratio > 0 ? true : false}
                       >
-                        {ratioFormat(data.ratio)}
+                        {`${ratioFormat(data.ratio)}%`}
                       </CenterRightStockNum>
                     </CenterRightStockNumAndImg>
                   </>

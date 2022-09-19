@@ -90,7 +90,6 @@ export const StockMarketTodayWrapper = styled.div`
 
 export const StockMarketTodayBody = styled.div`
   width: 542px;
-  height: 281px;
   border: 1px solid #cccccc;
 `;
 
@@ -159,6 +158,7 @@ export const StockMarketArrow = styled.img`
 export const StockMarketDayWrapper = styled.div`
   display: flex;
   align-self: flex-end;
+  margin-bottom: 20px;
 `;
 
 export const StockMarketDayBtn = styled.button`

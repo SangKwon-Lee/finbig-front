@@ -48,6 +48,7 @@ const HeaderContainer = (props: any) => {
   const handleSearchWord = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(() => e.target.value);
   };
+
   return (
     <>
       <HeaderPresenter

@@ -123,7 +123,7 @@ const SignupContainer = () => {
       return;
     }
     try {
-      await emailAuth({
+      const { data } = await emailAuth({
         variables: {
           input: {
             data: {
@@ -139,9 +139,10 @@ const SignupContainer = () => {
         ...isAuth,
         isSend: true,
       });
+      console.log(data);
       refetch();
     } catch (error) {
-      alert("이미 가입된 이메일입니다.");
+      alert("중복된 이메일 혹은 탈퇴된 회원입니다");
     }
   };
 

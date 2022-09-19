@@ -23,7 +23,7 @@ export const LicenseTableHeaderWrapper = styled.div`
 `;
 
 export const LicenseTableLeftHeader = styled.div`
-  width: 260px;
+  width: 209.5px;
   height: 46px;
   font-family: SpoqaHanSansNeo-Bold;
   background-color: #f3f3f3;
@@ -34,7 +34,7 @@ export const LicenseTableLeftHeader = styled.div`
 `;
 
 export const LicenseTableRightHeader = styled.div`
-  width: 840px;
+  width: 890.5px;
   height: 46px;
   font-family: SpoqaHanSansNeo-Bold;
   display: flex;

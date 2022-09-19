@@ -21,7 +21,7 @@ export default function WithAuth(Component: any) {
     //* 토큰 체크
     const handleTokenCheck = async () => {
       if (!loading) {
-        if (user?.tokens?.length === 0) {
+        if (user === undefined) {
           alert("로그인이 필요합니다.");
           navigate("/login");
           return;

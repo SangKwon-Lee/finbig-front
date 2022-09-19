@@ -30,7 +30,7 @@ const VisualDetailPresenter: React.FC<VisualDetailProps> = ({ data }) => {
     <>
       <VisualDetailWrapper>
         <VisualDetailImg src={data?.visualDatum?.thumbnail || ""} />
-        <VisualDetailType>[데이터 활용]</VisualDetailType>
+        <VisualDetailType>[{data?.visualDatum?.category}]</VisualDetailType>
         <VisualDetailTitle>{data?.visualDatum?.title}</VisualDetailTitle>
         <VisualDetailContents>
           {data?.visualDatum?.description}
@@ -39,31 +39,35 @@ const VisualDetailPresenter: React.FC<VisualDetailProps> = ({ data }) => {
         {data?.visualDatum?.contents && (
           <Viewer initialValue={data.visualDatum?.contents} />
         )}
-        <DataDetailOther>관련 상품</DataDetailOther>
-        <DataDetailOhterWrapper>
-          {data?.visualDatum?.finbigs?.map((data) => (
-            <DataDetailOhterContentsWrapper key={data?.id}>
-              <DataDetailOtherImg
-                src={String(data?.thumbnail)}
-                onClick={() => {
-                  navigate(`/data/${data?.id}`);
-                }}
-              />
-              <DataDetailTitleWrapper>
-                <DataDetailOtherTilte
-                  onClick={() => {
-                    navigate(`/data/${data?.id}`);
-                  }}
-                >
-                  {data?.title}
-                </DataDetailOtherTilte>
-                <DataDetailOtherContents>
-                  {data?.description}
-                </DataDetailOtherContents>
-              </DataDetailTitleWrapper>
-            </DataDetailOhterContentsWrapper>
-          ))}
-        </DataDetailOhterWrapper>
+        {Number(data?.visualDatum?.finbigs?.length) > 0 && (
+          <>
+            <DataDetailOther>관련 상품</DataDetailOther>
+            <DataDetailOhterWrapper>
+              {data?.visualDatum?.finbigs?.map((data) => (
+                <DataDetailOhterContentsWrapper key={data?.id}>
+                  <DataDetailOtherImg
+                    src={String(data?.thumbnail)}
+                    onClick={() => {
+                      navigate(`/data/${data?.id}`);
+                    }}
+                  />
+                  <DataDetailTitleWrapper>
+                    <DataDetailOtherTilte
+                      onClick={() => {
+                        navigate(`/data/${data?.id}`);
+                      }}
+                    >
+                      {data?.title}
+                    </DataDetailOtherTilte>
+                    <DataDetailOtherContents>
+                      {data?.description}
+                    </DataDetailOtherContents>
+                  </DataDetailTitleWrapper>
+                </DataDetailOhterContentsWrapper>
+              ))}
+            </DataDetailOhterWrapper>
+          </>
+        )}
       </VisualDetailWrapper>
     </>
   );

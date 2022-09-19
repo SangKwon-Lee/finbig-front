@@ -51,22 +51,24 @@ const MypageMainPresenter: React.FC<IMypageMainProps> = ({
             <MypageMainTableHeader>상품 명</MypageMainTableHeader>
             <MypageMainTableContents>
               {data?.user?.subscription_histories &&
-                data?.user?.subscription_histories.length > 0 &&
-                data?.user?.isSubscribe &&
-                data?.user?.subscription_histories[
-                  data?.user?.subscription_histories.length - 1
-                ]?.title}
+              data?.user?.subscription_histories.length > 0 &&
+              data?.user?.isSubscribe
+                ? data?.user?.subscription_histories[
+                    data?.user?.subscription_histories.length - 1
+                  ]?.title
+                : "구독중인 상품이 없습니다"}
             </MypageMainTableContents>
           </MypageMainTableWrapper>
           <MypageMainTableWrapper style={{ borderBottom: "1px solid #c1c1c1" }}>
             <MypageMainTableHeader>구독 기간</MypageMainTableHeader>
             <MypageMainTableContents>
-              {data?.user?.isSubscribe &&
-                `${dayjs(data?.user?.subscriptionDate).format(
-                  "YYYY.MM.DD"
-                )} ~ ${dayjs(data?.user?.expirationDate).format(
-                  "YYYY.MM.DD"
-                )} 만료일 : ${D_day(data?.user?.expirationDate)}일`}
+              {data?.user?.isSubscribe
+                ? `${dayjs(data?.user?.subscriptionDate).format(
+                    "YYYY.MM.DD"
+                  )} ~ ${dayjs(data?.user?.expirationDate).format(
+                    "YYYY.MM.DD"
+                  )} 만료일 : ${D_day(data?.user?.expirationDate)}일`
+                : "구독 중인 상품이 없습니다"}
             </MypageMainTableContents>
           </MypageMainTableWrapper>
           <MypageMainDownloadWrapper>
@@ -81,8 +83,8 @@ const MypageMainPresenter: React.FC<IMypageMainProps> = ({
           </MypageMainDownloadWrapper>
           <MypageMainLine />
           <MypageDataListWrapper>
-            {data &&
-              data?.user?.finbigDownload?.slice(0, 6).map((data) => (
+            {Number(data?.user?.finbig_downloads?.length) > 0 ? (
+              data?.user?.finbig_downloads?.slice(0, 6).map((data) => (
                 <MypageDataWrapper key={data?.id}>
                   <MypageDataThumbnail
                     src={String(data?.thumbnail)}
@@ -108,10 +110,15 @@ const MypageMainPresenter: React.FC<IMypageMainProps> = ({
                     {data?.isBest && (
                       <MypageDataBestBtn>Best</MypageDataBestBtn>
                     )}
-                    <MypageDataUpdateBtn>Update</MypageDataUpdateBtn>
+                    {data?.isUpdate && (
+                      <MypageDataUpdateBtn>Update</MypageDataUpdateBtn>
+                    )}
                   </MypageDataBtnWrapper>
                 </MypageDataWrapper>
-              ))}
+              ))
+            ) : (
+              <MypageDataTitle>다운로드 내역이 없습니다</MypageDataTitle>
+            )}
             {new Array(3 - blackLength).fill(1).map((__, index) => (
               <DataListImgBlank
                 key={index}

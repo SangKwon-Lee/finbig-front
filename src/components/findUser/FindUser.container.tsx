@@ -20,6 +20,9 @@ const FindUserContainer = () => {
   //* 찾기 결과
   const [isFind, setIsFind] = useState("findId");
 
+  // * 탈퇴된 아이디
+  const [isDelete, setIsDelete] = useState(false);
+
   //* 찾은 아이디
   const [resultId, setResultId] = useState({
     id: "",
@@ -52,7 +55,6 @@ const FindUserContainer = () => {
   });
 
   //* 이메일 인증 Mutation
-
   const [emailAuth] = useCreateEmailAuthMutation();
 
   //* 이메일 인증 후 데이터 삭제
@@ -83,7 +85,6 @@ const FindUserContainer = () => {
       setIsFind("findPass");
     }
   };
-
   //* 아이디 찾기 함수
   const handleFindId = async (input: any) => {
     try {
@@ -95,19 +96,24 @@ const FindUserContainer = () => {
           },
         },
       });
-      let username = data?.users[0].username;
-      username =
-        username.slice(0, 2) +
-        "*".repeat(username.length - 3) +
-        username.slice(username.length - 1, username.length);
-      setIsFind("id");
-      setResultId({
-        ...resultId,
-        username: username,
-        createdAt: data?.users[0].created_at,
-      });
+      if (data?.users[0].isDeleted) {
+        setIsDelete(true);
+        setIsFind("id");
+      } else {
+        setIsDelete(false);
+        let username = data?.users[0].username;
+        username =
+          username.slice(0, 2) +
+          "*".repeat(username.length - 3) +
+          username.slice(username.length - 1, username.length);
+        setIsFind("id");
+        setResultId({
+          ...resultId,
+          username: username,
+          createdAt: data?.users[0].created_at,
+        });
+      }
     } catch (error) {
-      alert("오류가 발생했습니다.");
       setIsFind("id");
     }
   };
@@ -124,14 +130,19 @@ const FindUserContainer = () => {
             },
           },
         });
-        setResultId({
-          ...resultId,
-          id: data?.users[0].id,
-          email: data?.users[0].email,
-          username: data?.users[0].username,
-        });
+        if (data?.users[0].isDeleted) {
+          setIsDelete(true);
+        } else {
+          setIsDelete(false);
+          setResultId({
+            ...resultId,
+            id: data?.users[0].id,
+            email: data?.users[0].email,
+            username: data?.users[0].username,
+          });
+        }
       } catch (error) {
-        alert("오류가 발생했습니다.");
+        alert("회원정보를 찾을 수 없습니다.");
       } finally {
         setIsFind("pass");
       }
@@ -178,7 +189,7 @@ const FindUserContainer = () => {
           findError: false,
         });
       } catch (error) {
-        alert("오류가 발생했습니다.");
+        alert("회원정보를 찾을 수 없습니다.");
       }
     }
   };
@@ -253,6 +264,7 @@ const FindUserContainer = () => {
     <FindUserPresenter
       isAuth={isAuth}
       isFind={isFind}
+      isDelete={isDelete}
       isActive={isActive}
       resultId={resultId}
       errorMsg={errorMsg}

@@ -18,6 +18,9 @@ const WebEditor: React.FC<IWebEditorProps> = (props) => {
       apiKey="4n6bz3uji80ya54n4873jyx6jyy75yn0mtu5d2y2nuclr6o7"
       ref={editorRef}
       initialValue={contents}
+      content_style={
+        "@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);"
+      }
       onInit={(evt: any, editor: any) => (editorRef.current = editor)}
       init={{
         //@ts-ignore

@@ -28,13 +28,19 @@ const MypagePaymentPresenter: React.FC<MypagePaymentProps> = ({
       <MypageBody>
         <MypageLayoutContainer menu="payment" />
         <MypageBodyColumn>
-          <MypagePaymentDayTitle>
-            나의 남은 구독일은
-            <MypagePaymentDay>
-              {D_day(paymentHistory?.user?.expirationDate)}{" "}
-            </MypagePaymentDay>
-            일 입니다.
-          </MypagePaymentDayTitle>
+          {paymentHistory?.user?.expirationDate ? (
+            <MypagePaymentDayTitle>
+              나의 남은 구독일은
+              <MypagePaymentDay>
+                {D_day(paymentHistory?.user?.expirationDate)}
+              </MypagePaymentDay>
+              일 입니다.
+            </MypagePaymentDayTitle>
+          ) : (
+            <MypagePaymentDayTitle>
+              구독중인 상품이 없습니다
+            </MypagePaymentDayTitle>
+          )}
           <MypagePaymentTableWrapper>
             <MypagePayMentTableHeader style={{ backgroundColor: "#f3f3f3" }}>
               <MypagePaymentTableTitle>결제일</MypagePaymentTableTitle>
@@ -74,12 +80,10 @@ const MypagePaymentPresenter: React.FC<MypagePaymentProps> = ({
             세금계산서 발행에 대한 안내
           </MypagePaymentInfoTitle>
           <MypagePaymentInfoText>
-            세금계산서를 사업자등록증이 있으신 회원님을 대상으로 발행해 드리고
-            있습니다.
-            <br /> 세금계산서는 되도록 회원 가입 시 발행을 요청해 주시고, 만약
-            미처 발행을 받지 못하신 분들은 추가 발급기간에 요청해 주십시오.
+            세금계산서 발행을 원하시는 분은 support@innofin.co.kr로
             <br />
-            (추가 발급기간 : 가입완료 후 24시간 이내)
+            이름, 연락처, 아이디, 결제일자를 보내주세요.
+            <br />
           </MypagePaymentInfoText>
         </MypageBodyColumn>
       </MypageBody>

@@ -1,5 +1,5 @@
-schema: http://localhost:1337/graphql
-documents: './src/commons/query/*.ts'
+schema: http://finbig-api.innofin.co.kr/graphql
+documents: './src/**/**/*.ts'
 generates:
   src/commons/graphql/generated.ts:
     plugins:

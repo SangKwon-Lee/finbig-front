@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useEffect } from "react";
 import {
   useFinbigsQuery,
@@ -23,11 +24,16 @@ const HomeContainer = () => {
     variables: {
       start: 0,
       limit: 6,
+      where: {
+        isUpdate: true,
+      },
     },
   });
 
   //* isBest로 변경하는 뮤테이션
   const [updateIsBest] = useUpdateFinbigMutation();
+
+  const [isHover, setIsHover] = useState(false);
 
   //* 베스트 데이터 불러오기
   useEffect(() => {
@@ -79,8 +85,10 @@ const HomeContainer = () => {
 
   return (
     <HomePresenter
+      isHover={isHover}
       bestData={bestData}
       updateData={updateData}
+      setIsHover={setIsHover}
       bestLoading={bestLoading}
       updateLoading={updateLoading}
     />

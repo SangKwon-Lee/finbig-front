@@ -54,15 +54,15 @@ const LicensePresenter: React.FC<ILicenseProps> = ({
 }) => {
   return (
     <LicenseWrapper>
-      <LicenseTitle>라이센스 구매</LicenseTitle>
+      <LicenseTitle>빅데이터 구독</LicenseTitle>
       <LicenseTableHeaderWrapper>
         <LicenseTableLeftHeader>서비스 명</LicenseTableLeftHeader>
         <LicenseTableRightHeader>
-          금융빅데이터 구독 상품
+          자본시장 빅데이터 구독 상품
         </LicenseTableRightHeader>
       </LicenseTableHeaderWrapper>
       <LicenseTableContentsWrapper>
-        <LicenseTablePeriodTitle>사용기간</LicenseTablePeriodTitle>
+        <LicenseTablePeriodTitle>이용기간</LicenseTablePeriodTitle>
         <LicenseTablePeriodContent>
           <LicenseTablePeriodNumber>1</LicenseTablePeriodNumber> 개월
         </LicenseTablePeriodContent>
@@ -72,15 +72,19 @@ const LicensePresenter: React.FC<ILicenseProps> = ({
         <LicenseTablePeriodContent>
           <LicenseTablePeriodNumber>6</LicenseTablePeriodNumber> 개월
         </LicenseTablePeriodContent>
+        <LicenseTablePeriodContent>
+          <LicenseTablePeriodNumber>12</LicenseTablePeriodNumber> 개월
+        </LicenseTablePeriodContent>
       </LicenseTableContentsWrapper>
       <LicenseTableContentsWrapper>
-        <LicenseTablePriceTitle>사용기간</LicenseTablePriceTitle>
-        <LicenseTablePriceContent>330,000원</LicenseTablePriceContent>
-        <LicenseTablePriceContent>900,000원</LicenseTablePriceContent>
-        <LicenseTablePriceContent>1,650,000원</LicenseTablePriceContent>
+        <LicenseTablePriceTitle>이용금액</LicenseTablePriceTitle>
+        <LicenseTablePriceContent>200,000원</LicenseTablePriceContent>
+        <LicenseTablePriceContent>300,000원</LicenseTablePriceContent>
+        <LicenseTablePriceContent>500,000원</LicenseTablePriceContent>
+        <LicenseTablePriceContent>800,000원</LicenseTablePriceContent>
       </LicenseTableContentsWrapper>
       <LicenseTableContentsWrapper>
-        <LicenseTableBuyTitle>사용기간</LicenseTableBuyTitle>
+        <LicenseTableBuyTitle>구독</LicenseTableBuyTitle>
         <LicenseTableBuyContent>
           <LicenseTableBuyBtn
             onClick={() => {
@@ -89,11 +93,11 @@ const LicensePresenter: React.FC<ILicenseProps> = ({
                 ...paymentInput,
                 title: "1개월 프리미엄 구독 상품",
                 period: 1,
-                price: 1,
+                price: 200000,
               });
             }}
           >
-            구매
+            구독
           </LicenseTableBuyBtn>
         </LicenseTableBuyContent>
         <LicenseTableBuyContent>
@@ -104,11 +108,11 @@ const LicensePresenter: React.FC<ILicenseProps> = ({
                 ...paymentInput,
                 title: "3개월 프리미엄 구독 상품",
                 period: 3,
-                price: 1,
+                price: 300000,
               });
             }}
           >
-            구매
+            구독
           </LicenseTableBuyBtn>
         </LicenseTableBuyContent>
         <LicenseTableBuyContent>
@@ -119,26 +123,40 @@ const LicensePresenter: React.FC<ILicenseProps> = ({
                 ...paymentInput,
                 title: "6개월 프리미엄 구독 상품",
                 period: 6,
-                price: 1,
+                price: 500000,
               });
             }}
           >
-            구매
+            구독
+          </LicenseTableBuyBtn>
+        </LicenseTableBuyContent>
+        <LicenseTableBuyContent>
+          <LicenseTableBuyBtn
+            onClick={() => {
+              handleOpen();
+              setPaymentInput({
+                ...paymentInput,
+                title: "12개월 프리미엄 구독 상품",
+                period: 12,
+                price: 800000,
+              });
+            }}
+          >
+            구독
           </LicenseTableBuyBtn>
         </LicenseTableBuyContent>
       </LicenseTableContentsWrapper>
       <LicenseNoticeWrapper>
-        <LicenseNoticeTitle>라이센스 유의 사항</LicenseNoticeTitle>
+        <LicenseNoticeTitle>구독 결제 유의 사항</LicenseNoticeTitle>
         <LicenseNoticeContents>
-          - 모든 라이선스 사용 기반은 국내(한국, 한국어)입니다. 해외 사용 시
-          국가/언어 당 별도 협의가 필요합니다. <br />- ‘자본시장 빅데이터
-          플랫폼’에서 제공되는 데이터는 재배포를 할 수 없습니다. <br />-
-          제공되는 데이터는 구독서비스 가입기간 동안 다운로드 받을 수 있으며,
-          다운로드 받은 콘텐츠는 구독서비스 가입기간 동안만 사용이 가능합니다.
-          <br />- 기간이 만료된 경우에는 다운로드 받은 데이터를 사용하실 수
-          없으며 즉시 삭제하셔야 합니다. 다만, 회원 가입기간 동안 웹사이트 및
-          제작물에 사용하였던 콘텐츠는 기간이 만료되더라도 편집( 수정) 또는
-          상업적으로 재사용하지 않는 범위 내에서 계속 게시할 수 있습니다.
+          - 현재 구독 결제가 가능한 신용카드는 비씨카드, 삼성카드, 롯데카드 등
+          세 가지입니다. <br />- 모든 구독 결제 사용 기반은 국내(한국,
+          한국어)이며 해외 사용시 별도 협의가 필요합니다. <br />- '자본시장
+          빅데이터 플랫폼'에서 구독한 데이터를 일부 또는 전부를 직접적인 배포나
+          판매, 대여 등의 형태로 '제 3자'에게 제공할 수 없습니다.
+          <br />- '자본시장 빅데이터 플랫폼'의 데이터는 구독서비스 가입기간 동안
+          다운로드를 할 수 있으나 '구독자'의 데이터 베이스 형태로 구축할 수
+          없습니다.
         </LicenseNoticeContents>
       </LicenseNoticeWrapper>
       <Modal

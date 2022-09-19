@@ -42,7 +42,7 @@ export const SVGWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 180px;
+  width: 120px;
 `;
 
 export const SVGIcon = styled.img`
