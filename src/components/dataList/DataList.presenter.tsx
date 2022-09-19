@@ -57,84 +57,135 @@ const DataListPresenter: React.FC<DataListProps> = ({
   const { search } = useParams() || "";
   return (
     <DataListWrapper>
-      <DataListTitle>{search ? "검색 결과" : "데이터 상품"}</DataListTitle>
+      <DataListTitle>{"데이터 상품"}</DataListTitle>
       <DataListCategoryWrapper>
-        <DataListCategoryTitle>
+        <DataListCategoryTitle
+          onClick={() => navigate(`/dataList`)}
+          style={{
+            fontWeight: !search ? 700 : 400,
+            color: !search ? "#111111" : "#999999",
+          }}
+        >
+          {!loading && `전체 (${finbigs?.finbigs?.length}종)`}
+        </DataListCategoryTitle>
+        <DataListCategoryTitle>/</DataListCategoryTitle>
+        <DataListCategoryTitle
+          style={{
+            fontWeight: search === "경제" ? 700 : 400,
+            color: search === "경제" ? "#111111" : "#999999",
+          }}
+          onClick={() => navigate(`/dataList/경제`)}
+        >
           {!loading &&
-            `전체 (${
-              finbigs?.finbigs?.filter((data) =>
-                data?.title?.includes(search || "")
+            `경제 (${
+              finbigs?.finbigs?.filter(
+                (data) => data?.category === "경제 데이터"
               ).length
-            })`}
+            }종)`}
         </DataListCategoryTitle>
         <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>
+        <DataListCategoryTitle
+          style={{
+            fontWeight: search === "재무 밸류" ? 700 : 400,
+            color: search === "재무 밸류" ? "#111111" : "#999999",
+          }}
+          onClick={() => navigate(`/dataList/재무 밸류`)}
+        >
           {!loading &&
-            `투자기초 데이터 (${
-              finbigs?.finbigs
-                ?.filter((data) => data?.title?.includes(search || ""))
-                .filter((data) => data?.category === "투자기초 데이터").length
-            })`}
+            `재무 밸류 배당 차트 (${
+              finbigs?.finbigs?.filter(
+                (data) => data?.category === "재무 밸류 배당 차트 데이터"
+              ).length
+            }종)`}
         </DataListCategoryTitle>
         <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>
+        <DataListCategoryTitle
+          style={{
+            fontWeight: search === "공매도 분석" ? 700 : 400,
+            color: search === "공매도 분석" ? "#111111" : "#999999",
+          }}
+          onClick={() => navigate(`/dataList/공매도 분석`)}
+        >
           {!loading &&
-            `알고리즘 데이터 (${
-              finbigs?.finbigs
-                ?.filter((data) => data?.title?.includes(search || ""))
-                .filter((data) => data?.category === "알고리즘 데이터").length
-            })`}
+            `공매도 분석 (${
+              finbigs?.finbigs?.filter(
+                (data) => data?.category === "공매도 분석 데이터"
+              ).length
+            }종)`}
         </DataListCategoryTitle>
         <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>
+        <DataListCategoryTitle
+          style={{
+            fontWeight: search === "공시 뉴스" ? 700 : 400,
+            color: search === "공시 뉴스" ? "#111111" : "#999999",
+          }}
+          onClick={() => navigate(`/dataList/공시 뉴스`)}
+        >
           {!loading &&
-            `콜라보 (${
-              finbigs?.finbigs
-                ?.filter((data) => data?.title?.includes(search || ""))
-                .filter((data) => data?.category === "콜라보").length
-            })`}
+            `공시 뉴스 분석 (${
+              finbigs?.finbigs?.filter(
+                (data) => data?.category === "공시 뉴스 분석 데이터"
+              ).length
+            }종)`}
         </DataListCategoryTitle>
         <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>
+        <DataListCategoryTitle
+          style={{
+            fontWeight: search === "주식 스코어 데이터" ? 700 : 400,
+            color: search === "주식 스코어 데이터" ? "#111111" : "#999999",
+          }}
+          onClick={() => navigate(`/dataList/주식 스코어 데이터`)}
+        >
           {!loading &&
-            `금융투자 기초데이터 (${
-              finbigs?.finbigs
-                ?.filter((data) => data?.title?.includes(search || ""))
-                .filter((data) => data?.category === "금융투자 기초데이터")
-                .length
-            })`}
+            `주식 스코어 (${
+              finbigs?.finbigs?.filter(
+                (data) => data?.category === "주식 스코어 데이터"
+              ).length
+            }종)`}
         </DataListCategoryTitle>
         <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>
+        <DataListCategoryTitle
+          style={{
+            fontWeight: search === "포트폴리오" ? 700 : 400,
+            color: search === "포트폴리오" ? "#111111" : "#999999",
+          }}
+          onClick={() => navigate(`/dataList/포트폴리오`)}
+        >
+          {!loading &&
+            `주식 포트폴리오 (${
+              finbigs?.finbigs?.filter(
+                (data) =>
+                  data?.category === "주식 포트폴리오 데이터" ||
+                  data?.category === "주식 포트폴리오 데이터" ||
+                  data?.category === "주식 포트폴리오 데이터"
+              ).length
+            }종)`}
+        </DataListCategoryTitle>
+        <DataListCategoryTitle>/</DataListCategoryTitle>
+        <DataListCategoryTitle
+          style={{
+            fontWeight: search === "리츠" ? 700 : 400,
+            color: search === "리츠" ? "#111111" : "#999999",
+          }}
+          onClick={() => navigate(`/dataList/리츠`)}
+        >
           {!loading &&
             `리츠 (${
-              finbigs?.finbigs
-                ?.filter((data) => data?.title?.includes(search || ""))
-                .filter((data) => data?.category === "리츠 데이터").length
-            })`}
-        </DataListCategoryTitle>
-        <DataListCategoryTitle>/</DataListCategoryTitle>
-        <DataListCategoryTitle>
-          {!loading &&
-            `시세 데이터 (${
-              finbigs?.finbigs
-                ?.filter((data) => data?.title?.includes(search || ""))
-                .filter(
-                  (data) =>
-                    data?.category === "연간 시세 데이터" ||
-                    data?.category === "월간 시세 데이터" ||
-                    data?.category === "일간 시세 데이터"
-                ).length
-            })`}
+              finbigs?.finbigs?.filter(
+                (data) => data?.category === "리츠 데이터"
+              ).length
+            }종)`}
         </DataListCategoryTitle>
       </DataListCategoryWrapper>
       <DataListSelectWrapper>
         <DataListResult>
-          상품이 모두
+          상품이 모두 &nbsp;
           <DataListResultNum>
             {!loading &&
-              finbigs?.finbigs?.filter((data) =>
-                data?.title?.includes(search || "")
+              finbigs?.finbigs?.filter(
+                (data) =>
+                  data?.title?.includes(search || "") ||
+                  data?.category?.includes(search || "")
               ).length}
             개
           </DataListResultNum>
@@ -148,11 +199,17 @@ const DataListPresenter: React.FC<DataListProps> = ({
       </DataListSelectWrapper>
       <DataListBody>
         {!loading &&
-        finbigs?.finbigs?.filter((data: any) =>
-          data?.title?.includes(search || "")
+        finbigs?.finbigs?.filter(
+          (data: any) =>
+            data?.title?.includes(search || "") ||
+            data?.category?.includes(search || "")
         ).length !== 0 ? (
           finbigs?.finbigs
-            ?.filter((data: any) => data?.title?.includes(search || ""))
+            ?.filter(
+              (data: any) =>
+                data?.title?.includes(search || "") ||
+                data?.category?.includes(search || "")
+            )
             .splice(listInput.start, listInput.limit)
             ?.map((data) => (
               <DataWrapper key={data?.id}>
@@ -184,7 +241,7 @@ const DataListPresenter: React.FC<DataListProps> = ({
                 </DataContents>
                 <DataBtnWrapper>
                   {data?.isBest && <DataBestBtn>Best</DataBestBtn>}
-                  <DataUpdateBtn>Update</DataUpdateBtn>
+                  {data?.isUpdate && <DataUpdateBtn>New</DataUpdateBtn>}
                 </DataBtnWrapper>
               </DataWrapper>
             ))
@@ -201,8 +258,10 @@ const DataListPresenter: React.FC<DataListProps> = ({
       <VisualListPaginationWrapper>
         <PaginationContainer
           listLength={
-            finbigs?.finbigs?.filter((data: any) =>
-              data?.title?.includes(search || "")
+            finbigs?.finbigs?.filter(
+              (data: any) =>
+                data?.title?.includes(search || "") ||
+                data?.category?.includes(search || "")
             ).length
           }
           listInput={listInput}

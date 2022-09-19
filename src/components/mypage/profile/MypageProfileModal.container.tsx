@@ -176,7 +176,7 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
             data: {
               email: email,
               code: "",
-              type: "change",
+              type: "signup",
             },
           },
         },
@@ -188,7 +188,7 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
       });
       refetch();
     } catch (error) {
-      alert("이미 가입된 이메일입니다.");
+      alert("중복된 이메일 혹은 탈퇴된 회원입니다");
     }
   };
 
@@ -214,6 +214,8 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
           },
         });
         alert("인증이 완료됐습니다.");
+        setIsModal(false);
+        handleUpdateUser();
       } catch (error) {
         setIsAuth({
           ...isAuth,
@@ -230,6 +232,10 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
 
   //*회원정보 변경 함수
   const handleUpdateUser = async () => {
+    if (!isAuth.isOk) {
+      alert("인증을 완료해주세요");
+      return;
+    }
     try {
       await updateUser({
         variables: {
@@ -297,10 +303,12 @@ const MypageProfileModalContainer: React.FC<IMypageProfileModalProps> = ({
             취소
           </ChangeCancel>
           <ChangeBtn
-            disabled={!isAuth.isOk}
             onClick={() => {
-              setIsModal(false);
-              handleUpdateUser();
+              if (!isAuth.isOk) {
+                handleUpdateUser();
+              } else {
+                setIsModal(false);
+              }
             }}
           >
             변경

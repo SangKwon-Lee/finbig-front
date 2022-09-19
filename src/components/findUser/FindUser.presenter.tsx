@@ -58,6 +58,7 @@ interface IFindUserProps {
     authError: boolean;
     findError: boolean;
   };
+  isDelete: boolean;
   handleIsActive: (e: any) => void;
   handleFindId: (data: any) => Promise<void>;
   handleEmailAuth: (email: string) => Promise<void>;
@@ -86,10 +87,10 @@ const schmaPassRest = yup.object({
   password: yup
     .string()
     .required()
-    .min(8, "비밀번호는 8자 이상, 소문자와 대문자 포함되어야 합니다.")
+    .min(8, "비밀번호는 8자 이상, 숫자 + 영문 조합이어야 합니다.")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-      "비밀번호는 8자 이상, 소문자와 대문자 포함되어야 합니다."
+      /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/,
+      "비밀번호는 8자 이상, 숫자 + 영문 조합이어야 합니다."
     ),
   passwordCheck: yup
     .string()
@@ -109,6 +110,7 @@ const FindUserPresenter: React.FC<IFindUserProps> = ({
   handleFindPass,
   handleResetPass,
   errorMsg,
+  isDelete,
 }) => {
   const {
     register,
@@ -263,11 +265,15 @@ const FindUserPresenter: React.FC<IFindUserProps> = ({
           <>
             <FindIdTitle>아이디 찾기</FindIdTitle>
             <FindIdBox>
-              {resultId.username === "" ? (
+              {resultId.username === "" && !isDelete ? (
                 <>
                   <FindIdResultTitle>
                     입력해 주신 내용과 일치하는 아이디가 없습니다.
                   </FindIdResultTitle>
+                </>
+              ) : isDelete ? (
+                <>
+                  <FindIdResultTitle>탈퇴된 회원입니다.</FindIdResultTitle>
                 </>
               ) : (
                 <>
@@ -305,58 +311,67 @@ const FindUserPresenter: React.FC<IFindUserProps> = ({
         )}
         {isFind === "pass" && (
           <>
-            <form
-              onSubmit={handleSubmit((input) => {
-                if (isFind === "pass") {
-                  handleResetPass(input);
-                }
-              })}
-            >
-              <FindPassReset>
-                <FindIdTitle>비밀번호 재설정</FindIdTitle>
-                <FindIdBox>
-                  <FindIdResultTitle>
-                    비밀번호를 다시 설정 해주세요
-                  </FindIdResultTitle>
-                  <FindIdResultSubTitle>
-                    새로운 비밀번호를 설정하시고 FinBig을 이용해 보세요.
-                  </FindIdResultSubTitle>
-                </FindIdBox>
-                <FindPassResetWrapper>
-                  <FindPassResetInputTitle>새 비밀번호</FindPassResetInputTitle>
-                  <FindPassResetInput
-                    {...register("password")}
-                    type="password"
-                  />
-                </FindPassResetWrapper>
-                <FindPassResetWrapper>
-                  <FindPassResetInputTitle>
-                    비밀번호 확인
-                  </FindPassResetInputTitle>
-                  <FindPassResetInput
-                    {...register("passwordCheck")}
-                    type="password"
-                  />
-                </FindPassResetWrapper>
-                {errors?.passwordCheck?.message && (
-                  <>
-                    <FindPassError>
-                      <FindUserErrorSVG src={InfoSVG}></FindUserErrorSVG>
-                      {errors?.passwordCheck?.message}
-                    </FindPassError>
-                  </>
-                )}
-                {errors?.password?.message && (
-                  <>
-                    <FindPassError>
-                      <FindUserErrorSVG src={InfoSVG}></FindUserErrorSVG>
-                      {errors?.password?.message}
-                    </FindPassError>
-                  </>
-                )}
-                <FindPassResetBtn type="submit">확인</FindPassResetBtn>
-              </FindPassReset>
-            </form>
+            {isDelete ? (
+              <FindIdResultTitle>탈퇴된 회원입니다.</FindIdResultTitle>
+            ) : (
+              <>
+                {" "}
+                <form
+                  onSubmit={handleSubmit((input) => {
+                    if (isFind === "pass") {
+                      handleResetPass(input);
+                    }
+                  })}
+                >
+                  <FindPassReset>
+                    <FindIdTitle>비밀번호 재설정</FindIdTitle>
+                    <FindIdBox>
+                      <FindIdResultTitle>
+                        비밀번호를 다시 설정 해주세요
+                      </FindIdResultTitle>
+                      <FindIdResultSubTitle>
+                        새로운 비밀번호를 설정하시고 FinBig을 이용해 보세요.
+                      </FindIdResultSubTitle>
+                    </FindIdBox>
+                    <FindPassResetWrapper>
+                      <FindPassResetInputTitle>
+                        새 비밀번호
+                      </FindPassResetInputTitle>
+                      <FindPassResetInput
+                        {...register("password")}
+                        type="password"
+                      />
+                    </FindPassResetWrapper>
+                    <FindPassResetWrapper>
+                      <FindPassResetInputTitle>
+                        비밀번호 확인
+                      </FindPassResetInputTitle>
+                      <FindPassResetInput
+                        {...register("passwordCheck")}
+                        type="password"
+                      />
+                    </FindPassResetWrapper>
+                    {errors?.passwordCheck?.message && (
+                      <>
+                        <FindPassError>
+                          <FindUserErrorSVG src={InfoSVG}></FindUserErrorSVG>
+                          {errors?.passwordCheck?.message}
+                        </FindPassError>
+                      </>
+                    )}
+                    {errors?.password?.message && (
+                      <>
+                        <FindPassError>
+                          <FindUserErrorSVG src={InfoSVG}></FindUserErrorSVG>
+                          {errors?.password?.message}
+                        </FindPassError>
+                      </>
+                    )}
+                    <FindPassResetBtn type="submit">확인</FindPassResetBtn>
+                  </FindPassReset>
+                </form>
+              </>
+            )}
           </>
         )}
       </FindUserWrapper>

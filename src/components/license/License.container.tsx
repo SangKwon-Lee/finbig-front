@@ -57,7 +57,7 @@ const LicenseContainer = () => {
 
   //* 구매버튼
   const handleBuy = async () => {
-    if (!String(user?.tokens![0]?.userId)) {
+    if (!User?.user) {
       alert("로그인 후 이용 가능합니다.");
       navigate("/login");
       return;
@@ -68,12 +68,15 @@ const LicenseContainer = () => {
 
   //* 이노페이 결제 함수 순서 2번
   const InnoPayResult = (data: any) => {
+    if (data.data.message === "action-hook-fired") {
+      window.removeEventListener("message", InnoPayResult);
+      return;
+    }
     if (data.data === "close") {
       window.removeEventListener("message", InnoPayResult);
       return;
     } else if (data.data !== "close") {
-      var result = JSON.parse(data.data);
-      //* 아래 데이터는 필요할 경우 사용하세요
+      let result: any = JSON.parse(data.data);
       // var mid = data.data.MID; // 가맹점 MID
       // var tid = data.data.TID; // 거래고유번호
       // var amt = data.data.Amt; // 금액
@@ -85,7 +88,7 @@ const LicenseContainer = () => {
       // var errorcode = data.data.ErrorCode; // 에러코드(상위기관)
       // var errormsg = data.data.ErrorMsg; // 에러메세지(상위기관)
       // var EPayCl = data.data.EPayCl;
-      if (result.ResultCode === "3001") {
+      if (result.ResultCode === "3001" || result.ResultCode === "3002") {
         postPayment(result);
       } else {
         alert("결제 오류가 발생했습니다.");
@@ -146,7 +149,7 @@ const LicenseContainer = () => {
         );
       }
     } catch (e) {
-      alert("골드 충전에 오류가 발생했습니다. 관리자에게 문의해주세요.");
+      alert("구독 결제에 오류가 발생했습니다. 관리자에게 문의해주세요.");
     }
   };
 

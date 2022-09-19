@@ -35,13 +35,13 @@ const MypageDownloadPresenter: React.FC<MypageDownloadProps> = ({
           <MypageRecentListText>
             상품이 모두
             <MypageRecentListNumber>
-              &nbsp; {data?.user?.finbigDownload?.length}
+              &nbsp; {data?.user?.finbig_downloads?.length}
             </MypageRecentListNumber>
             개 있습니다
           </MypageRecentListText>
           <MypageDataListWrapper>
-            {data &&
-              data?.user?.finbigDownload?.map((data) => (
+            {Number(data?.user?.finbig_downloads?.length) > 0 ? (
+              data?.user?.finbig_downloads?.map((data) => (
                 <MypageDataWrapper key={data?.id}>
                   <MypageDataThumbnail
                     src={String(data?.thumbnail)}
@@ -70,7 +70,10 @@ const MypageDownloadPresenter: React.FC<MypageDownloadProps> = ({
                     <MypageDataUpdateBtn>Update</MypageDataUpdateBtn>
                   </MypageDataBtnWrapper>
                 </MypageDataWrapper>
-              ))}
+              ))
+            ) : (
+              <MypageDataTitle>다운로드 내역이 없습니다</MypageDataTitle>
+            )}
             {new Array(3 - blackLength).fill(1).map((__, index) => (
               <DataListImgBlank
                 key={index}

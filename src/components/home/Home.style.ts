@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 interface HomeStypeProps {
   isActive?: boolean;
   isCategory?: boolean;
+  isHover?: boolean;
 }
 
 export const Banner = styled.div`
@@ -50,6 +51,12 @@ export const BannerLine = styled.div`
 export const BannerContents = styled.div`
   color: white;
   font-family: GmarketSansLight;
+  font-size: 14px;
+`;
+
+export const BannerContentsBold = styled.span`
+  color: white;
+  font-family: GmarketSansBold;
   font-size: 14px;
 `;
 
@@ -156,7 +163,7 @@ export const CenterMiddleSubTitle = styled.div`
 export const CenterRight = styled.div`
   width: 263px;
   height: 362px;
-  border: 1px solid black;
+  border: 1px solid #cccccc;
 `;
 
 export const CenterRightTitleWrapper = styled.div`
@@ -226,7 +233,7 @@ export const CenterRightStockNum = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
   font-size: 12px;
   color: ${(props: HomeStypeProps) => (props.isActive ? "#ff0000" : "#1c17ff")};
-  width: 50px;
+  width: 55px;
 `;
 export const CenterRightStockImg = styled.img`
   padding-right: 4px;
@@ -259,9 +266,27 @@ export const PopularTitle = styled.h1`
   align-self: center;
 `;
 
+export const BestDataWrapper = styled.div`
+  position: relative;
+  display: flex;
+`;
+
 export const BestDataImg = styled.img`
   width: 263px;
   height: 263px;
-  margin: auto;
+  margin: 20px;
   cursor: pointer;
+
+  :hover {
+    opacity: 40%;
+  }
+`;
+
+export const BestDataTitle = styled.div`
+  position: absolute;
+  z-index: 10;
+  bottom: 40px;
+  left: 40px;
+  /* color: white; */
+  font-weight: 700;
 `;

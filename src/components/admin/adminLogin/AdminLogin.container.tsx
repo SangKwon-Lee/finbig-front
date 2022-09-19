@@ -1,10 +1,27 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useLoginMutation } from "../../../commons/graphql/generated";
+import {
+  useCreateTokenMutation,
+  useLoginMutation,
+  useTokensQuery,
+  useUserQuery,
+} from "../../../commons/graphql/generated";
 import AdminLoginPresneter from "./AdminLogin.presenter";
 
 const AdminLoginContainer = () => {
   const navigate = useNavigate();
+  const token = sessionStorage.getItem("accessToken");
+  const tokenId = sessionStorage.getItem("token");
+
+  //* 토큰
+  const { data: tokenData } = useTokensQuery({
+    variables: {
+      where: {
+        token: token,
+        id: tokenId,
+      },
+    },
+  });
 
   //* 로그인 Input 관리
   const [loginInput, setLoginInput] = useState({
@@ -15,6 +32,15 @@ const AdminLoginContainer = () => {
 
   //* 관리자 로그인
   const [adminLogin] = useLoginMutation();
+
+  //* 유저 정보 가져오기
+  const { fetchMore } = useUserQuery({
+    variables: {
+      id: String(tokenData?.tokens![0]?.userId),
+    },
+  });
+  //* 토근 정보 저장 뮤테이션
+  const [createToken] = useCreateTokenMutation();
 
   //* 관리자 로그인 함수
   const handleAdminLogin = async () => {
@@ -31,8 +57,21 @@ const AdminLoginContainer = () => {
         ...loginInput,
         error: false,
       });
-      sessionStorage.setItem("accessToken", String(data?.login.jwt));
-      navigate("/admin/users");
+      const { data: User } = await fetchMore({
+        variables: {
+          id: data?.login.user.id,
+        },
+      });
+
+      if (User.user?.isAdmin) {
+        sessionStorage.setItem("accessToken", String(data?.login.jwt));
+        handleCreateToekn(String(data?.login.jwt), String(User?.user?.id));
+        navigate("/admin/users");
+      } else {
+        alert("관리자만 이용 가능합니다.");
+        sessionStorage.clear();
+        navigate("/");
+      }
     } catch (e) {
       setLoginInput({
         ...loginInput,
@@ -54,6 +93,23 @@ const AdminLoginContainer = () => {
     if (e.key === "Enter") {
       handleAdminLogin();
     }
+  };
+  //* 토큰 DB 저장
+  const handleCreateToekn = async (token: string, userId: string) => {
+    try {
+      const { data } = await createToken({
+        variables: {
+          input: {
+            data: {
+              userId,
+              token,
+            },
+          },
+        },
+      });
+      sessionStorage.setItem("token", String(data?.createToken?.token?.id));
+      // navigate("/");
+    } catch (e) {}
   };
 
   return (

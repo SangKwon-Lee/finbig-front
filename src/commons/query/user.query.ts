@@ -47,12 +47,13 @@ export const FETCH_USER = gql`
       isDeleted
       deletedAt
       downloadCount
-      finbigDownload {
+      finbig_downloads {
         id
         title
         description
         thumbnail
         isBest
+        isUpdate
       }
       finbigView {
         id
@@ -60,6 +61,7 @@ export const FETCH_USER = gql`
         description
         thumbnail
         isBest
+        isUpdate
       }
       subscription_histories {
         id

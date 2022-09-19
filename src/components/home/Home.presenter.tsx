@@ -24,7 +24,7 @@ import {
   CenterImg,
   CenterLeftContentsWrapper,
   CenterMiddleContentsWrapper,
-  BestDataImg,
+  BannerContentsBold,
 } from "./Home.style";
 import mainBg from "../../assets/images/mainBg.png";
 import mapBg from "../../assets/images/mapBg.png";
@@ -45,12 +45,16 @@ import {
   DataWrapper,
 } from "../dataList/DataList.style";
 import { FinbigsQuery } from "../../commons/graphql/generated";
+import HomeBestContainer from "./HomeBest.container";
+import { useState, useCallback } from "react";
 
 interface HomeProps {
-  bestData: FinbigsQuery | undefined;
-  updateData: FinbigsQuery | undefined;
+  isHover: boolean;
   bestLoading: boolean;
   updateLoading: boolean;
+  bestData: FinbigsQuery | undefined;
+  updateData: FinbigsQuery | undefined;
+  setIsHover: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function SampleNextArrow(props: any) {
@@ -67,26 +71,50 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-const settings = {
-  className: "center",
-  centerMode: true,
-  infinite: true,
-  centerPadding: "0px",
-  slidesToShow: 5,
-  speed: 500,
-  nextArrow: <SampleNextArrow />,
-  prevArrow: <SampleNextArrow />,
-  autoplay: true,
-  autoplaySpeed: 3000,
-};
-
 const HomePresenter: React.FC<HomeProps> = ({
+  isHover,
   bestData,
   updateData,
+  setIsHover,
   bestLoading,
   updateLoading,
 }) => {
   const navigate = useNavigate();
+
+  const [dragging, setDragging] = useState(false);
+
+  const handleBeforeChange = useCallback(() => {
+    setDragging(true);
+  }, [setDragging]);
+
+  const handleAfterChange = useCallback(() => {
+    setDragging(false);
+  }, [setDragging]);
+
+  const onClickCard = (e: React.SyntheticEvent) => {
+    if (dragging) {
+      return;
+    } else {
+      navigate(`/data/${e}`);
+    }
+  };
+
+  const settings = {
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "0px",
+    slidesToShow: 5,
+    speed: 500,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SampleNextArrow />,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    draggable: true,
+    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
+  };
+
   return (
     <>
       <ContainerWrapper>
@@ -94,13 +122,17 @@ const HomePresenter: React.FC<HomeProps> = ({
           <BannerImg src={mainBg} />
           <BannerContentsWrapper>
             <BannerTitle>
-              합리적인 금액으로 <br /> <BannerBold>최고의 데이터</BannerBold>를
-              제공합니다
+              이노핀은 금융투자 콘텐츠 개발에 최적인 <br />{" "}
+              <BannerBold>검증된 자본시장 빅데이터</BannerBold>를 제공합니다
             </BannerTitle>
             <BannerLine />
             <BannerContents>
-              이노핀은 흩어져 있는 금융 데이터를 AI와 빅데이터 기술로
-              <br /> 수집, 정제, 처리 하는 핀테크 기업입니다.
+              D2C(Direct to Customer)기술 사업으로 3S(simple, smart, speed)한
+              <br /> '투자의달인' 앱 서비스를 운영하며{" "}
+              <BannerContentsBold>
+                최고의 기술로 풍요로운 세상
+              </BannerContentsBold>
+              을 추구합니다.
             </BannerContents>
           </BannerContentsWrapper>
         </Banner>
@@ -109,14 +141,13 @@ const HomePresenter: React.FC<HomeProps> = ({
             <CenterImg src={mapBg} />
             <CenterLeftContentsWrapper>
               <CenterLeftTitle>
-                합리적인 금액으로
-                <br />
-                <CenterTitleBold>최고의 데이터</CenterTitleBold>를 제공합니다
+                <CenterTitleBold>데이터 상품</CenterTitleBold>
               </CenterLeftTitle>
               <CenterLeftSubTitle>
-                이노핀은 흩어져 있는 금융 데이터를 AI와 빅데이터 기술로
+                이노핀의 자본시장 빅데이터 플랫폼은
+                <br /> 데이터분석과 인공지능 기술에 기반한 금융투자 기초데이터,
                 <br />
-                수집, 정제, 처리 하는 핀테크 기업입니다.
+                AI 등 알고리즘 데이터, 대안투자 데이터 등을 서비스합니다.
               </CenterLeftSubTitle>
               <CenterButton>
                 <CenterButtonTilte
@@ -132,9 +163,7 @@ const HomePresenter: React.FC<HomeProps> = ({
           <CenterMiddle>
             <CenterImg src={dataBg} />
             <CenterMiddleContentsWrapper>
-              <CenterMiddleTitle>
-                빅데이터 <br /> 시각화/활용 사례
-              </CenterMiddleTitle>
+              <CenterMiddleTitle>데이터 시각화/활용 사례</CenterMiddleTitle>
               <CenterMiddleSubTitle>
                 자본시장 금융 빅데이터를 활용한
                 <br />
@@ -180,10 +209,21 @@ const HomePresenter: React.FC<HomeProps> = ({
                 </DataContents>
                 <DataBtnWrapper>
                   {data?.isBest && <DataBestBtn>Best</DataBestBtn>}
-                  <DataUpdateBtn>Update</DataUpdateBtn>
+                  {data?.isUpdate && <DataUpdateBtn>New</DataUpdateBtn>}
                 </DataBtnWrapper>
               </DataWrapper>
             ))}
+          {!updateLoading && Number(updateData?.finbigs?.length) === 0 && (
+            <PopularTitle
+              style={{
+                width: "100%",
+                textAlign: "center",
+                fontSize: "16px",
+              }}
+            >
+              업데이트된 데이터가 없습니다.
+            </PopularTitle>
+          )}
         </UpdateWrapper>
         <PopularWrapper>
           <PopularTitle>인기 데이터</PopularTitle>
@@ -191,14 +231,13 @@ const HomePresenter: React.FC<HomeProps> = ({
             <StyledSlider {...settings}>
               {!bestLoading &&
                 bestData?.finbigs?.map((data) => (
-                  <div key={data?.id}>
-                    <BestDataImg
-                      src={String(data?.thumbnail)}
-                      onClick={() => {
-                        navigate(`/data/${data?.id}`);
-                      }}
-                    />
-                  </div>
+                  <HomeBestContainer
+                    key={data?.id}
+                    isHover={isHover}
+                    setIsHover={setIsHover}
+                    onClickCard={onClickCard}
+                    data={data}
+                  />
                 ))}
             </StyledSlider>
           </>

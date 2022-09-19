@@ -29,7 +29,7 @@ const DataListContainer = () => {
   //* 페이지네이션 상태
   const [listInput, setListInput] = useState({
     start: 0,
-    limit: 6,
+    limit: 9,
   });
 
   //* 정렬 상태
@@ -47,8 +47,6 @@ const DataListContainer = () => {
       },
     },
   });
-
-  console.log(data);
 
   //* 최근 본 데이터 불러오기
   const { data: MyData } = useUserQuery({
@@ -70,7 +68,11 @@ const DataListContainer = () => {
       setBlackLength(
         blankImg(
           data?.finbigs
-            ?.filter((data: any) => data?.title?.includes(search || ""))
+            ?.filter(
+              (data: any) =>
+                data?.title?.includes(search || "") ||
+                data?.category?.includes(search || "")
+            )
             .splice(listInput.start, listInput.limit).length
         )
       );

@@ -158,9 +158,11 @@ export type Finbig = {
   contents?: Maybe<Scalars["String"]>;
   created_at: Scalars["DateTime"];
   description?: Maybe<Scalars["String"]>;
+  downloadPeriod?: Maybe<Scalars["String"]>;
   id: Scalars["ID"];
   isBest?: Maybe<Scalars["Boolean"]>;
   isShow?: Maybe<Scalars["Boolean"]>;
+  isUpdate?: Maybe<Scalars["Boolean"]>;
   order?: Maybe<Scalars["Int"]>;
   period?: Maybe<Scalars["String"]>;
   published_at?: Maybe<Scalars["DateTime"]>;
@@ -169,11 +171,18 @@ export type Finbig = {
   title?: Maybe<Scalars["String"]>;
   type?: Maybe<Scalars["String"]>;
   updated_at: Scalars["DateTime"];
-  user?: Maybe<UsersPermissionsUser>;
+  users?: Maybe<Array<Maybe<UsersPermissionsUser>>>;
   viewCount?: Maybe<Scalars["Long"]>;
 };
 
 export type FinbigRelationFinbigsArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  sort?: InputMaybe<Scalars["String"]>;
+  start?: InputMaybe<Scalars["Int"]>;
+  where?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type FinbigUsersArgs = {
   limit?: InputMaybe<Scalars["Int"]>;
   sort?: InputMaybe<Scalars["String"]>;
   start?: InputMaybe<Scalars["Int"]>;
@@ -247,6 +256,12 @@ export type FinbigConnectionDescription = {
   key?: Maybe<Scalars["String"]>;
 };
 
+export type FinbigConnectionDownloadPeriod = {
+  __typename?: "FinbigConnectionDownloadPeriod";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["String"]>;
+};
+
 export type FinbigConnectionId = {
   __typename?: "FinbigConnectionId";
   connection?: Maybe<FinbigConnection>;
@@ -261,6 +276,12 @@ export type FinbigConnectionIsBest = {
 
 export type FinbigConnectionIsShow = {
   __typename?: "FinbigConnectionIsShow";
+  connection?: Maybe<FinbigConnection>;
+  key?: Maybe<Scalars["Boolean"]>;
+};
+
+export type FinbigConnectionIsUpdate = {
+  __typename?: "FinbigConnectionIsUpdate";
   connection?: Maybe<FinbigConnection>;
   key?: Maybe<Scalars["Boolean"]>;
 };
@@ -307,12 +328,6 @@ export type FinbigConnectionUpdated_At = {
   key?: Maybe<Scalars["DateTime"]>;
 };
 
-export type FinbigConnectionUser = {
-  __typename?: "FinbigConnectionUser";
-  connection?: Maybe<FinbigConnection>;
-  key?: Maybe<Scalars["ID"]>;
-};
-
 export type FinbigConnectionViewCount = {
   __typename?: "FinbigConnectionViewCount";
   connection?: Maybe<FinbigConnection>;
@@ -326,9 +341,11 @@ export type FinbigGroupBy = {
   contents?: Maybe<Array<Maybe<FinbigConnectionContents>>>;
   created_at?: Maybe<Array<Maybe<FinbigConnectionCreated_At>>>;
   description?: Maybe<Array<Maybe<FinbigConnectionDescription>>>;
+  downloadPeriod?: Maybe<Array<Maybe<FinbigConnectionDownloadPeriod>>>;
   id?: Maybe<Array<Maybe<FinbigConnectionId>>>;
   isBest?: Maybe<Array<Maybe<FinbigConnectionIsBest>>>;
   isShow?: Maybe<Array<Maybe<FinbigConnectionIsShow>>>;
+  isUpdate?: Maybe<Array<Maybe<FinbigConnectionIsUpdate>>>;
   order?: Maybe<Array<Maybe<FinbigConnectionOrder>>>;
   period?: Maybe<Array<Maybe<FinbigConnectionPeriod>>>;
   published_at?: Maybe<Array<Maybe<FinbigConnectionPublished_At>>>;
@@ -336,7 +353,6 @@ export type FinbigGroupBy = {
   title?: Maybe<Array<Maybe<FinbigConnectionTitle>>>;
   type?: Maybe<Array<Maybe<FinbigConnectionType>>>;
   updated_at?: Maybe<Array<Maybe<FinbigConnectionUpdated_At>>>;
-  user?: Maybe<Array<Maybe<FinbigConnectionUser>>>;
   viewCount?: Maybe<Array<Maybe<FinbigConnectionViewCount>>>;
 };
 
@@ -346,8 +362,10 @@ export type FinbigInput = {
   contents?: InputMaybe<Scalars["String"]>;
   created_by?: InputMaybe<Scalars["ID"]>;
   description?: InputMaybe<Scalars["String"]>;
+  downloadPeriod?: InputMaybe<Scalars["String"]>;
   isBest?: InputMaybe<Scalars["Boolean"]>;
   isShow?: InputMaybe<Scalars["Boolean"]>;
+  isUpdate?: InputMaybe<Scalars["Boolean"]>;
   order?: InputMaybe<Scalars["Int"]>;
   period?: InputMaybe<Scalars["String"]>;
   published_at?: InputMaybe<Scalars["DateTime"]>;
@@ -356,7 +374,7 @@ export type FinbigInput = {
   title?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<Scalars["String"]>;
   updated_by?: InputMaybe<Scalars["ID"]>;
-  user?: InputMaybe<Scalars["ID"]>;
+  users?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   viewCount?: InputMaybe<Scalars["Long"]>;
 };
 
@@ -404,9 +422,11 @@ export type Morph =
   | FinbigConnectionContents
   | FinbigConnectionCreated_At
   | FinbigConnectionDescription
+  | FinbigConnectionDownloadPeriod
   | FinbigConnectionId
   | FinbigConnectionIsBest
   | FinbigConnectionIsShow
+  | FinbigConnectionIsUpdate
   | FinbigConnectionOrder
   | FinbigConnectionPeriod
   | FinbigConnectionPublished_At
@@ -414,7 +434,6 @@ export type Morph =
   | FinbigConnectionTitle
   | FinbigConnectionType
   | FinbigConnectionUpdated_At
-  | FinbigConnectionUser
   | FinbigConnectionViewCount
   | FinbigGroupBy
   | I18NLocale
@@ -1369,8 +1388,8 @@ export type UserInput = {
   email: Scalars["String"];
   emailReception?: InputMaybe<Scalars["Boolean"]>;
   expirationDate?: InputMaybe<Scalars["DateTime"]>;
-  finbigDownload?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   finbigView?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  finbig_downloads?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   isAdmin?: InputMaybe<Scalars["Boolean"]>;
   isDeleted?: InputMaybe<Scalars["Boolean"]>;
   isSubscribe?: InputMaybe<Scalars["Boolean"]>;
@@ -1518,8 +1537,8 @@ export type UsersPermissionsUser = {
   email: Scalars["String"];
   emailReception?: Maybe<Scalars["Boolean"]>;
   expirationDate?: Maybe<Scalars["DateTime"]>;
-  finbigDownload?: Maybe<Array<Maybe<Finbig>>>;
   finbigView?: Maybe<Array<Maybe<Finbig>>>;
+  finbig_downloads?: Maybe<Array<Maybe<Finbig>>>;
   id: Scalars["ID"];
   isAdmin?: Maybe<Scalars["Boolean"]>;
   isDeleted?: Maybe<Scalars["Boolean"]>;
@@ -1535,14 +1554,14 @@ export type UsersPermissionsUser = {
   username: Scalars["String"];
 };
 
-export type UsersPermissionsUserFinbigDownloadArgs = {
+export type UsersPermissionsUserFinbigViewArgs = {
   limit?: InputMaybe<Scalars["Int"]>;
   sort?: InputMaybe<Scalars["String"]>;
   start?: InputMaybe<Scalars["Int"]>;
   where?: InputMaybe<Scalars["JSON"]>;
 };
 
-export type UsersPermissionsUserFinbigViewArgs = {
+export type UsersPermissionsUserFinbig_DownloadsArgs = {
   limit?: InputMaybe<Scalars["Int"]>;
   sort?: InputMaybe<Scalars["String"]>;
   start?: InputMaybe<Scalars["Int"]>;
@@ -2048,8 +2067,10 @@ export type EditFinbigInput = {
   contents?: InputMaybe<Scalars["String"]>;
   created_by?: InputMaybe<Scalars["ID"]>;
   description?: InputMaybe<Scalars["String"]>;
+  downloadPeriod?: InputMaybe<Scalars["String"]>;
   isBest?: InputMaybe<Scalars["Boolean"]>;
   isShow?: InputMaybe<Scalars["Boolean"]>;
+  isUpdate?: InputMaybe<Scalars["Boolean"]>;
   order?: InputMaybe<Scalars["Int"]>;
   period?: InputMaybe<Scalars["String"]>;
   published_at?: InputMaybe<Scalars["DateTime"]>;
@@ -2058,7 +2079,7 @@ export type EditFinbigInput = {
   title?: InputMaybe<Scalars["String"]>;
   type?: InputMaybe<Scalars["String"]>;
   updated_by?: InputMaybe<Scalars["ID"]>;
-  user?: InputMaybe<Scalars["ID"]>;
+  users?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   viewCount?: InputMaybe<Scalars["Long"]>;
 };
 
@@ -2110,8 +2131,8 @@ export type EditUserInput = {
   email?: InputMaybe<Scalars["String"]>;
   emailReception?: InputMaybe<Scalars["Boolean"]>;
   expirationDate?: InputMaybe<Scalars["DateTime"]>;
-  finbigDownload?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   finbigView?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  finbig_downloads?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   isAdmin?: InputMaybe<Scalars["Boolean"]>;
   isDeleted?: InputMaybe<Scalars["Boolean"]>;
   isSubscribe?: InputMaybe<Scalars["Boolean"]>;
@@ -2235,6 +2256,8 @@ export type FinbigQuery = {
     contents?: string | null;
     isShow?: boolean | null;
     apiName?: string | null;
+    isUpdate?: boolean | null;
+    downloadPeriod?: string | null;
     relationFinbigs?: Array<{
       __typename?: "Finbig";
       id: string;
@@ -2271,6 +2294,7 @@ export type FinbigsQuery = {
     contents?: string | null;
     isShow?: boolean | null;
     apiName?: string | null;
+    isUpdate?: boolean | null;
   } | null> | null;
 };
 
@@ -2554,13 +2578,14 @@ export type UserQuery = {
     isDeleted?: boolean | null;
     deletedAt?: any | null;
     downloadCount?: number | null;
-    finbigDownload?: Array<{
+    finbig_downloads?: Array<{
       __typename?: "Finbig";
       id: string;
       title?: string | null;
       description?: string | null;
       thumbnail?: string | null;
       isBest?: boolean | null;
+      isUpdate?: boolean | null;
     } | null> | null;
     finbigView?: Array<{
       __typename?: "Finbig";
@@ -2569,6 +2594,7 @@ export type UserQuery = {
       description?: string | null;
       thumbnail?: string | null;
       isBest?: boolean | null;
+      isUpdate?: boolean | null;
     } | null> | null;
     subscription_histories?: Array<{
       __typename?: "SubscriptionHistory";
@@ -2725,6 +2751,8 @@ export const FinbigDocument = gql`
       contents
       isShow
       apiName
+      isUpdate
+      downloadPeriod
       relationFinbigs {
         id
         title
@@ -2793,6 +2821,7 @@ export const FinbigsDocument = gql`
       contents
       isShow
       apiName
+      isUpdate
     }
   }
 `;
@@ -3693,12 +3722,13 @@ export const UserDocument = gql`
       isDeleted
       deletedAt
       downloadCount
-      finbigDownload {
+      finbig_downloads {
         id
         title
         description
         thumbnail
         isBest
+        isUpdate
       }
       finbigView {
         id
@@ -3706,6 +3736,7 @@ export const UserDocument = gql`
         description
         thumbnail
         isBest
+        isUpdate
       }
       subscription_histories {
         id

@@ -7,14 +7,13 @@ import {
   DataDetailDivider,
   DataDetailDownBtn,
   DataDetailImg,
-  DataDetailLikeBtn,
-  DataDetailLikeImg,
   DataDetailOhterContentsWrapper,
   DataDetailOhterWrapper,
   DataDetailOther,
   DataDetailOtherContents,
   DataDetailOtherImg,
   DataDetailOtherTilte,
+  DataDetailPeriodText,
   DataDetailPeriodTitle,
   DataDetailPeriodWrapper,
   DataDetailTableContents,
@@ -26,7 +25,6 @@ import {
   ViewerWrapper,
 } from "./DataDetail.style";
 import "antd/dist/antd.css";
-import SunSVG from "../../assets/images/sun.svg";
 import { DatePicker } from "antd";
 import moment from "moment";
 import { Viewer } from "@toast-ui/react-editor";
@@ -34,19 +32,31 @@ import { useNavigate } from "react-router";
 import { FinbigQuery } from "../../commons/graphql/generated";
 
 const { RangePicker } = DatePicker;
-const dateFormat = "YYYY/MM/DD";
 
 interface DataDetailProps {
   data?: FinbigQuery | undefined;
+  date: {
+    startDate: string;
+    endDate: string;
+  };
+  loading: boolean;
   handleDate: (e: any) => void;
   handleDownLoad: (dataId: any) => Promise<void>;
 }
 
 const DataDetailPresenter: React.FC<DataDetailProps> = ({
   data,
+  date,
+  loading,
   handleDate,
   handleDownLoad,
 }) => {
+  const dateFormat =
+    data?.finbig?.period === "일 단위"
+      ? "YYYY/MM/DD"
+      : data?.finbig?.period === "월 단위"
+      ? "YYYY/MM"
+      : "YYYY";
   const navigate = useNavigate();
   return (
     <DataDetailWrapper>
@@ -77,17 +87,56 @@ const DataDetailPresenter: React.FC<DataDetailProps> = ({
                 moment(new Date(), dateFormat),
                 moment(new Date(), dateFormat),
               ]}
+              value={[
+                moment(date.startDate, dateFormat),
+                moment(date.endDate, dateFormat),
+              ]}
               format={dateFormat}
             />
           </DataDetailPeriodWrapper>
+          {data?.finbig?.period === "월 단위" ? (
+            <>
+              <DataDetailPeriodText>
+                ※ 해당 데이터는 조회할 월만 지정해도 다운로드 가능
+              </DataDetailPeriodText>
+            </>
+          ) : (
+            <></>
+          )}
+          {data?.finbig?.period === "연 단위" ? (
+            <>
+              <DataDetailPeriodText>
+                ※ 해당 데이터는 조회할 연도만 지정해도 다운로드 가능
+              </DataDetailPeriodText>
+            </>
+          ) : (
+            <></>
+          )}
+          {data?.finbig?.downloadPeriod ? (
+            <>
+              <DataDetailPeriodText>
+                ※ 해당 데이터는 {data?.finbig?.downloadPeriod} 이하 단위로
+                다운로드 가능
+              </DataDetailPeriodText>
+              <DataDetailPeriodText
+                style={{
+                  fontSize: "11px",
+                  marginTop: "-16px",
+                  color: "#333",
+                }}
+              >
+                장기데이터 필요시 이메일(support@innofin.co.kr) 주세요
+              </DataDetailPeriodText>
+            </>
+          ) : (
+            <DataDetailPeriodText></DataDetailPeriodText>
+          )}
           <DataDetailBtnWrapper>
             <DataDetailDownBtn onClick={() => handleDownLoad(data?.finbig?.id)}>
               데이터 다운로드
             </DataDetailDownBtn>
-            <DataDetailLikeBtn>
-              <DataDetailLikeImg src={SunSVG} />
-            </DataDetailLikeBtn>
           </DataDetailBtnWrapper>
+          {loading && <div>다운로드 중...</div>}
         </DataDetailContentsWrapper>
       </DataDetailBodyWrapper>
       <DataDetailDivider />

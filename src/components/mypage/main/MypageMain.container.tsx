@@ -6,10 +6,12 @@ import {
   useTokensQuery,
   useUserQuery,
 } from "../../../commons/graphql/generated";
+import { useNavigate } from "react-router";
 
 const MypageMainContainer = () => {
   const token = sessionStorage.getItem("accessToken");
   const tokenId = sessionStorage.getItem("token");
+  const router = useNavigate();
 
   //* 토큰
   const { data: user } = useTokensQuery({
@@ -33,10 +35,14 @@ const MypageMainContainer = () => {
   });
 
   useEffect(() => {
-    if (data?.user?.finbigDownload?.length) {
-      setBlackLength(blankImg(data?.user?.finbigDownload.length));
+    if (data?.user?.finbig_downloads?.length) {
+      setBlackLength(blankImg(data?.user?.finbig_downloads.length));
     }
-  }, [data]);
+    if (user?.tokens?.length === 0) {
+      router("/login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, user]);
 
   return <MypageMainPresenter data={data} blackLength={blackLength} />;
 };

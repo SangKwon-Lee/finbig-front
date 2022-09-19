@@ -66,6 +66,7 @@ interface ISignupProps {
   handleEmailAuthCheck: (auth: string) => Promise<void>;
 }
 
+const regex = /^[ㄱ-ㅎ|가-힣]+$/;
 const schma = yup.object({
   username: yup
     .string()
@@ -73,11 +74,11 @@ const schma = yup.object({
     .min(4, "아이디는 4글자 이상이어야 합니다."),
   password: yup
     .string()
-    .required("비밀번호는 8자 이상, 소문자와 대문자기 포함되어야 합니다.")
-    .min(8, "비밀번호는 8자 이상, 소문자와 대문자가 포함되어야 합니다.")
+    .required("비밀번호는 8자 이상, 숫자 + 영문 조합이어야 합니다.")
+    .min(8, "비밀번호는 8자 이상, 숫자 + 영문 조합이어야 합니다.")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-      "비밀번호는 8자 이상, 소문자와 대문자가 포함되어야 합니다."
+      /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/,
+      "비밀번호는 8자 이상, 숫자 + 영문 조합이어야 합니다."
     ),
   confirmPassword: yup
     .string()
@@ -87,7 +88,10 @@ const schma = yup.object({
     .string()
     .required("필수 입력입니다.")
     .email("이메일 형식을 지켜주세요."),
-  name: yup.string().required("필수 입력입니다."),
+  name: yup
+    .string()
+    .required("필수 입력입니다.")
+    .max(4, "4글자까지만 입력이 가능합니다"),
   phone: yup.string().required("필수 입력입니다."),
   emailReception: yup.string().required(),
   smsReception: yup.string().required(),
@@ -115,6 +119,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
   } = useForm({ resolver: yupResolver(schma) });
   const navigate = useNavigate();
 
+  const isKr = getValues("name") ? regex.test(getValues("name")) : true;
   return (
     <SignupWrapper>
       {step === 0 ? (
@@ -167,7 +172,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
               <CheckImg
                 src={checkInput.second ? CheckColorSVG : CheckGraySVG}
               />
-              <SignupSubTitle>이용약관 동의(필수)</SignupSubTitle>
+              <SignupSubTitle>개인정보 처리방침 동의(필수)</SignupSubTitle>
             </SignupTitleWrapper>
             <SignupBox>
               <PrivacyPolicyContainer />
@@ -312,6 +317,12 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                     {errors?.name?.message}
                   </SignupErrorWrapper>
                 )}
+                {!isKr && (
+                  <SignupErrorWrapper>
+                    <SignipErrorImg src={InfoSVG}></SignipErrorImg>
+                    한글만 입력이 가능합니다
+                  </SignupErrorWrapper>
+                )}
               </SignupInputWrapper>
               <SignupInputWrapper>
                 <SignupInputTitle>휴대전화번호</SignupInputTitle>
@@ -402,7 +413,7 @@ const SignupPresenter: React.FC<ISignupProps> = ({
                 src={BigCheckSVG}
               />
               <SignupSuccessTitle>
-                금융 빅데이터 플랫폼 회원가입이 완료되었습니다.
+                자본시장 빅데이터 플랫폼 회원가입이 완료되었습니다.
               </SignupSuccessTitle>
               <SignupSuccessSubTitle>
                 가입해주셔서 감사합니다.

@@ -69,6 +69,7 @@ export const MypageMainDownloadTitle = styled.div`
 export const MypageMainPlus = styled.div`
   font-size: 14px;
   color: #999999;
+  cursor: pointer;
 `;
 
 export const MypageMainLine = styled.div`

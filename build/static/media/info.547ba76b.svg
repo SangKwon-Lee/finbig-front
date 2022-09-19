@@ -1,0 +1,12 @@
+<svg id="Icon_" data-name="Icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <defs>
+        <style>
+            .cls-2{fill:none;stroke:red;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="Icon" transform="translate(2 2)">
+        <circle id="Path" class="cls-2" cx="8" cy="8" r="8"/>
+        <path id="Line" class="cls-2" transform="translate(8 4.5)" d="M0 0v4"/>
+        <path id="Line-2" data-name="Line" class="cls-2" transform="translate(7.999 11.2)" d="M0 0h.01"/>
+    </g>
+</svg>

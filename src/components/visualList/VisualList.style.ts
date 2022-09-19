@@ -52,6 +52,14 @@ export const VisualListTitle = styled.div`
   font-family: SpoqaHanSansNeo-Bold;
   margin-bottom: 26px;
   cursor: pointer;
+  width: 280px;
+  flex-wrap: wrap;
+  /* display: flex; */
+  text-align: center;
+  height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const VisualListCreateAt = styled.div`

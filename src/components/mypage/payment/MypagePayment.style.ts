@@ -25,7 +25,6 @@ export const MypageBodyColumn = styled.div`
 
 export const MypagePaymentTableWrapper = styled.div`
   width: 100%;
-
   border-bottom: 1px solid #c1c1c1;
 `;
 
@@ -79,7 +78,8 @@ export const MypagePaymentDayTitle = styled.div`
 `;
 
 export const MypagePaymentDay = styled.span`
-  font-size: 27px;
+  font-size: 22px;
   font-family: GmarketSansBold;
   color: #1c17ff;
+  padding-left: 8px;
 `;

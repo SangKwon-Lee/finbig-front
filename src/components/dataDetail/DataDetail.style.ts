@@ -19,7 +19,7 @@ export const DataDetailBodyWrapper = styled.div`
 export const DataDetailContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 24px;
+  /* padding-top: 24px; */
   width: 537px;
 `;
 
@@ -70,7 +70,7 @@ export const DataDetailPeriodWrapper = styled.div`
   justify-content: space-between;
   width: 536px;
   margin-top: 20px;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
   align-items: center;
   height: 38px;
 `;
@@ -84,7 +84,7 @@ export const DataDetailBtnWrapper = styled.div`
 `;
 
 export const DataDetailDownBtn = styled.button`
-  width: 482px;
+  width: 100%;
   height: 48px;
   background-color: #4033a2;
   border: none;
@@ -175,4 +175,9 @@ export const DataDetailOtherContents = styled.div`
 
 export const ViewerWrapper = styled.div`
   width: 1100px;
+`;
+
+export const DataDetailPeriodText = styled.div`
+  margin-bottom: 16px;
+  text-align: right;
 `;

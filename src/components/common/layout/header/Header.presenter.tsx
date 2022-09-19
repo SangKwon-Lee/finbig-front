@@ -13,7 +13,7 @@ import {
 import LogoSVG from "../../../../assets/images/logo.svg";
 import SearchSVG from "../../../../assets/images/search.svg";
 import UserSVG from "../../../../assets/images/user.svg";
-import MarketSVG from "../../../../assets/images/market.svg";
+// import MarketSVG from "../../../../assets/images/market.svg";
 import LockSVG from "../../../../assets/images/lock.svg";
 import XSVG from "../../../../assets/images/x.svg";
 import { useNavigate } from "react-router";
@@ -66,14 +66,14 @@ const HeaderPresenter: React.FC<IHeaderProps> = ({
                 navigate(`/stockMarket`);
               }}
             >
-              오늘의 시장
+              글로벌 자본시장
             </MenuTitle>
             <MenuTitle
               onClick={() => {
                 navigate(`/license`);
               }}
             >
-              구독 구매
+              구독 결제
             </MenuTitle>
           </MenuTitleWrapper>
           <SVGWrapper>
@@ -83,12 +83,12 @@ const HeaderPresenter: React.FC<IHeaderProps> = ({
                 navigate("/mypage/main");
               }}
             ></SVGIcon>
-            <SVGIcon
+            {/* <SVGIcon
               src={MarketSVG}
               onClick={() => {
                 navigate("/mypage/payment");
               }}
-            ></SVGIcon>
+            ></SVGIcon> */}
             <SVGIcon src={LockSVG} onClick={handleLogout}></SVGIcon>
             <SVGIcon
               onClick={() => {

@@ -33,8 +33,8 @@ const MypageDownloadContainer = () => {
   });
 
   useEffect(() => {
-    if (data?.user?.finbigDownload?.length) {
-      setBlackLength(blankImg(data?.user?.finbigDownload.length));
+    if (data?.user?.finbig_downloads?.length) {
+      setBlackLength(blankImg(data?.user?.finbig_downloads.length));
     }
   }, [data]);
 

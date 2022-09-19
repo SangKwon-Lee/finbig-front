@@ -56,11 +56,11 @@ interface IMypageProfleProps {
 const schma = yup.object({
   password: yup
     .string()
-    .required("비밀번호는 8자 이상, 소문자와 대문자기 포함되어야 합니다.")
-    .min(8, "비밀번호는 8자 이상, 소문자와 대문자가 포함되어야 합니다.")
+    .required("비밀번호는 8자 이상, 숫자 + 영문 조합이어야 합니다.")
+    .min(8, "비밀번호는 8자 이상, 숫자 + 영문 조합이어야 합니다.")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-      "비밀번호는 8자 이상, 소문자와 대문자가 포함되어야 합니다."
+      /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/,
+      "비밀번호는 8자 이상, 숫자 + 영문 조합이어야 합니다."
     ),
   confirmPassword: yup
     .string()

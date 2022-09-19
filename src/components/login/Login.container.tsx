@@ -6,7 +6,7 @@ import {
   useCreateTokenMutation,
   useLoginMutation,
   useTokensQuery,
-  // useUpdateTokenMutation,
+  useUpdateTokenMutation,
   useUpdateUserMutation,
   useUserQuery,
 } from "../../commons/graphql/generated";
@@ -47,7 +47,7 @@ const LoginContainer = () => {
   const [createToken] = useCreateTokenMutation();
 
   //* 토큰 업데이트
-  // const [updateToken] = useUpdateTokenMutation();
+  const [updateToken] = useUpdateTokenMutation();
 
   //* 유저의 구독 만료일 업데이트
   const [updateIsSubscription] = useUpdateUserMutation();
@@ -69,19 +69,28 @@ const LoginContainer = () => {
         },
       });
       if (User.user?.isDeleted) {
-        alert("탈퇴된 회원입니다.");
+        alert(
+          "아이디 또는 비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요."
+        );
         return;
       }
       if (User.user?.isSubscribe) {
         if (dayjs(new Date()) > dayjs(User?.user?.expirationDate)) {
-          handleIsSubscriptionUser();
+          handleIsSubscriptionUser(User?.user?.id);
         }
       }
       sessionStorage.setItem("accessToken", String(data?.login.jwt));
+      let tokenId = sessionStorage.getItem("token");
 
-      handleCreateToekn(String(data?.login.jwt), String(User?.user?.id));
+      if (tokenId) {
+        handleUpdateToekn(String(data?.login.jwt), String(tokenId));
+      } else {
+        handleCreateToekn(String(data?.login.jwt), String(User?.user?.id));
+      }
     } catch (e) {
-      alert("오류가 발생했습니다.");
+      alert(
+        "아이디 또는 비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요."
+      );
       return;
     }
   };
@@ -105,24 +114,27 @@ const LoginContainer = () => {
   };
 
   //* 기존 DB에 토큰이 있다면 토큰 업데이트
-  // const handleUpdateToekn = async (token: string, id: string) => {
-  //   try {
-  //     const { data } = await updateToken({
-  //       variables: {
-  //         input: {
-  //           where: {
-  //             id: String(id),
-  //           },
-  //           data: {
-  //             token,
-  //           },
-  //         },
-  //       },
-  //     });
-  //     sessionStorage.setItem("accessToken", String(data?.updateToken?.token));
-  //     navigate("/");
-  //   } catch (e) {}
-  // };
+  const handleUpdateToekn = async (token: string, id: string) => {
+    try {
+      const { data } = await updateToken({
+        variables: {
+          input: {
+            where: {
+              id: String(id),
+            },
+            data: {
+              token,
+            },
+          },
+        },
+      });
+      sessionStorage.setItem(
+        "accessToken",
+        String(data?.updateToken?.token?.token)
+      );
+      navigate("/");
+    } catch (e) {}
+  };
 
   //* 인풋 바꾸기
   const handleChnageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,16 +153,17 @@ const LoginContainer = () => {
   };
 
   //* 유저의 구독 만료일 업데이트
-  const handleIsSubscriptionUser = async () => {
+  const handleIsSubscriptionUser = async (id: any) => {
     try {
       await updateIsSubscription({
         variables: {
           input: {
             data: {
               isSubscribe: false,
+              expirationDate: null,
             },
             where: {
-              id: String(tokenData?.tokens![0]?.userId),
+              id,
             },
           },
         },

@@ -47,14 +47,14 @@ const FooterPresenter = () => {
                 navigate(`/stockmarket`);
               }}
             >
-              오늘의 시장
+              글로벌 자본시장
             </FooterMenu>
             <FooterMenu
               onClick={() => {
                 navigate(`/license`);
               }}
             >
-              구독 구매
+              구독 결제
             </FooterMenu>
           </FooterMenuTitleWrapper>
         </FooterMenuWrapper>

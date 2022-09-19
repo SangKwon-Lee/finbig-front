@@ -1,26 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useUpdateVisualDatumMutation,
   useVisualDataConnectionQuery,
   useVisualDataQuery,
 } from "../../commons/graphql/generated";
 import VisualListPresenter from "./VisualList.presenter";
+import { blankImg } from "../../utils/blankImg";
 
 const VisualListContainer = () => {
   //* 페이지네이션 상태
   const [listInput, setListInput] = useState({
     start: 0,
-    limit: 6,
+    limit: 9,
   });
 
   //* 조회수 증가 뮤테이션
   const [updateVisual] = useUpdateVisualDatumMutation();
 
+  //* 빈 이미지
+  const [blackLength, setBlackLength] = useState<number>(1);
+
+  // * 검색
+  const [search, setSearch] = useState("");
+
   //* 데이터 불러오기 쿼리
   const { data: visualList, loading: visualListLoading } = useVisualDataQuery({
     variables: {
-      start: listInput.start,
-      limit: listInput.limit,
       where: {
         isShow: true,
       },
@@ -57,14 +62,31 @@ const VisualListContainer = () => {
     }
   };
 
+  //* 길이 맞추기
+  useEffect(() => {
+    if (visualList?.visualData?.length) {
+      setBlackLength(
+        blankImg(
+          visualList?.visualData
+            ?.filter((data: any) => data?.category?.includes(search || ""))
+            .splice(listInput.start, listInput.limit).length
+        )
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visualList, listInput, search]);
+
   return (
     <VisualListPresenter
+      search={search}
+      setSearch={setSearch}
       listInput={listInput}
-      setListInput={setListInput}
       visualList={visualList}
-      listLength={visualCount?.visualDataConnection?.aggregate?.count}
+      blackLength={blackLength}
+      setListInput={setListInput}
       visualListLoading={visualListLoading}
       handleUpdateVisual={handleUpdateVisual}
+      listLength={visualCount?.visualDataConnection?.aggregate?.count}
     />
   );
 };

@@ -108,13 +108,10 @@ const VisualCreatePresenter: React.FC<VisualCreateProps> = ({
               <VisualCreateSelect
                 onChange={handleInput}
                 name="category"
-                defaultValue={
-                  visualData?.visualDatum?.category || "투자기초 데이터"
-                }
+                defaultValue={visualData?.visualDatum?.category || "시각화"}
               >
-                <option value="투자기초 데이터">투자기초 데이터</option>
-                <option value="알고리즘 데이터">알고리즘 데이터</option>
-                <option value="콜라보">콜라보</option>
+                <option value="시각화">시각화</option>
+                <option value="활용 사례">활용 사례</option>
               </VisualCreateSelect>
             </VisualCreateInputContents>
           </VisualCreateInputWrapper>

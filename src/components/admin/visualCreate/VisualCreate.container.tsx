@@ -40,7 +40,7 @@ const VisualCreateContainer: React.FC<VisualCreateContainerProps> = ({
 
   //* 게시글 등록 Input
   const [input, setInput] = useState<any>({
-    category: "투자기초 데이터",
+    category: "시각화",
     title: "",
     contents: "",
     thumbnail: "",
@@ -59,7 +59,7 @@ const VisualCreateContainer: React.FC<VisualCreateContainerProps> = ({
   useEffect(() => {
     setInput({
       ...input,
-      category: visualData?.visualDatum?.category || "투자기초 데이터",
+      category: visualData?.visualDatum?.category || "시각화",
       title: visualData?.visualDatum?.title || "",
       contents: visualData?.visualDatum?.contents || "",
       description: visualData?.visualDatum?.description || "",

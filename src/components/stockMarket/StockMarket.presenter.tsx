@@ -1,14 +1,10 @@
 import {
   StockMarketBody,
   StockMarketLine,
-  // StockMarketMap,
-  StockMarketMapSmallBox,
-  StockMarketMapSmallBoxWrapper,
   StockMarketSubTitle,
   StockMarketTitle,
   StockMarketTitleWrapper,
   StockMarketWrapper,
-  backgroundColor,
   StockMarketTodayWrapper,
   StockMarketTodayBody,
   StockMarketTodayTitleWrapper,
@@ -20,14 +16,11 @@ import {
   StockMarketTodayStocHotkNum,
   StockMarketTodayStockSnowNum,
   StockMarketExplanation,
-  StockMarketArrow,
   StockMarketDayWrapper,
   StockMarketDayBtn,
 } from "./StockMarket.style";
 import SunImg from "../../assets/images/sun.svg";
 import SnowImg from "../../assets/images/snow.svg";
-import DownArrowImg from "../../assets/images/downArrow.svg";
-import UpArrowImg from "../../assets/images/upArrow.svg";
 import ReactFC from "react-fusioncharts";
 import FusionCharts from "fusioncharts";
 import TreeMap from "fusioncharts/fusioncharts.treemap";
@@ -41,14 +34,19 @@ FusionCharts.options["license"]({
 
 ReactFC.fcRoot(FusionCharts, TreeMap, FusionTheme);
 
-const MarketSmallBox = ["+3%", "+2%", "+1%", "0%", "-1%", "-2%", "-3%"];
-const StockMarketPresenter: React.FC<any> = ({ etfData, handleDay, day }) => {
+const StockMarketPresenter: React.FC<any> = ({
+  day,
+  loading,
+  etfUpData,
+  handleDay,
+  etfDownData,
+}) => {
   const dataSource = {
     data: [
       {
         data: [
           {
-            data: etfData,
+            data: etfUpData,
           },
         ],
       },
@@ -57,49 +55,21 @@ const StockMarketPresenter: React.FC<any> = ({ etfData, handleDay, day }) => {
       mapbypercent: "0",
       // gradient: "1",
       // minvalue: "0",
-      code: "#b1b1b1",
+      code: "#dedede",
       // startlabel: "Ideal",
       // endlabel: "Threshold",
       color: [
         {
           code: "#ff2616",
-          maxvalue: "20",
-        },
-        {
-          code: "#ff2616",
-          maxvalue: "10",
-        },
-        {
-          code: "#ff2616",
-          maxvalue: "3",
+          maxvalue: etfUpData[0]?.value + 0.01,
         },
         {
           code: "#ff928a",
-          maxvalue: "2",
+          maxvalue: etfUpData[5]?.value,
         },
         {
-          code: "#ffd3d0",
-          maxvalue: "1",
-        },
-        {
-          code: "#b1b1b1",
-          maxvalue: "0",
-        },
-        {
-          code: "#a6cef6",
-          maxvalue: "-1",
-        },
-        {
-          code: "#518bf5",
-          maxvalue: "-2",
-        },
-        {
-          code: "#518bf5",
-          maxvalue: "-3",
-        },
-        {
-          code: "#0076ec",
-          maxvalue: "-20",
+          code: "#ffc6c2",
+          maxvalue: etfUpData[9]?.value - 0.01,
         },
       ],
     },
@@ -107,7 +77,65 @@ const StockMarketPresenter: React.FC<any> = ({ etfData, handleDay, day }) => {
       hideTitle: "1",
       caption: "Today Keyword",
       algorithm: "squarified",
-      plottooltext: "<b>$label($svalue)</b>",
+      plottooltext: "<b>$label($svalue%)</b>",
+      theme: "fusion",
+      canvasLeftMargin: -100,
+      // showPrintMenuItem: 0,
+      showChildLabels: 1,
+      chartTopMargin: -30,
+      plotborderthickness: ".5",
+      plotbordercolor: "ffffff",
+      horizontalPadding: 0,
+      verticalPadding: 0,
+      chartRightMargin: 10,
+      chartLeftMargin: 0,
+      // showHoverEffect: 0,
+      // showTooltip: 0,
+      showParent: 0,
+      labelFontBold: 1,
+      labelFontColor: "ffffff",
+      labelGlow: 0,
+      labelFontSize: 16,
+      creditLabel: false,
+    },
+  };
+  const dataSource2 = {
+    data: [
+      {
+        data: [
+          {
+            data: etfDownData,
+          },
+        ],
+      },
+    ],
+    colorrange: {
+      mapbypercent: "0",
+      // gradient: "1",
+      // minvalue: "0",
+      // code: "#b1b1b1",
+      // startlabel: "Ideal",
+      // endlabel: "Threshold",
+      color: [
+        {
+          code: "#a6cef6",
+          maxvalue: etfDownData[0]?.svalue,
+        },
+        {
+          code: "#518bf5",
+          maxvalue: etfDownData[5]?.svalue,
+        },
+        {
+          code: "#0076ec",
+          maxvalue: etfDownData[9]?.svalue + 0.01,
+        },
+      ],
+    },
+    chart: {
+      hideTitle: "1",
+      caption: "Today Keyword",
+      algorithm: "squarified",
+      plottooltext: "<b>$label($svalue%)</b>",
       theme: "fusion",
       // showPrintMenuItem: 0,
       showChildLabels: 1,
@@ -118,6 +146,8 @@ const StockMarketPresenter: React.FC<any> = ({ etfData, handleDay, day }) => {
       verticalPadding: 0,
       // showHoverEffect: 0,
       // showTooltip: 0,
+      chartRightMargin: 0,
+      chartLeftMargin: 5,
       showParent: 0,
       labelFontBold: 1,
       labelFontColor: "ffffff",
@@ -132,24 +162,35 @@ const StockMarketPresenter: React.FC<any> = ({ etfData, handleDay, day }) => {
       <StockMarketWrapper>
         <StockMarketBody>
           <StockMarketTitleWrapper>
-            <StockMarketTitle>오늘의 시장을 한눈에 확인하세요</StockMarketTitle>
+            <StockMarketTitle>빅데이터로 본 글로벌 자본시장</StockMarketTitle>
             <StockMarketSubTitle>
-              ETF 시세 데이터를 분석하여 오늘의 전체적인 시장흐름을 보여줍니다
+              ETF 시세, 키워드 등에 따른 자본시장의 기간별 추세를 확인하세요
             </StockMarketSubTitle>
           </StockMarketTitleWrapper>
           <StockMarketLine />
 
-          {etfData.length > 1 ? (
-            <ReactFC
-              type={"treemap"}
-              width={1100}
-              height={500}
-              dataFormat={"json"}
-              dataSource={dataSource}
-            />
-          ) : (
-            <div>Loading...</div>
-          )}
+          <div style={{ display: "flex" }}>
+            {etfUpData.length > 1 && !loading ? (
+              <ReactFC
+                type={"treemap"}
+                width={550}
+                height={500}
+                dataFormat={"json"}
+                dataSource={dataSource}
+              />
+            ) : (
+              <div style={{ height: "500px" }}>Loading...</div>
+            )}
+            {etfDownData.length > 1 && !loading && (
+              <ReactFC
+                type={"treemap"}
+                width={550}
+                height={500}
+                dataFormat={"json"}
+                dataSource={dataSource2}
+              />
+            )}
+          </div>
 
           <StockMarketDayWrapper>
             <StockMarketDayBtn value="" onClick={handleDay} isDay={day === ""}>
@@ -177,52 +218,23 @@ const StockMarketPresenter: React.FC<any> = ({ etfData, handleDay, day }) => {
               전년 말 종가 대비 변동률
             </StockMarketDayBtn>
           </StockMarketDayWrapper>
-          <StockMarketMapSmallBoxWrapper>
-            {MarketSmallBox.map((persent, index) => (
-              <StockMarketMapSmallBox
-                style={backgroundColor[index]}
-                key={index}
-              >
-                {persent}
-              </StockMarketMapSmallBox>
-            ))}
-          </StockMarketMapSmallBoxWrapper>
           <StockMarketTodayWrapper>
             <StockMarketTodayBody>
               <StockMarketTodayTitleWrapper>
                 <StockMarketTodayImg src={SunImg} />
                 <StockMarketTodayBold>뜨겁게 </StockMarketTodayBold>
-                <StockMarketTodayTitle>
-                  &nbsp;달구는 오늘의 업종
-                </StockMarketTodayTitle>
+                <StockMarketTodayTitle>&nbsp;달군 업종</StockMarketTodayTitle>
               </StockMarketTodayTitleWrapper>
-              <StockMarketTodayStockWrapper>
-                <StockMarketTodayStockTitle>
-                  1. {etfData.length > 1 && etfData[0].label}
-                </StockMarketTodayStockTitle>
-                <StockMarketTodayStocHotkNum>
-                  <StockMarketArrow src={UpArrowImg} />
-                  {etfData.length > 1 && etfData[0].svalue}
-                </StockMarketTodayStocHotkNum>
-              </StockMarketTodayStockWrapper>
-              <StockMarketTodayStockWrapper>
-                <StockMarketTodayStockTitle>
-                  2. {etfData.length > 1 && etfData[1].label}
-                </StockMarketTodayStockTitle>
-                <StockMarketTodayStocHotkNum>
-                  <StockMarketArrow src={UpArrowImg} />
-                  {etfData.length > 1 && etfData[1].svalue}
-                </StockMarketTodayStocHotkNum>
-              </StockMarketTodayStockWrapper>
-              <StockMarketTodayStockWrapper>
-                <StockMarketTodayStockTitle>
-                  3. {etfData.length > 1 && etfData[2].label}
-                </StockMarketTodayStockTitle>
-                <StockMarketTodayStocHotkNum>
-                  <StockMarketArrow src={UpArrowImg} />
-                  {etfData.length > 1 && etfData[2].svalue}
-                </StockMarketTodayStocHotkNum>
-              </StockMarketTodayStockWrapper>
+              {etfUpData.slice(0, 5).map((data: any, index: any) => (
+                <StockMarketTodayStockWrapper key={index}>
+                  <StockMarketTodayStockTitle>
+                    {index + 1}. {data.label}
+                  </StockMarketTodayStockTitle>
+                  <StockMarketTodayStocHotkNum>
+                    {data.svalue + "%"}
+                  </StockMarketTodayStocHotkNum>
+                </StockMarketTodayStockWrapper>
+              ))}
             </StockMarketTodayBody>
             <StockMarketTodayBody>
               <StockMarketTodayTitleWrapper
@@ -232,38 +244,21 @@ const StockMarketPresenter: React.FC<any> = ({ etfData, handleDay, day }) => {
                 <StockMarketTodayBold style={{ color: "#413df7" }}>
                   차갑게
                 </StockMarketTodayBold>
-                <StockMarketTodayTitle>
-                  &nbsp;식어가는 오늘의 업종
-                </StockMarketTodayTitle>
+                <StockMarketTodayTitle>&nbsp;식은 업종</StockMarketTodayTitle>
               </StockMarketTodayTitleWrapper>
-              <StockMarketTodayStockWrapper>
-                <StockMarketTodayStockTitle>
-                  1. {etfData.length > 1 && etfData[etfData.length - 1].label}
-                </StockMarketTodayStockTitle>
-
-                <StockMarketTodayStockSnowNum>
-                  <StockMarketArrow src={DownArrowImg} />
-                  {etfData.length > 1 && etfData[etfData.length - 1].svalue}
-                </StockMarketTodayStockSnowNum>
-              </StockMarketTodayStockWrapper>
-              <StockMarketTodayStockWrapper>
-                <StockMarketTodayStockTitle>
-                  2. {etfData.length > 1 && etfData[etfData.length - 2].label}
-                </StockMarketTodayStockTitle>
-                <StockMarketTodayStockSnowNum>
-                  <StockMarketArrow src={DownArrowImg} />
-                  {etfData.length > 1 && etfData[etfData.length - 2].svalue}
-                </StockMarketTodayStockSnowNum>
-              </StockMarketTodayStockWrapper>
-              <StockMarketTodayStockWrapper>
-                <StockMarketTodayStockTitle>
-                  3. {etfData.length > 1 && etfData[etfData.length - 3].label}
-                </StockMarketTodayStockTitle>
-                <StockMarketTodayStockSnowNum>
-                  <StockMarketArrow src={DownArrowImg} />
-                  {etfData.length > 1 && etfData[etfData.length - 3].svalue}
-                </StockMarketTodayStockSnowNum>
-              </StockMarketTodayStockWrapper>
+              {etfDownData
+                .slice(etfDownData.length - 5, etfDownData.length)
+                .reverse()
+                .map((data: any, index: any) => (
+                  <StockMarketTodayStockWrapper key={index}>
+                    <StockMarketTodayStockTitle>
+                      {index + 1}. {data.label}
+                    </StockMarketTodayStockTitle>
+                    <StockMarketTodayStockSnowNum>
+                      {data.svalue + "%"}
+                    </StockMarketTodayStockSnowNum>
+                  </StockMarketTodayStockWrapper>
+                ))}
             </StockMarketTodayBody>
           </StockMarketTodayWrapper>
           <StockMarketExplanation>
